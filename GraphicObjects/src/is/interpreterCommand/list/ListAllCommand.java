@@ -1,4 +1,14 @@
 package is.interpreterCommand.list;
 
-public class ListAllCommand {
+import is.interpreterCommand.terminal.TerminalCommand;
+
+public class ListAllCommand extends ListCommand{
+
+    TerminalCommand ls;
+    TerminalCommand all;
+
+    public ListAllCommand(TerminalCommand ls, TerminalCommand all) {
+        this.ls = ls;
+        this.all = all;
+    }
 }

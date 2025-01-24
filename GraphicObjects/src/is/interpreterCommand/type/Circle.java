@@ -1,4 +1,6 @@
 package is.interpreterCommand.type;
 
-public class Circle {
+public class Circle extends TypeCommand{
+
+
 }

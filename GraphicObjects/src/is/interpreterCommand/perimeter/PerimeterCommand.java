@@ -1,4 +1,7 @@
 package is.interpreterCommand.perimeter;
 
-public class PerimeterCommand {
+import is.interpreterCommand.AbstractCommand;
+
+public abstract class PerimeterCommand extends AbstractCommand{
+
 }

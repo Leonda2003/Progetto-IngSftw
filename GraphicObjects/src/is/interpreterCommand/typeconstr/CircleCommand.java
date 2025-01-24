@@ -1,4 +1,16 @@
 package is.interpreterCommand.typeconstr;
 
-public class CircleCommand {
+import is.interpreterCommand.terminal.Posfloat;
+import is.interpreterCommand.terminal.TerminalCommand;
+import is.interpreterCommand.type.TypeCommand;
+
+public class CircleCommand extends TypeconstrCommand{
+
+    TypeCommand cirle;
+    Posfloat posfloat;
+
+    public CircleCommand(TypeCommand cirle, Posfloat posfloat) {
+        this.cirle = cirle;
+        this.posfloat = posfloat;
+    }
 }

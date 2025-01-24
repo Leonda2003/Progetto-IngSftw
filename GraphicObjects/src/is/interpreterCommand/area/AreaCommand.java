@@ -1,4 +1,6 @@
 package is.interpreterCommand.area;
 
-public class AreaCommand {
+import is.interpreterCommand.AbstractCommand;
+
+public abstract class AreaCommand extends AbstractCommand {
 }

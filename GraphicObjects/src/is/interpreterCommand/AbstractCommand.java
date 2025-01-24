@@ -1,4 +1,10 @@
 package is.interpreterCommand;
 
-public class AbstractCommand {
+import is.visitor.Visitor;
+
+public abstract class AbstractCommand implements Command{
+    @Override
+    public void accept(Visitor v) {
+
+    }
 }

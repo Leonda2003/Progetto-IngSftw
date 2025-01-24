@@ -1,4 +1,6 @@
 package is.interpreterCommand.type;
 
-public class TypeCommand {
+import is.interpreterCommand.AbstractCommand;
+
+public abstract class TypeCommand extends AbstractCommand {
 }

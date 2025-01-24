@@ -1,4 +1,6 @@
 package is.interpreterCommand.list;
 
-public class ListCommand {
+import is.interpreterCommand.AbstractCommand;
+
+public abstract class ListCommand extends AbstractCommand {
 }

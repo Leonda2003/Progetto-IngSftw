@@ -1,4 +1,6 @@
 package is.interpreterCommand.type;
 
-public class Image {
+public class Image extends TypeCommand{
+
+
 }

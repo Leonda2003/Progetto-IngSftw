@@ -1,4 +1,6 @@
 package is.interpreterCommand.type;
 
-public class Rectangle {
+public class Rectangle extends TypeCommand{
+
+
 }
