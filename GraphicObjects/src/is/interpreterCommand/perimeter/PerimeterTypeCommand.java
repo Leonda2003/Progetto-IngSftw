@@ -5,7 +5,6 @@ import is.interpreterCommand.type.TypeCommand;
 
 public class PerimeterTypeCommand extends PerimeterCommand{
 
-    TerminalCommand perimeter;
     TypeCommand type;
 
     public PerimeterTypeCommand(TerminalCommand perimeter, TypeCommand type) {

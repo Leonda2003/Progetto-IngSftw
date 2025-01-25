@@ -30,6 +30,16 @@ public final class RectangleObject extends AbstractGraphicObject {
 	}
 
 	@Override
+	public float area() {
+		return 0;
+	}
+
+	@Override
+	public float perimeter() {
+		return 0;
+	}
+
+	@Override
 	public void moveTo(Point2D p) {
 		position.setLocation(p);
 		notifyListeners(new GraphicEvent(this));

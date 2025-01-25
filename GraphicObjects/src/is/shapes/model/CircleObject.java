@@ -54,6 +54,16 @@ public final  class CircleObject extends AbstractGraphicObject {
 	}
 
 	@Override
+	public float area() {
+		return 0;
+	}
+
+	@Override
+	public float perimeter() {
+		return 0;
+	}
+
+	@Override
 	public CircleObject clone() {
 		CircleObject cloned = (CircleObject) super.clone();
 		cloned.position = (Point2D) position.clone();

@@ -5,7 +5,7 @@ import is.interpreterCommand.type.TypeCommand;
 
 public class AreaTypeCommand extends AreaCommand{
 
-    TerminalCommand area;
+
     TypeCommand type;
 
     public AreaTypeCommand(TerminalCommand area, TypeCommand type) {

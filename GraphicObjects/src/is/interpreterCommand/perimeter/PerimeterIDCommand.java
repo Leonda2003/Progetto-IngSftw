@@ -5,7 +5,6 @@ import is.interpreterCommand.terminal.TerminalCommand;
 
 public class PerimeterIDCommand extends PerimeterCommand{
 
-    TerminalCommand perimeter;
     ObjID objID;
 
     public PerimeterIDCommand(TerminalCommand perimeter, ObjID objID) {

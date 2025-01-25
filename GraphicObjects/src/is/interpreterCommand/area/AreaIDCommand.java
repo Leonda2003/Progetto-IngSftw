@@ -5,7 +5,6 @@ import is.interpreterCommand.terminal.TerminalCommand;
 
 public class AreaIDCommand extends AreaCommand{
 
-    TerminalCommand area;
     ObjID objID;
 
     public AreaIDCommand(TerminalCommand area, ObjID objID) {

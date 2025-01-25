@@ -5,7 +5,6 @@ import is.interpreterCommand.type.TypeCommand;
 
 public class ListTypeCommand extends ListCommand{
 
-    TerminalCommand ls;
     TypeCommand typeCommand;
 
     public ListTypeCommand(TerminalCommand ls, TypeCommand typeCommand) {

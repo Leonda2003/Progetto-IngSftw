@@ -2,6 +2,7 @@ package is.interpreterCommand;
 
 import is.interpreterCommand.terminal.TerminalCommand;
 import is.interpreterCommand.typeconstr.TypeconstrCommand;
+import is.visitor.Visitor;
 
 public class CreateCommand extends AbstractCommand{
 
@@ -13,6 +14,10 @@ public class CreateCommand extends AbstractCommand{
         this.NEW = NEW;
         this.typeconstr = typeconstr;
         this.pos = pos;
+    }
+
+    public void accept(Visitor v){
+        v.interpret(this);
     }
 
 

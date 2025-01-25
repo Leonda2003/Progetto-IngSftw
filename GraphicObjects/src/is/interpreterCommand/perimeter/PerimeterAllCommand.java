@@ -4,7 +4,6 @@ import is.interpreterCommand.terminal.TerminalCommand;
 
 public class PerimeterAllCommand extends PerimeterCommand{
 
-    TerminalCommand perimeter;
     TerminalCommand all;
 
     public PerimeterAllCommand(TerminalCommand perimeter, TerminalCommand all) {

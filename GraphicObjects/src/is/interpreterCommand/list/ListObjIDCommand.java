@@ -5,7 +5,6 @@ import is.interpreterCommand.terminal.TerminalCommand;
 
 public class ListObjIDCommand extends ListCommand{
 
-    TerminalCommand ls;
     ObjID objID;
 
     public ListObjIDCommand(TerminalCommand ls, ObjID objID) {

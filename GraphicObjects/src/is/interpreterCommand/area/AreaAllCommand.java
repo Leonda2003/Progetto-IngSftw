@@ -4,7 +4,6 @@ import is.interpreterCommand.terminal.TerminalCommand;
 
 public class AreaAllCommand extends AreaCommand{
 
-    TerminalCommand area;
     TerminalCommand all;
 
     public AreaAllCommand(TerminalCommand area, TerminalCommand all) {

@@ -4,11 +4,16 @@ import is.interpreterCommand.AbstractCommand;
 import is.interpreterCommand.PosCommand;
 import is.interpreterCommand.terminal.ObjID;
 import is.interpreterCommand.terminal.TerminalCommand;
+import is.visitor.Visitor;
 
 public abstract class MovementCommand extends AbstractCommand {
 
     ObjID objID;
     PosCommand pos;
+
+    public void accept(Visitor v){
+        v.interpret(this);
+    }
 
 
 }
