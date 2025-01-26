@@ -1,10 +1,10 @@
 package is.shapes.specificcommand;
 
-import is.command.Command;
+import is.command.Cmd;
 import is.shapes.model.GraphicObject;
 import is.shapes.view.GraphicObjectPanel;
 
-public class NewObjectCmd implements Command {
+public class NewObjectCmd implements Cmd {
 
 	private final GraphicObjectPanel panel;
 	private final GraphicObject go;

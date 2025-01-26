@@ -1,6 +1,6 @@
 package is.command;
 
-public interface Command {
+public interface Cmd {
 	boolean doIt();
 
 

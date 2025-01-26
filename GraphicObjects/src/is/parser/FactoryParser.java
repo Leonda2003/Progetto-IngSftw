@@ -5,5 +5,5 @@ import is.interpreterCommand.Command;
 
 public abstract class FactoryParser {
 
-    public abstract Command createCommandInterpreter();
+    public abstract Command createCommandToInterpret();
 }

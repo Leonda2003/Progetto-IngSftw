@@ -2,8 +2,8 @@ package is.shapes.controller;
 
 import is.command.CommandHandler;
 import is.shapes.model.GraphicObject;
-import is.shapes.specificcommand.MoveCommand;
-import is.shapes.specificcommand.ZoomCommand;
+import is.shapes.specificcommand.MoveCmd;
+import is.shapes.specificcommand.ZoomCmd;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -52,7 +52,7 @@ public class GraphicObjectController extends JPanel {
 		minus.addActionListener(e -> {
 			if (subject != null) {
 				// subject.scale(1.0-zoom_factor);
-				cmdHandler.handle(new ZoomCommand(subject, 1.0 - zoom_factor));
+				cmdHandler.handle(new ZoomCmd(subject, 1.0 - zoom_factor));
 			}
 		});
 
@@ -62,7 +62,7 @@ public class GraphicObjectController extends JPanel {
 		plus.addActionListener(e -> {
 			if (subject != null) {
 				// subject.scale(1.0 + zoom_factor);
-				cmdHandler.handle(new ZoomCommand(subject, 1.0 + zoom_factor));
+				cmdHandler.handle(new ZoomCmd(subject, 1.0 + zoom_factor));
 			}
 		});
 
@@ -77,7 +77,7 @@ public class GraphicObjectController extends JPanel {
 					return;
 				Point2D p = subject.getPosition();
 				// subject.moveTo(p.getX() - offset, p.getY() - offset);
-				cmdHandler.handle(new MoveCommand(subject, new Point2D.Double(p.getX() - offset, p.getY() - offset)));
+				cmdHandler.handle(new MoveCmd(subject, new Point2D.Double(p.getX() - offset, p.getY() - offset)));
 			}
 		});
 		grid.add(nw);
@@ -90,7 +90,7 @@ public class GraphicObjectController extends JPanel {
 					return;
 				Point2D p = subject.getPosition();
 				// subject.moveTo(p.getX(), p.getY() - offset);
-				cmdHandler.handle(new MoveCommand(subject, new Point2D.Double(p.getX(), p.getY() - offset)));
+				cmdHandler.handle(new MoveCmd(subject, new Point2D.Double(p.getX(), p.getY() - offset)));
 			}
 		});
 
@@ -103,7 +103,7 @@ public class GraphicObjectController extends JPanel {
 					return;
 				Point2D p = subject.getPosition();
 				// subject.moveTo(p.getX() + offset, p.getY() - offset);
-				cmdHandler.handle(new MoveCommand(subject, new Point2D.Double(p.getX() + offset, p.getY() - offset)));
+				cmdHandler.handle(new MoveCmd(subject, new Point2D.Double(p.getX() + offset, p.getY() - offset)));
 
 			}
 		});
@@ -117,7 +117,7 @@ public class GraphicObjectController extends JPanel {
 					return;
 				Point2D p = subject.getPosition();
 				// subject.moveTo(p.getX() - offset, p.getY());
-				cmdHandler.handle(new MoveCommand(subject, new Point2D.Double(p.getX() - offset, p.getY())));
+				cmdHandler.handle(new MoveCmd(subject, new Point2D.Double(p.getX() - offset, p.getY())));
 			}
 		});
 
@@ -132,7 +132,7 @@ public class GraphicObjectController extends JPanel {
 					return;
 				Point2D p = subject.getPosition();
 				// subject.moveTo(p.getX() + offset, p.getY());
-				cmdHandler.handle(new MoveCommand(subject, new Point2D.Double(p.getX() + offset, p.getY())));
+				cmdHandler.handle(new MoveCmd(subject, new Point2D.Double(p.getX() + offset, p.getY())));
 			}
 		});
 
@@ -146,7 +146,7 @@ public class GraphicObjectController extends JPanel {
 					return;
 				Point2D p = subject.getPosition();
 				// subject.moveTo(p.getX() - offset, p.getY() + offset);
-				cmdHandler.handle(new MoveCommand(subject, new Point2D.Double(p.getX() - offset, p.getY() + offset)));
+				cmdHandler.handle(new MoveCmd(subject, new Point2D.Double(p.getX() - offset, p.getY() + offset)));
 			}
 		});
 		grid.add(sw);
@@ -158,7 +158,7 @@ public class GraphicObjectController extends JPanel {
 					return;
 				Point2D p = subject.getPosition();
 				// subject.moveTo(p.getX(), p.getY() + offset);
-				cmdHandler.handle(new MoveCommand(subject, new Point2D.Double(p.getX(), p.getY() + offset)));
+				cmdHandler.handle(new MoveCmd(subject, new Point2D.Double(p.getX(), p.getY() + offset)));
 			}
 		});
 
@@ -171,7 +171,7 @@ public class GraphicObjectController extends JPanel {
 					return;
 				Point2D p = subject.getPosition();
 				// subject.moveTo(p.getX() + offset, p.getY() + offset);
-				cmdHandler.handle(new MoveCommand(subject, new Point2D.Double(p.getX() + offset, p.getY() + offset)));
+				cmdHandler.handle(new MoveCmd(subject, new Point2D.Double(p.getX() + offset, p.getY() + offset)));
 			}
 		});
 		grid.add(se);

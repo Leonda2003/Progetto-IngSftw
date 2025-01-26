@@ -1,6 +1,6 @@
 package is.command;
 
 public interface CommandHandler {
-	void handle(Command cmd);
+	void handle(Cmd cmd);
 }
 

@@ -1,14 +1,14 @@
 package is.shapes.specificcommand;
 
-import is.command.Command;
+import is.command.Cmd;
 import is.shapes.model.GraphicObject;
 
-public class ZoomCommand implements Command {
+public class ZoomCmd implements Cmd {
 	
 	private final GraphicObject object;
 	private final double factor;
 
-	public ZoomCommand(GraphicObject obj, double factor) {
+	public ZoomCmd(GraphicObject obj, double factor) {
 		object = obj;
 		this.factor = factor;
 		

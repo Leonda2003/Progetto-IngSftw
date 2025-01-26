@@ -11,9 +11,9 @@ public class HistoryCommandHandler implements CommandHandler {
 
 	private int maxHistoryLength = 100;
 
-	private final LinkedList<Command> history = new LinkedList<>();
+	private final LinkedList<Cmd> history = new LinkedList<>();
 
-	private final LinkedList<Command> redoList = new LinkedList<>();
+	private final LinkedList<Cmd> redoList = new LinkedList<>();
 
 	public HistoryCommandHandler() {
 		this(100);
@@ -26,7 +26,7 @@ public class HistoryCommandHandler implements CommandHandler {
 		this.maxHistoryLength = maxHistoryLength;
 	}
 
-	public void handle(Command cmd) {
+	public void handle(Cmd cmd) {
 
 		if (cmd.doIt()) {
 			// restituisce true: può essere annullato
@@ -41,7 +41,7 @@ public class HistoryCommandHandler implements CommandHandler {
 
 	public void redo() {
 		if (redoList.size() > 0) {
-			Command redoCmd = redoList.removeFirst();
+			Cmd redoCmd = redoList.removeFirst();
 			redoCmd.doIt();
 			history.addFirst(redoCmd);
 
@@ -50,13 +50,13 @@ public class HistoryCommandHandler implements CommandHandler {
 
 	public void undo() {
 		if (history.size() > 0) {
-			Command undoCmd = history.removeFirst();
+			Cmd undoCmd = history.removeFirst();
 			undoCmd.undoIt();
 			redoList.addFirst(undoCmd);
 		}
 	}
 
-	private void addToHistory(Command cmd) {
+	private void addToHistory(Cmd cmd) {
 		history.addFirst(cmd);
 		if (history.size() > maxHistoryLength) {
 			history.removeLast();

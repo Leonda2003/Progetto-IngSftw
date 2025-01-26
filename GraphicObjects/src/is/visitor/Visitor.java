@@ -1,5 +1,6 @@
 package is.visitor;
 
+import is.command.Cmd;
 import is.interpreterCommand.*;
 import is.interpreterCommand.area.AreaCommand;
 import is.interpreterCommand.list.ListCommand;
@@ -8,6 +9,8 @@ import is.interpreterCommand.perimeter.PerimeterCommand;
 import is.interpreterCommand.terminal.TerminalCommand;
 import is.interpreterCommand.type.TypeCommand;
 import is.interpreterCommand.typeconstr.TypeconstrCommand;
+
+import java.lang.reflect.Constructor;
 
 public interface Visitor {
 
@@ -24,5 +27,5 @@ public interface Visitor {
     void interpret(TypeconstrCommand c);
     void interpret(TypeCommand c);
     void interpret(ListIDCommand c);
-    void interpret(TerminalCommand c);
+    Constructor<? extends Cmd> interpret(TerminalCommand c);
 }

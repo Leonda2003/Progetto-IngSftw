@@ -112,6 +112,15 @@ public class LexicalAnalyzer {
             return false;
         }
     }
+
+    public String getWord(){
+        return input.sval;
+    }
+
+    public double getNumber(){
+        return input.nval;
+    }
+
 }// AnalizzatoreLessicale
 
 

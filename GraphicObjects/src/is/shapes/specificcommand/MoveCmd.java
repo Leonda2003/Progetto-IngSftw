@@ -1,11 +1,11 @@
 package is.shapes.specificcommand;
 
-import is.command.Command;
+import is.command.Cmd;
 import is.shapes.model.GraphicObject;
 
 import java.awt.geom.Point2D;
 
-public class MoveCommand implements Command {
+public class MoveCmd implements Cmd {
 
 	private  final Point2D oldPos;
 
@@ -13,12 +13,10 @@ public class MoveCommand implements Command {
 
 	private  final GraphicObject object;
 	
-	public MoveCommand(GraphicObject go, Point2D pos) {
+	public MoveCmd(GraphicObject go, Point2D pos) {
 		oldPos = go.getPosition();
 		newPos = pos;
 		this.object = go;
-		
-		
 	}
 
 	@Override
