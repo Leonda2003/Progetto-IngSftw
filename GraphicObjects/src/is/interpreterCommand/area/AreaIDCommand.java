@@ -11,4 +11,9 @@ public class AreaIDCommand extends AreaCommand{
         this.area = area;
         this.objID = objID;
     }
+
+    @Override
+    public String toString() {
+        return "AreaCommand: "+ area + objID;
+    }
 }

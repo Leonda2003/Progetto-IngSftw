@@ -12,4 +12,9 @@ public class AreaTypeCommand extends AreaCommand{
         this.area = area;
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "AreaCommand: "+ area + type;
+    }
 }

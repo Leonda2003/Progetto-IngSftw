@@ -20,4 +20,9 @@ public class ScaleCommand extends AbstractCommand{
     public void accept(Visitor v){
         v.interpret(this);
     }
+
+    @Override
+    public String toString() {
+        return "ScaleCommand: "+ scale + objID + posfloat;
+    }
 }

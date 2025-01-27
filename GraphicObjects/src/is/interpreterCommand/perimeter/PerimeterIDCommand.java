@@ -11,4 +11,9 @@ public class PerimeterIDCommand extends PerimeterCommand{
         this.perimeter = perimeter;
         this.objID = objID;
     }
+
+    @Override
+    public String toString() {
+        return "PerimeterCommand: "+perimeter + objID;
+    }
 }

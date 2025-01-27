@@ -13,4 +13,9 @@ public class MoveCommand extends MovementCommand{
         super.objID = objID;
         super.pos = pos;
     }
+
+    @Override
+    public String toString() {
+        return "MovementCommand: "+ mvoff + objID + pos;
+    }
 }

@@ -10,4 +10,9 @@ public class AreaAllCommand extends AreaCommand{
         this.area = area;
         this.all = all;
     }
+
+    @Override
+    public String toString() {
+        return "AreaCommand: "+ area + all;
+    }
 }

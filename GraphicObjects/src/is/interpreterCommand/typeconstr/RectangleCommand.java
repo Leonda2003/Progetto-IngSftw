@@ -12,4 +12,9 @@ public class RectangleCommand extends TypeconstrCommand{
         this.rectangle = rectangle;
         this.pos = pos;
     }
+
+    @Override
+    public String toString() {
+        return "TypeconstrCommand: "+ rectangle + pos;
+    }
 }

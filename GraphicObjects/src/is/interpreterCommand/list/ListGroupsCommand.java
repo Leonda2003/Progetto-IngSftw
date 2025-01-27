@@ -10,4 +10,9 @@ public class ListGroupsCommand extends ListCommand{
         this.ls = ls;
         this.groups = groups;
     }
+
+    @Override
+    public String toString() {
+        return "ListCommand: "+ ls + groups;
+    }
 }

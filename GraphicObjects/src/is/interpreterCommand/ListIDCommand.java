@@ -28,10 +28,10 @@ public class ListIDCommand extends AbstractCommand{
 
         sb.append(it.next());
         while (it.hasNext()) {
-            sb.append(" OR ");
+            sb.append(", ");
             sb.append(it.next());
-
         }
+
         return sb.toString();
 
     }

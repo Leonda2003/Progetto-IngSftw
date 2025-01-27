@@ -10,4 +10,9 @@ public class PerimeterAllCommand extends PerimeterCommand{
         this.perimeter = perimeter;
         this.all = all;
     }
+
+    @Override
+    public String toString() {
+        return "PerimeterCommand: "+perimeter + all;
+    }
 }

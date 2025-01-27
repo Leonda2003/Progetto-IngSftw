@@ -11,4 +11,9 @@ public class ListObjIDCommand extends ListCommand{
         this.ls = ls;
         this.objID = objID;
     }
+
+    @Override
+    public String toString() {
+        return "ListCommand: "+ ls + objID;
+    }
 }

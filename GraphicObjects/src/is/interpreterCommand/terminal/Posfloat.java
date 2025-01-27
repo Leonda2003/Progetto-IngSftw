@@ -10,4 +10,9 @@ public class Posfloat extends TerminalCommand{
         if(posfloat > Float.MAX_VALUE) throw new IllegalArgumentException("try a smaller position value");
         this.posfloat = (float) posfloat;
     }
+
+    @Override
+    public String toString() {
+        return posfloat+" ";
+    }
 }

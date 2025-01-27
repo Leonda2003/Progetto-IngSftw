@@ -9,4 +9,9 @@ public class Path extends TerminalCommand{
         super(token);
         this.path = path;
     }
+
+    @Override
+    public String toString() {
+        return path+" ";
+    }
 }

@@ -13,4 +13,9 @@ public class CircleCommand extends TypeconstrCommand{
         this.cirle = cirle;
         this.posfloat = posfloat;
     }
+
+    @Override
+    public String toString() {
+        return "TypeconstrCommand: "+ cirle+"("+ posfloat +")";
+    }
 }

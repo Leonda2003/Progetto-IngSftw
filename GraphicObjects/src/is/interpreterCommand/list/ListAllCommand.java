@@ -9,4 +9,9 @@ public class ListAllCommand extends ListCommand{
         this.ls = ls;
         this.all = all;
     }
+
+    @Override
+    public String toString() {
+        return "ListCommand: "+ ls + all;
+    }
 }

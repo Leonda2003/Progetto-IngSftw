@@ -9,4 +9,9 @@ public class ObjID extends TerminalCommand{
         super(token);
         this.ID = ID;
     }
+
+    @Override
+    public String toString() {
+        return ID+" ";
+    }
 }

@@ -225,15 +225,15 @@ public class ConcreteFactoryParser extends FactoryParser{
 
         if(currentToken.equals(Token.CIRCLE)){
             currentToken = analyzer.nexToken();
-            return new Circle();
+            return new Circle(currentToken);
         }
         if(currentToken.equals(Token.RECTANGLE)){
             currentToken = analyzer.nexToken();
-            return new Rectangle();
+            return new Rectangle(currentToken);
         }
         if(currentToken.equals(Token.IMG)){
             currentToken = analyzer.nexToken();
-            return new Image();
+            return new Image(currentToken);
         }
         throw new SyntaxException("No command found with '"+analyzer.getWord()+"'\n"+
                 "try one of circle-rectangle-img");

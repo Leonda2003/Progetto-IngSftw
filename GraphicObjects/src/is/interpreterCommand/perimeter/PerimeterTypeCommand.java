@@ -11,4 +11,9 @@ public class PerimeterTypeCommand extends PerimeterCommand{
         this.perimeter = perimeter;
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "PerimeterCommand: "+perimeter + type;
+    }
 }

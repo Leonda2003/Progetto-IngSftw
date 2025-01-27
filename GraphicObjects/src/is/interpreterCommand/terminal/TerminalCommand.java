@@ -18,6 +18,8 @@ public class TerminalCommand extends AbstractCommand {
 
     public void accept(Visitor v){v.interpret(this);}
 
-
-
+    @Override
+    public String toString() {
+        return token.toString()+" ";
+    }
 }

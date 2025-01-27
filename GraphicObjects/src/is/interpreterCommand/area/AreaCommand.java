@@ -11,4 +11,7 @@ public abstract class AreaCommand extends AbstractCommand {
     public void accept(Visitor v){
         v.interpret(this);
     }
+
+
+
 }

@@ -17,4 +17,9 @@ public class UngroupCommand extends AbstractCommand{
     public void accept(Visitor v){
         v.interpret(this);
     }
+
+    @Override
+    public String toString() {
+        return "UngroupCommand: "+ ungrp + objID;
+    }
 }

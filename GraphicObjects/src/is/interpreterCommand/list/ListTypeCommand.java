@@ -11,4 +11,9 @@ public class ListTypeCommand extends ListCommand{
         this.ls = ls;
         this.typeCommand = typeCommand;
     }
+
+    @Override
+    public String toString() {
+        return "ListCommand: "+ ls + typeCommand;
+    }
 }
