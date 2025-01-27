@@ -1,8 +1,8 @@
-package is.command;
+package is.cmd;
 
 import java.util.LinkedList;
 
-public class HistoryCommandHandler implements CommandHandler {
+public class HistoryCmdHandler implements CmdHandler {
 
 
 
@@ -15,11 +15,11 @@ public class HistoryCommandHandler implements CommandHandler {
 
 	private final LinkedList<Cmd> redoList = new LinkedList<>();
 
-	public HistoryCommandHandler() {
+	public HistoryCmdHandler() {
 		this(100);
 	}
 
-	public HistoryCommandHandler(int maxHistoryLength) {
+	public HistoryCmdHandler(int maxHistoryLength) {
 
 		if (maxHistoryLength < 0)
 			throw new IllegalArgumentException();

@@ -1,6 +1,6 @@
 package is.shapes.controller;
 
-import is.command.CommandHandler;
+import is.cmd.CmdHandler;
 import is.shapes.model.GraphicObject;
 import is.shapes.specificcommand.MoveCmd;
 import is.shapes.specificcommand.ZoomCmd;
@@ -20,7 +20,7 @@ public class GraphicObjectController extends JPanel {
 	@Serial
 	private static final long serialVersionUID = 9177631848186263965L;
 
-	private final CommandHandler cmdHandler;
+	private final CmdHandler cmdHandler;
 
 	private GraphicObject subject;
 
@@ -36,11 +36,11 @@ public class GraphicObjectController extends JPanel {
 		subject = go;
 	}
 
-	public GraphicObjectController(CommandHandler cmdH) {
+	public GraphicObjectController(CmdHandler cmdH) {
 		this(null, cmdH);
 	}
 
-	public GraphicObjectController(GraphicObject go, CommandHandler cmdH) {
+	public GraphicObjectController(GraphicObject go, CmdHandler cmdH) {
 		cmdHandler = cmdH;
 		subject = go;
 

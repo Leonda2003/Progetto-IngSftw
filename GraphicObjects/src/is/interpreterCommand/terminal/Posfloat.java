@@ -5,8 +5,9 @@ import is.analyzer.Token;
 public class Posfloat extends TerminalCommand{
 
     float posfloat;
-    Posfloat(Token token, float posfloat) {
+    public Posfloat(Token token, double posfloat) {
         super(token);
-        this.posfloat = posfloat;
+        if(posfloat > Float.MAX_VALUE) throw new IllegalArgumentException("try a smaller position value");
+        this.posfloat = (float) posfloat;
     }
 }

@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
-import is.command.HistoryCommandHandler;
+import is.cmd.HistoryCmdHandler;
 import is.shapes.controller.GraphicObjectController;
 import is.shapes.model.AbstractGraphicObject;
 import is.shapes.model.CircleObject;
@@ -33,7 +33,7 @@ public class TestGraphics2 {
 		JButton undoButt = new JButton("Undo");
 		JButton redoButt = new JButton("Redo");
 
-		final HistoryCommandHandler handler = new HistoryCommandHandler();
+		final HistoryCmdHandler handler = new HistoryCmdHandler();
 
 		undoButt.addActionListener(evt -> handler.undo());
 

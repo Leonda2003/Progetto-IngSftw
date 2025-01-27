@@ -8,7 +8,7 @@ public class TerminalCommand extends AbstractCommand {
 
     Token token;
 
-    TerminalCommand(Token token){
+    public TerminalCommand(Token token){
         this.token = token;
     }
 

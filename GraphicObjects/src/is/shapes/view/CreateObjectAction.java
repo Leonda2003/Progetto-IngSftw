@@ -1,6 +1,6 @@
 package is.shapes.view;
 
-import is.command.CommandHandler;
+import is.cmd.CmdHandler;
 import is.shapes.model.AbstractGraphicObject;
 import is.shapes.model.GraphicObject;
 import is.shapes.specificcommand.NewObjectCmd;
@@ -16,10 +16,10 @@ public class CreateObjectAction extends AbstractAction {
 	private static final long serialVersionUID = 5399493440620423134L;
 	AbstractGraphicObject prototype;
 	GraphicObjectPanel panel;
-	CommandHandler ch;
+	CmdHandler ch;
 
 	public CreateObjectAction(AbstractGraphicObject prototype,
-			GraphicObjectPanel panel, CommandHandler ch) {
+			GraphicObjectPanel panel, CmdHandler ch) {
 		super();
 		this.prototype = prototype;
 		this.panel = panel;

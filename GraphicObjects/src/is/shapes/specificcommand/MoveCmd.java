@@ -1,6 +1,6 @@
 package is.shapes.specificcommand;
 
-import is.command.Cmd;
+import is.cmd.Cmd;
 import is.shapes.model.GraphicObject;
 
 import java.awt.geom.Point2D;

@@ -1,6 +1,6 @@
 package is.visitor;
 
-import is.command.Cmd;
+import is.cmd.Cmd;
 import is.interpreterCommand.*;
 import is.interpreterCommand.area.AreaCommand;
 import is.interpreterCommand.list.ListCommand;
@@ -12,7 +12,6 @@ import is.interpreterCommand.typeconstr.TypeconstrCommand;
 import is.shapes.specificcommand.*;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 public class CommandVisitor implements Visitor{
 

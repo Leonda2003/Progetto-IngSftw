@@ -1,6 +1,6 @@
 package is.shapes.specificcommand;
 
-import is.command.Cmd;
+import is.cmd.Cmd;
 
 public class UngroupCmd implements Cmd {
     @Override

@@ -9,12 +9,17 @@ public class RemoveCommand extends AbstractCommand{
     private TerminalCommand del;
     private ObjID objID;
 
-    RemoveCommand(TerminalCommand del,ObjID objID){
+    public RemoveCommand(TerminalCommand del, ObjID objID){
         this.del = del;
         this.objID = objID;
     }
 
     public void accept(Visitor v){
         v.interpret(this);
+    }
+
+    @Override
+    public String toString() {
+        return "RemoveCommand: " +del + objID;
     }
 }

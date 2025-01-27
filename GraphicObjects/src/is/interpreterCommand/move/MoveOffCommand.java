@@ -8,7 +8,7 @@ public class MoveOffCommand extends MovementCommand{
 
     TerminalCommand mv;
 
-    MoveOffCommand(TerminalCommand mv, PosCommand pos, ObjID objID){
+    public MoveOffCommand(TerminalCommand mv,  ObjID objID, PosCommand pos){
         this.mv = mv;
         super.objID = objID;
         super.pos = pos;

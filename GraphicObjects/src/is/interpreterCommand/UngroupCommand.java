@@ -1,16 +1,17 @@
 package is.interpreterCommand;
 
+import is.interpreterCommand.terminal.ObjID;
 import is.interpreterCommand.terminal.TerminalCommand;
 import is.visitor.Visitor;
 
 public class UngroupCommand extends AbstractCommand{
 
     private TerminalCommand ungrp;
-    private ListIDCommand listIDCommand;
+    private ObjID objID;
 
-    UngroupCommand(TerminalCommand ungrp, ListIDCommand listIDCommand){
+    public UngroupCommand(TerminalCommand ungrp, ObjID objID){
         this.ungrp = ungrp;
-        this.listIDCommand = listIDCommand;
+        this.objID = objID;
     }
 
     public void accept(Visitor v){

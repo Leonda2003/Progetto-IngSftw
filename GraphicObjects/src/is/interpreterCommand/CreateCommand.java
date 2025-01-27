@@ -10,7 +10,7 @@ public class CreateCommand extends AbstractCommand{
     private TypeconstrCommand typeconstr;
     private PosCommand pos;
 
-    CreateCommand(TerminalCommand NEW,TypeconstrCommand typeconstr, PosCommand pos){
+    public CreateCommand(TerminalCommand NEW,TypeconstrCommand typeconstr, PosCommand pos){
         this.NEW = NEW;
         this.typeconstr = typeconstr;
         this.pos = pos;
@@ -21,4 +21,8 @@ public class CreateCommand extends AbstractCommand{
     }
 
 
+    @Override
+    public String toString() {
+        return "CreateCommand: " +NEW + typeconstr + pos;
+    }
 }
