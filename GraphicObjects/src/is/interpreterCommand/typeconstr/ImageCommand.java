@@ -16,6 +16,6 @@ public class ImageCommand extends TypeconstrCommand{
 
     @Override
     public String toString() {
-        return "TypeconstrCommand: "+ image +"("+path+")";
+        return image +"("+path+")"+" ";
     }
 }

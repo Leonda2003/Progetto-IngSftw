@@ -13,6 +13,6 @@ public class Posfloat extends TerminalCommand{
 
     @Override
     public String toString() {
-        return posfloat+" ";
+        return " "+posfloat+" ";
     }
 }

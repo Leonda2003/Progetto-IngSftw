@@ -12,6 +12,7 @@ public class LexicalAnalyzer {
 
     public LexicalAnalyzer(Reader in) {
 
+        input = new StreamTokenizer(in);
         input.resetSyntax();                //reimposta la sintassi del tokenizer, rendendo tutti i caratteri ordinari (cioè, non hanno un significato speciale).
         input.eolIsSignificant(false); //imposta il tokenizer in modo che i caratteri di fine linea non siano significativi.
         input.wordChars('0', '9');
@@ -91,8 +92,14 @@ public class LexicalAnalyzer {
                 case '(':
                     terminalToken = Token.LEFT_PAR;
                     break;
+                case ',':
+                    terminalToken = Token.COMA;
+                    break;
                 case ')':
                     terminalToken = Token.RIGHT_PAR;
+                    break;
+                case '-':
+                    terminalToken = Token.NOT_VALID_CHAR;
                     break;
                 default:
                     terminalToken = Token.NOT_VALID_CHAR;

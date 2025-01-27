@@ -15,6 +15,6 @@ public class RectangleCommand extends TypeconstrCommand{
 
     @Override
     public String toString() {
-        return "TypeconstrCommand: "+ rectangle + pos;
+        return ""+ rectangle + pos+" ";
     }
 }

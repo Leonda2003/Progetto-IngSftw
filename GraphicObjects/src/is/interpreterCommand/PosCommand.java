@@ -20,6 +20,6 @@ public class PosCommand extends AbstractCommand{
 
     @Override
     public String toString() {
-        return "PosCommand: ("+posfloat1+","+posfloat1+")" ;
+        return "("+posfloat1+","+posfloat1+")" ;
     }
 }

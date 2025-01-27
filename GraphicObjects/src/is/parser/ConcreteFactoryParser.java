@@ -42,8 +42,8 @@ public class ConcreteFactoryParser extends FactoryParser{
         command =createCommandToInterpret();
         expected(Token.EOF);
     }
-    @Override
-    public Command createCommandToInterpret() {
+
+    private Command createCommandToInterpret() {
 
         currentToken = analyzer.nexToken();
         if(currentToken.equals(Token.NEW)){
@@ -77,8 +77,8 @@ public class ConcreteFactoryParser extends FactoryParser{
 
             TerminalCommand terminalCommand = createTerminal();
             ObjID objID = createObjID();
-            PosCommand posCommand = createPos();
-            return new MoveOffCommand(terminalCommand,objID,posCommand);
+            Posfloat posfloat = createPosfloat();
+            return new ScaleCommand(terminalCommand,objID,posfloat);
 
         }if(currentToken.equals(Token.LS)){
 
@@ -108,14 +108,14 @@ public class ConcreteFactoryParser extends FactoryParser{
             return createPerimeter(terminalCommand);
         }
         String word = analyzer.getWord();
-        throw new SyntaxException("No command found starting with '"+word+"'\n"+
+        throw new SyntaxException("No commands found that start like this \n"+
                                    "try one of new-del-mv-mvoff-scale-ls-grp-ungrp-area-perimeter");
 
     }
 
     private TypeconstrCommand createTypeconstr() {
 
-        if(currentToken.equals(Token.CIRCLE)){
+        if(currentToken == Token.CIRCLE){
 
             TypeCommand typeCommand = createType();
             expected(Token.LEFT_PAR);
@@ -138,8 +138,28 @@ public class ConcreteFactoryParser extends FactoryParser{
             return new ImageCommand(typeCommand,path);
         }
         String word = analyzer.getWord();
-        throw new SyntaxException("Command Syntax Error");
+        throw new SyntaxException("Command Syntax Error "+analyzer.getWord());
 
+    }
+
+    private TypeCommand createType() {
+
+        switch (currentToken) {
+            case Token.CIRCLE:
+                Circle circle = new Circle(currentToken);
+                currentToken = analyzer.nexToken();
+                return circle;
+            case Token.RECTANGLE:
+                Rectangle rectangle = new Rectangle(currentToken);
+                currentToken = analyzer.nexToken();
+                return rectangle;
+            case Token.IMG:
+                Image image = new Image(currentToken);
+                currentToken = analyzer.nexToken();
+                return image;
+            default:
+                throw new SyntaxException("Expected one of circle-rectangle-img");
+        }
     }
 
     private Command createPerimeter(TerminalCommand terminalCommand) {
@@ -206,7 +226,10 @@ public class ConcreteFactoryParser extends FactoryParser{
 
         ObjID objID = createObjID();
         ListIDCommand listIDCommand= new ListIDCommand(objID);
-        while(currentToken == Token.COMA) listIDCommand.addObjectID(createObjID());
+        while(currentToken == Token.COMA){
+            expected(Token.COMA);
+            listIDCommand.addObjectID(createObjID());
+        }
         return listIDCommand;
     }
 
@@ -221,28 +244,10 @@ public class ConcreteFactoryParser extends FactoryParser{
 
     }
 
-    private TypeCommand createType() {
-
-        if(currentToken.equals(Token.CIRCLE)){
-            currentToken = analyzer.nexToken();
-            return new Circle(currentToken);
-        }
-        if(currentToken.equals(Token.RECTANGLE)){
-            currentToken = analyzer.nexToken();
-            return new Rectangle(currentToken);
-        }
-        if(currentToken.equals(Token.IMG)){
-            currentToken = analyzer.nexToken();
-            return new Image(currentToken);
-        }
-        throw new SyntaxException("No command found with '"+analyzer.getWord()+"'\n"+
-                "try one of circle-rectangle-img");
-    }
-
     private TerminalCommand createTerminal() {
 
         TerminalCommand terminalCommand = new TerminalCommand(currentToken);
-        analyzer.nexToken();
+        currentToken = analyzer.nexToken();
         return terminalCommand;
     }
 
@@ -255,6 +260,7 @@ public class ConcreteFactoryParser extends FactoryParser{
 
     private Posfloat createPosfloat() {
 
+        if(analyzer.getNumber() < 0) throw new SyntaxException("only positive numbers accepted");
         Posfloat posfloat = new Posfloat(currentToken, analyzer.getNumber());
         currentToken = analyzer.nexToken();
         return posfloat;
@@ -280,20 +286,21 @@ public class ConcreteFactoryParser extends FactoryParser{
     public static void main(String[] args) {
 
 
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Fornisci la combinazione: ");
-        String combinazione = sc.nextLine();
-        //sc.close();
+        while(true){
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Fornisci la combinazione: ");
+            String combinazione = sc.nextLine();
+            //sc.close();
 
-        StringReader sr = new StringReader(combinazione);
-        FactoryParser parser = new ConcreteFactoryParser(sr);
-
-
-
-
-
-
+            StringReader sr = new StringReader(combinazione);
+            FactoryParser parser = new ConcreteFactoryParser(sr);
+            System.out.println(parser.getCommandToInterpret());
+        }
     }
 
 
+    @Override
+    public Command getCommandToInterpret() {
+        return command;
+    }
 }
