@@ -5,6 +5,8 @@ import is.shapes.model.GraphicObject;
 import is.shapes.view.GraphicObjectPanel;
 
 public class ListCmd implements Cmd {
+
+    /*
     private final GraphicObjectPanel panel;
     private final GraphicObject object;
 
@@ -22,6 +24,8 @@ public class ListCmd implements Cmd {
         this.panel = panel;
         this.object = object;
     }
+
+     */
 
     @Override
     public boolean doIt() {

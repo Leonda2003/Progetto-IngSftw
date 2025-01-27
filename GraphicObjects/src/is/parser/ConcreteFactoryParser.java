@@ -1,6 +1,5 @@
 package is.parser;
 
-import is.analyzer.Context;
 import is.analyzer.LexicalAnalyzer;
 import is.analyzer.Token;
 import is.exception.SyntaxException;
@@ -36,8 +35,7 @@ public class ConcreteFactoryParser extends FactoryParser{
     private Command command;
     private LexicalAnalyzer analyzer;
     private Token currentToken;
-    private
-    ConcreteFactoryParser(Reader in) {
+    public ConcreteFactoryParser(Reader in) {
         this.analyzer = new LexicalAnalyzer(in);
         command =createCommandToInterpret();
         expected(Token.EOF);
