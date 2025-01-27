@@ -1,4 +1,4 @@
-package is.shapes.specificcommand;
+package is.shapes.specificCmd;
 
 import is.cmd.Cmd;
 import is.shapes.model.GraphicObject;
@@ -21,16 +21,13 @@ public class MoveCmd implements Cmd {
 
 	@Override
 	public boolean doIt() {
-
 		object.moveTo(newPos);
-
 		return true;
 	}
 
 	@Override
 	public boolean undoIt() {
 		object.moveTo(oldPos);
-		
 		return true;
 	}
 

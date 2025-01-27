@@ -6,18 +6,18 @@ import java.awt.geom.Point2D;
 
 public final  class CircleObject extends AbstractGraphicObject {
 
+
 	private Point2D position;
 
 	private double radius;
 
 	public CircleObject(Point2D pos, double r) {
-		if (r <= 0)
+        if (r <= 0)
 			throw new IllegalArgumentException();
 		position = new Point2D.Double(pos.getX(), pos.getY());
 		radius = r;
-	}
 
-	
+	}
 
 	@Override
 	public void moveTo(Point2D p) {
@@ -27,7 +27,6 @@ public final  class CircleObject extends AbstractGraphicObject {
 
 	@Override
 	public Point2D getPosition() {
-
 		return new Point2D.Double(position.getX(), position.getY());
 	}
 
@@ -54,14 +53,12 @@ public final  class CircleObject extends AbstractGraphicObject {
 	}
 
 	@Override
-	public float area() {
-		return 0;
+	public double area() {
+		return Math.PI*radius*radius;
 	}
 
 	@Override
-	public float perimeter() {
-		return 0;
-	}
+	public double perimeter() {return 2*radius*Math.PI;}
 
 	@Override
 	public CircleObject clone() {

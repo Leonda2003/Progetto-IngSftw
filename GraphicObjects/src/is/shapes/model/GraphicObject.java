@@ -23,9 +23,9 @@ public interface GraphicObject {
 
 	boolean contains(Point2D p);
 
-	float area();
+	double area();
 
-	float perimeter();
+	double perimeter();
 
 	String getType();
 }

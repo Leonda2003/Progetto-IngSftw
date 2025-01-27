@@ -9,7 +9,7 @@ import is.interpreterCommand.perimeter.PerimeterCommand;
 import is.interpreterCommand.terminal.TerminalCommand;
 import is.interpreterCommand.type.TypeCommand;
 import is.interpreterCommand.typeconstr.TypeconstrCommand;
-import is.shapes.specificcommand.*;
+import is.shapes.specificCmd.*;
 
 import java.lang.reflect.Constructor;
 

@@ -2,8 +2,8 @@ package is.shapes.controller;
 
 import is.cmd.CmdHandler;
 import is.shapes.model.GraphicObject;
-import is.shapes.specificcommand.MoveCmd;
-import is.shapes.specificcommand.ZoomCmd;
+import is.shapes.specificCmd.MoveCmd;
+import is.shapes.specificCmd.ZoomCmd;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -77,7 +77,8 @@ public class GraphicObjectController extends JPanel {
 					return;
 				Point2D p = subject.getPosition();
 				// subject.moveTo(p.getX() - offset, p.getY() - offset);
-				cmdHandler.handle(new MoveCmd(subject, new Point2D.Double(p.getX() - offset, p.getY() - offset)));
+				cmdHandler.
+						handle(new MoveCmd(subject, new Point2D.Double(p.getX() - offset, p.getY() - offset)));
 			}
 		});
 		grid.add(nw);

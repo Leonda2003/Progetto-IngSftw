@@ -51,7 +51,6 @@ public class TestGraphics2 {
 		GraphicObjectViewFactory.FACTORY.installView(ImageObject.class, new ImageObjectView());
 
 		AbstractGraphicObject go = new RectangleObject(new Point(180, 80), 20, 50);
-
 		JButton rectButton = new JButton(new CreateObjectAction(go, gpanel, handler));
 		rectButton.setText(go.getType());
 		toolbar.add(rectButton);

@@ -70,7 +70,6 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 	protected void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
-
 		Graphics2D g2 = (Graphics2D) g;
 		for (GraphicObject go : objects) {
 			GraphicObjectView view = GraphicObjectViewFactory.FACTORY.createView(go);

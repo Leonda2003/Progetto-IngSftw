@@ -1,8 +1,8 @@
-package is.shapes.specificcommand;
+package is.shapes.specificCmd;
 
 import is.cmd.Cmd;
 
-public class ListCmd implements Cmd {
+public class UngroupCmd implements Cmd {
     @Override
     public boolean doIt() {
         return false;

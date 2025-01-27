@@ -9,7 +9,6 @@ import javax.swing.ImageIcon;
 
 public final class ImageObject extends AbstractGraphicObject {
 	private double factor = 1.0;
-
 	private final Image image;
 
 	private Point2D position;
@@ -32,15 +31,6 @@ public final class ImageObject extends AbstractGraphicObject {
 		return dx <= w && dy <= h;
 	}
 
-	@Override
-	public float area() {
-		return 0;
-	}
-
-	@Override
-	public float perimeter() {
-		return 0;
-	}
 
 	@Override
 	public void moveTo(Point2D p) {
@@ -78,15 +68,23 @@ public final class ImageObject extends AbstractGraphicObject {
 		return dim;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see is.shapes.GraphicObject#getType()
-	 */
 	@Override
 	public String getType() {
 
 		return "Image";
 	}
 
+	@Override
+	public double area() {
+		double width = factor * image.getWidth(null);
+		double height = factor * image.getHeight(null);
+		return width * height;
+	}
+
+	@Override
+	public double perimeter() {
+		double width = factor * image.getWidth(null);
+		double height = factor * image.getHeight(null);
+		return 2 * (width + height);
+	}
 }

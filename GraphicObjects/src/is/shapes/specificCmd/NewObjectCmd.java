@@ -1,4 +1,4 @@
-package is.shapes.specificcommand;
+package is.shapes.specificCmd;
 
 import is.cmd.Cmd;
 import is.shapes.model.GraphicObject;
@@ -10,10 +10,8 @@ public class NewObjectCmd implements Cmd {
 	private final GraphicObject go;
 
 	public NewObjectCmd(GraphicObjectPanel panel, GraphicObject go) {
-		
 		this.panel = panel;
 		this.go = go;
-		
 	}
 
 	@Override
@@ -22,7 +20,6 @@ public class NewObjectCmd implements Cmd {
 		double y =  10;
 		go.moveTo(x, y);
 		panel.add(go);
-
 		return true;
 	}
 

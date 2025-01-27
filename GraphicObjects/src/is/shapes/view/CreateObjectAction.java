@@ -3,7 +3,7 @@ package is.shapes.view;
 import is.cmd.CmdHandler;
 import is.shapes.model.AbstractGraphicObject;
 import is.shapes.model.GraphicObject;
-import is.shapes.specificcommand.NewObjectCmd;
+import is.shapes.specificCmd.NewObjectCmd;
 
 import java.awt.event.ActionEvent;
 

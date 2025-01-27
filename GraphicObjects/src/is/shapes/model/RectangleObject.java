@@ -16,7 +16,6 @@ public final class RectangleObject extends AbstractGraphicObject {
 		dim = new Dimension();
 		dim.setSize(w, h);
 		position = new Point2D.Double(pos.getX(), pos.getY());
-
 	}
 
 	@Override
@@ -30,13 +29,13 @@ public final class RectangleObject extends AbstractGraphicObject {
 	}
 
 	@Override
-	public float area() {
-		return 0;
+	public double area() {
+        return dim.getHeight() * dim.getWidth();
 	}
 
 	@Override
-	public float perimeter() {
-		return 0;
+	public double perimeter() {
+		return 2*(dim.getWidth())+ dim.getHeight();
 	}
 
 	@Override
