@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class GroupObject{
+public class GroupObject extends AbstractGraphicObject{
 
     List<AbstractGraphicObject> group=new ArrayList<>();
 
@@ -24,4 +24,48 @@ public class GroupObject{
 
 
 
+    @Override
+    public void moveTo(Point2D p) {
+
+    }
+
+    @Override
+    public void moveTo(double x, double y) {
+
+    }
+
+    @Override
+    public Point2D getPosition() {
+        return null;
+    }
+
+    @Override
+    public Dimension2D getDimension() {
+        return null;
+    }
+
+    @Override
+    public void scale(double factor) {
+
+    }
+
+    @Override
+    public boolean contains(Point2D p) {
+        return false;
+    }
+
+    @Override
+    public double area() {
+        return 0;
+    }
+
+    @Override
+    public double perimeter() {
+        return 0;
+    }
+
+    @Override
+    public String getType() {
+        return "Group";
+    }
 }

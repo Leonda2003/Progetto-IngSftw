@@ -18,6 +18,14 @@ public final class RectangleObject extends AbstractGraphicObject {
 		position = new Point2D.Double(pos.getX(), pos.getY());
 	}
 
+	public RectangleObject(double w, double h) {
+		if (w <= 0 || h <= 0)
+			throw new IllegalArgumentException();
+		dim = new Dimension();
+		dim.setSize(w, h);
+		position = new Point2D.Double(0, 0);
+	}
+
 	@Override
 	public boolean contains(Point2D p) {
 		double w = dim.getWidth() / 2;

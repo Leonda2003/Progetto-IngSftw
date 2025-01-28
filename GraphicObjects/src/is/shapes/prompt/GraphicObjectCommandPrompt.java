@@ -4,6 +4,7 @@ import is.exception.SyntaxException;
 import is.interpreterCommand.Command;
 import is.parser.ConcreteFactoryParser;
 import is.parser.FactoryParser;
+import is.visitor.CommandVisitor;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -51,8 +52,9 @@ public class GraphicObjectCommandPrompt extends JFrame {
         try{
             StringReader sr = new StringReader(command);
             FactoryParser parser = new ConcreteFactoryParser(sr);
-            Command command1 = parser.getCommandToInterpret();
-            outputArea.append(command1.toString()+"\n");
+            Command realCommand = parser.getCommandToInterpret();
+            //realCommand.accept(new CommandVisitor());
+            outputArea.append(command.toString()+"\n");
         }catch (SyntaxException e){outputArea.append(e.toString());}
     }
 

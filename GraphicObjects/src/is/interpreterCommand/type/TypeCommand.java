@@ -20,4 +20,8 @@ public abstract class TypeCommand extends AbstractCommand {
     public String toString() {
         return shape.toString()+" ";
     }
+
+    public Token getToken() {
+        return shape;
+    }
 }
