@@ -9,7 +9,6 @@ import java.awt.geom.Point2D;
 public class RemoveObjectCmd implements Cmd {
     private final GraphicObjectPanel panel;
     private final GraphicObject go;
-
     private final Point2D oldPos;
 
     public RemoveObjectCmd(GraphicObjectPanel panel, GraphicObject go) {

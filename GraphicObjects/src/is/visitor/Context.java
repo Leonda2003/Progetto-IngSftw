@@ -1,5 +1,6 @@
 package is.visitor;
 
+import is.cmd.Cmd;
 import is.exception.SyntaxException;
 import is.shapes.model.GraphicObject;
 import is.shapes.model.GroupObject;
@@ -24,7 +25,7 @@ public enum Context {
             cache.put("Image", new HashMap<>());
             cache.put("Groups",new HashMap<>());
         }
-        cache.get("All").put("id"+ID.getAndIncrement(),g);
+        cache.get("All").put("id"+ID.incrementAndGet(),g);
         cache.get(g.getType()).put("id"+ID,g);
         return ID.intValue();
     }
@@ -38,27 +39,27 @@ public enum Context {
             cache.put("Groups",new HashMap<>());
             throw new SyntaxException("No graphic objects were found. Try initializing some.");
         }
-        cache.get("All").put("id"+ID.getAndIncrement(),g);
+        cache.get("All").put("id"+ID.incrementAndGet(),g);
         cache.get(g.getType()).put("id"+ID,g);
         return ID.intValue();
     }
 
-    public boolean remove(String id){
+    public GraphicObject remove(String id){
+        GraphicObject g = null;
         if(cache.isEmpty()) {
             cache.put("All", new HashMap<>());
             cache.put("Circle", new HashMap<>());
             cache.put("Rectangle", new HashMap<>());
             cache.put("Image", new HashMap<>());
             cache.put("Groups",new HashMap<>());
-            return false;
+            return null;
         }
         if(cache.get("All").containsKey(id)){
-            GraphicObject g = cache.get("All").get(id);
+            g = cache.get("All").get(id);
             cache.get(g.getType()).remove(id,g);
             cache.get("All").remove(id,g);
-            return true;
         }
-        return false;
+        return g;
     }
 
     public GraphicObject getGraphicObject(String id) {
@@ -98,6 +99,14 @@ public enum Context {
         return new HashMap<>(cache.get("Groups"));
     }
 
+
+    public void redo() {
+
+    }
+
+    public void undo() {
+
+    }
 
 
 

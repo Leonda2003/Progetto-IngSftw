@@ -4,6 +4,8 @@ import is.interpreterCommand.terminal.ObjID;
 import is.interpreterCommand.terminal.TerminalCommand;
 import is.visitor.Visitor;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class RemoveCommand extends AbstractCommand{
 
     private TerminalCommand del;
@@ -14,13 +16,20 @@ public class RemoveCommand extends AbstractCommand{
         this.objID = objID;
     }
 
-    public String accept(Visitor v){
-        v.interpret(this);
-        return null;
+    public String accept(Visitor v) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+        return v.interpret(this);
     }
 
     @Override
     public String toString() {
         return "RemoveCommand: " +del + objID;
+    }
+
+    public TerminalCommand getDel() {
+        return del;
+    }
+
+    public ObjID getObjID() {
+        return objID;
     }
 }

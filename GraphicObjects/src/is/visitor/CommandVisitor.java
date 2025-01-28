@@ -37,9 +37,6 @@ import java.lang.reflect.InvocationTargetException;
 
 public class CommandVisitor implements Visitor{
 
-
-
-    private Context context = Context.CONTEXT;
     private final GraphicObjectPanel panel ;
 
     private final CmdHandler cmdHandler;
@@ -49,12 +46,6 @@ public class CommandVisitor implements Visitor{
         this.panel = panel;
     }
 
-
-    @Override
-    public String interpret(Command c) {
-
-        return null;
-    }
 
     @Override
     public String interpret(CreateCommand c) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
@@ -98,8 +89,13 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public void interpret(RemoveCommand c) {
+    public String interpret(RemoveCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
+        Constructor<RemoveObjectCmd> command = (Constructor<RemoveObjectCmd>) interpret(c.getDel());
+        GraphicObject go = Context.CONTEXT.remove(interpret(c.getObjID()));
+        if(go == null) return "No object with the specified ID found";
+        cmdHandler.handle(command.newInstance(panel,go));
+        return null;
     }
 
     @Override
@@ -243,7 +239,7 @@ public class CommandVisitor implements Visitor{
                 case NEW:
                     return NewObjectCmd.class.getConstructor(GraphicObjectPanel.class,GraphicObject.class);
                 case DEL:
-                    return RemoveObjectCmd.class.getConstructor();
+                    return RemoveObjectCmd.class.getConstructor(GraphicObjectPanel.class,GraphicObject.class);
                 case MV:
                     return MoveCmd.class.getConstructor();
                 case MVOFF:

@@ -43,17 +43,17 @@ public class TestGraphics3 {
         GraphicObjectViewFactory.FACTORY.installView(CircleObject.class, new CircleObjectView());
         GraphicObjectViewFactory.FACTORY.installView(ImageObject.class, new ImageObjectView());
 
-        AbstractGraphicObject go = new RectangleObject(new Point(180, 80), 20, 50);
+        AbstractGraphicObject go = new RectangleObject(new Point(10, 10), 20, 50);
         JButton rectButton = new JButton(new CreateObjectAction(go, gpanel, handler));
         rectButton.setText(go.getType());
         toolbar.add(rectButton);
 
-        go = new CircleObject(new Point(200, 100), 10);
+        go = new CircleObject(new Point(10, 10), 10);
         JButton circButton = new JButton(new CreateObjectAction(go, gpanel, handler));
         circButton.setText(go.getType());
         toolbar.add(circButton);
 
-        go = new CircleObject(new Point(200, 100), 100);
+        go = new CircleObject(new Point(10, 10), 100);
         JButton circButton2 = new JButton(new CreateObjectAction(go, gpanel, handler));
         circButton2.setText("big " + go.getType());
         toolbar.add(circButton2);

@@ -60,6 +60,7 @@ public class ConcreteFactoryParser extends FactoryParser{
         }if(currentToken.equals(Token.MV)){
 
             TerminalCommand terminalCommand = createTerminal();
+            expected(Token.OBJ_ID);
             ObjID objID = createObjID();
             PosCommand posCommand = createPos();
             return new MoveCommand(terminalCommand,objID,posCommand);
@@ -250,10 +251,12 @@ public class ConcreteFactoryParser extends FactoryParser{
     }
 
     private ObjID createObjID() {
-
-        ObjID objID = new ObjID(currentToken,analyzer.getWord());
-        currentToken = analyzer.nexToken();
-        return objID;
+        if(currentToken == Token.OBJ_ID){
+            ObjID objID = new ObjID(currentToken,analyzer.getWord());
+            currentToken = analyzer.nexToken();
+            return objID;
+        }
+        throw new SyntaxException("Insert a valid ID");
     }
 
     private Posfloat createPosfloat() {
@@ -266,9 +269,13 @@ public class ConcreteFactoryParser extends FactoryParser{
 
     private Path createPath() {
 
-        Path path = new Path(currentToken, analyzer.getWord());
-        currentToken = analyzer.nexToken();
-        return path;
+        if(currentToken == Token.PATH){
+            Path path = new Path(currentToken, analyzer.getWord());
+            currentToken = analyzer.nexToken();
+            return path;
+        }
+        throw new SyntaxException("Insert a valid path starting with 'C:/' or '/' ");
+
 
     }
 

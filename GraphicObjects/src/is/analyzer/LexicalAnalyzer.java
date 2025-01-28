@@ -77,8 +77,6 @@ public class LexicalAnalyzer {
                         terminalToken = Token.RECTANGLE;
                     else if (input.sval.equalsIgnoreCase("img"))
                         terminalToken = Token.IMG;
-                    else if (input.sval.equalsIgnoreCase("mv"))
-                        terminalToken = Token.MV;
                     else if (input.sval.startsWith("C:/") || input.sval.startsWith("/"))
                         terminalToken = Token.PATH;
                     else if (input.sval.startsWith("id") && isInteger(input.sval.substring(2)))

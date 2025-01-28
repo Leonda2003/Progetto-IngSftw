@@ -68,8 +68,7 @@ public class GraphicObjectCommandPrompt extends JFrame {
             StringReader sr = new StringReader(command);
             parser = new ConcreteFactoryParser(sr);
             Command realCommand = parser.getCommandToInterpret();
-            realCommand.accept(visitor);
-            outputArea.append(command.toString()+"\n");
+            outputArea.append(realCommand.accept(visitor)+"\n");
         }catch (SyntaxException e){outputArea.append(e.toString());} catch (InvocationTargetException e) {
             throw new RuntimeException(e);
         } catch (NoSuchMethodException e) {

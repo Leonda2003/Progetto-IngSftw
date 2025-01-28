@@ -16,9 +16,6 @@ public class NewObjectCmd implements Cmd {
 
 	@Override
 	public boolean doIt() {
-		double x = 10;
-		double y =  10;
-		go.moveTo(x, y);
 		panel.add(go);
 		return true;
 	}
