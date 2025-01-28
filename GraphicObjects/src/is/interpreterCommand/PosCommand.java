@@ -1,7 +1,6 @@
 package is.interpreterCommand;
 
 import is.interpreterCommand.terminal.Posfloat;
-import is.interpreterCommand.terminal.TerminalCommand;
 import is.visitor.Visitor;
 
 public class PosCommand extends AbstractCommand{
@@ -14,8 +13,9 @@ public class PosCommand extends AbstractCommand{
         this.posfloat2 = posfloat2;
     }
 
-    public void accept(Visitor v){
+    public String accept(Visitor v){
         v.interpret(this);
+        return null;
     }
 
     @Override

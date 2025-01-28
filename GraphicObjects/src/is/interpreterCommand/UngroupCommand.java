@@ -14,8 +14,9 @@ public class UngroupCommand extends AbstractCommand{
         this.objID = objID;
     }
 
-    public void accept(Visitor v){
+    public String accept(Visitor v){
         v.interpret(this);
+        return null;
     }
 
     @Override

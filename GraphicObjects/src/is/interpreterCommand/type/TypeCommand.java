@@ -12,9 +12,7 @@ public abstract class TypeCommand extends AbstractCommand {
         this.shape = token;
     }
 
-    public void accept(Visitor v){
-        v.interpret(this);
-    }
+
 
     @Override
     public String toString() {

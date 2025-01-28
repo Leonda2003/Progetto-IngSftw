@@ -16,7 +16,6 @@ public class TerminalCommand extends AbstractCommand {
         return token;
     }
 
-    public void accept(Visitor v){v.interpret(this);}
 
     @Override
     public String toString() {

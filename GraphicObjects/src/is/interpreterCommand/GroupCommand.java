@@ -3,8 +3,6 @@ package is.interpreterCommand;
 import is.interpreterCommand.terminal.TerminalCommand;
 import is.visitor.Visitor;
 
-import java.util.Iterator;
-
 public class GroupCommand extends AbstractCommand{
 
 
@@ -16,8 +14,9 @@ public class GroupCommand extends AbstractCommand{
         this.listIDCommand = listIDCommand;
     }
 
-    public void accept(Visitor v){
+    public String accept(Visitor v){
         v.interpret(this);
+        return null;
     }
 
     public String toString() {

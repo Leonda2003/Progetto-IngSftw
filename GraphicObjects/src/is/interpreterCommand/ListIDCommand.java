@@ -1,7 +1,6 @@
 package is.interpreterCommand;
 
 import is.interpreterCommand.terminal.ObjID;
-import is.interpreterCommand.terminal.TerminalCommand;
 import is.visitor.Visitor;
 
 import java.util.*;
@@ -18,8 +17,9 @@ public class ListIDCommand extends AbstractCommand{
         listObjID.add(objID);
     }
 
-    public void accept(Visitor v){
+    public String accept(Visitor v){
         v.interpret(this);
+        return null;
     }
 
     public String toString() {

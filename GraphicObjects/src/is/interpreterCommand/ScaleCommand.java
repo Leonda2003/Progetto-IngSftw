@@ -17,8 +17,9 @@ public class ScaleCommand extends AbstractCommand{
         this.posfloat = posfloat;
     }
 
-    public void accept(Visitor v){
+    public String accept(Visitor v){
         v.interpret(this);
+        return null;
     }
 
     @Override
