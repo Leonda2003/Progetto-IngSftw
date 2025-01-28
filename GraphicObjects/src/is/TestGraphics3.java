@@ -66,7 +66,9 @@ public class TestGraphics3 {
         toolbar.add(imgButton);
 
         final GraphicObjectController goc = new GraphicObjectController(handler);
-        final GraphicObjectCommandPrompt graphicObjectCommandPrompt = new GraphicObjectCommandPrompt();
+        final GraphicObjectCommandPrompt gocp = new GraphicObjectCommandPrompt(handler,gpanel);
+        gocp.setVisible(true);
+
         gpanel.addMouseListener(new MouseAdapter() {
 
             @Override
@@ -78,6 +80,8 @@ public class TestGraphics3 {
 
         f.add(toolbar, BorderLayout.NORTH);
         f.add(new JScrollPane(gpanel), BorderLayout.CENTER);
+
+
 
         JPanel controlPanel = new JPanel(new FlowLayout());
 

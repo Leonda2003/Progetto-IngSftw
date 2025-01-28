@@ -11,9 +11,7 @@ public abstract class MovementCommand extends AbstractCommand {
     ObjID objID;
     PosCommand pos;
 
-    public void accept(Visitor v){
-        v.interpret(this);
-    }
+
 
 
 }

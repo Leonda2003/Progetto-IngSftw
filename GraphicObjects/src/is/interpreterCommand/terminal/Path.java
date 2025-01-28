@@ -14,4 +14,8 @@ public class Path extends TerminalCommand{
     public String toString() {
         return path+" ";
     }
+
+    public String getPath() {
+        return path;
+    }
 }

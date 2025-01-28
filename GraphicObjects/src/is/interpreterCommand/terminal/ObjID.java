@@ -14,4 +14,8 @@ public class ObjID extends TerminalCommand{
     public String toString() {
         return ID+" ";
     }
+
+    public String getID() {
+        return ID;
+    }
 }

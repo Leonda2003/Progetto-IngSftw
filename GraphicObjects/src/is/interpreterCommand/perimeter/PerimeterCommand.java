@@ -8,8 +8,7 @@ public abstract class PerimeterCommand extends AbstractCommand{
 
     TerminalCommand perimeter;
 
-    public void accept(Visitor v){
-        v.interpret(this);
-    }
+
+
 
 }

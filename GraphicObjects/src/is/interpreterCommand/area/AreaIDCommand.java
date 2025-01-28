@@ -2,6 +2,9 @@ package is.interpreterCommand.area;
 
 import is.interpreterCommand.terminal.ObjID;
 import is.interpreterCommand.terminal.TerminalCommand;
+import is.visitor.Visitor;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class AreaIDCommand extends AreaCommand{
 
@@ -16,4 +19,6 @@ public class AreaIDCommand extends AreaCommand{
     public String toString() {
         return "AreaCommand: "+ area + objID;
     }
+
+
 }

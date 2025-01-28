@@ -7,26 +7,19 @@ import is.visitor.Visitor;
 
 public class CircleCommand extends TypeconstrCommand{
 
-    TypeCommand cirle;
     Posfloat posfloat;
 
     public CircleCommand(TypeCommand cirle, Posfloat posfloat) {
-        this.cirle = cirle;
+        this.shape = cirle;
         this.posfloat = posfloat;
     }
 
     @Override
     public String toString() {
-        return cirle+"("+ posfloat +")"+" ";
+        return shape+"("+ posfloat +")"+" ";
     }
 
-    public void accept(Visitor v){
-        v.interpret(this);
-    }
 
-    public TypeCommand getCirle() {
-        return cirle;
-    }
 
     public Posfloat getPosfloat() {
         return posfloat;

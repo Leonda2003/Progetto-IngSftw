@@ -1,6 +1,9 @@
 package is.interpreterCommand.list;
 
 import is.interpreterCommand.terminal.TerminalCommand;
+import is.visitor.Visitor;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class ListAllCommand extends ListCommand{
     TerminalCommand all;
@@ -14,4 +17,6 @@ public class ListAllCommand extends ListCommand{
     public String toString() {
         return "ListCommand: "+ ls + all;
     }
+
+
 }

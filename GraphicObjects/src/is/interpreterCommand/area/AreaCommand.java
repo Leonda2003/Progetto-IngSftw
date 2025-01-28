@@ -8,10 +8,4 @@ public abstract class AreaCommand extends AbstractCommand {
 
     TerminalCommand area;
 
-    public void accept(Visitor v){
-        v.interpret(this);
-    }
-
-
-
 }

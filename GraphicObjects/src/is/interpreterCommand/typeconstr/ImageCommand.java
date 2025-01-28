@@ -7,25 +7,22 @@ import is.visitor.Visitor;
 
 public class ImageCommand extends TypeconstrCommand{
 
-    TypeCommand image;
     Path path;
 
     public ImageCommand(TypeCommand image, Path path) {
-        this.image = image;
+        this.shape = image;
         this.path = path;
     }
 
     @Override
     public String toString() {
-        return image +"("+path+")"+" ";
+        return shape +"("+path+")"+" ";
     }
 
-    public void accept(Visitor v){
-        v.interpret(this);
-    }
+
 
     public TypeCommand getImage() {
-        return image;
+        return shape;
     }
 
     public Path getPath() {

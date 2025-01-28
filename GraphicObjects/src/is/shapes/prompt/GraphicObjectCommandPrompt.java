@@ -1,16 +1,20 @@
 package is.shapes.prompt;
 
+import is.cmd.CmdHandler;
 import is.exception.SyntaxException;
 import is.interpreterCommand.Command;
 import is.parser.ConcreteFactoryParser;
 import is.parser.FactoryParser;
+import is.shapes.view.GraphicObjectPanel;
 import is.visitor.CommandVisitor;
+import is.visitor.Visitor;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.*;
 import java.io.StringReader;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 
 
@@ -18,9 +22,20 @@ public class GraphicObjectCommandPrompt extends JFrame {
 
     private JTextArea outputArea;
     private JTextField inputField;
+    private FactoryParser parser;
+    private Visitor visitor;
+    private final CmdHandler cmdHandler;
 
-    public GraphicObjectCommandPrompt() {
-        setTitle("Command Prompt Example");
+    private final GraphicObjectPanel graphicObjectPanel;
+
+    public GraphicObjectCommandPrompt(CmdHandler cmdH,GraphicObjectPanel panel) {
+
+        cmdHandler = cmdH;
+        graphicObjectPanel = panel;
+
+        visitor = new CommandVisitor(graphicObjectPanel,cmdHandler);
+
+        setTitle("Command Prompt");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -51,14 +66,22 @@ public class GraphicObjectCommandPrompt extends JFrame {
     private void processCommand(String command) {
         try{
             StringReader sr = new StringReader(command);
-            FactoryParser parser = new ConcreteFactoryParser(sr);
+            parser = new ConcreteFactoryParser(sr);
             Command realCommand = parser.getCommandToInterpret();
-            //realCommand.accept(new CommandVisitor());
+            realCommand.accept(visitor);
             outputArea.append(command.toString()+"\n");
-        }catch (SyntaxException e){outputArea.append(e.toString());}
+        }catch (SyntaxException e){outputArea.append(e.toString());} catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void main(String[] args) {
-        new GraphicObjectCommandPrompt().setVisible(true);
+
     }
 }

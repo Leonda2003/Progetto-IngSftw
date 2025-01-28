@@ -2,6 +2,9 @@ package is.interpreterCommand.perimeter;
 
 import is.interpreterCommand.terminal.ObjID;
 import is.interpreterCommand.terminal.TerminalCommand;
+import is.visitor.Visitor;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class PerimeterIDCommand extends PerimeterCommand{
 
@@ -16,4 +19,8 @@ public class PerimeterIDCommand extends PerimeterCommand{
     public String toString() {
         return "PerimeterCommand: "+perimeter + objID;
     }
+
+
+
+
 }

@@ -4,7 +4,7 @@ import is.analyzer.Token;
 
 public class Posfloat extends TerminalCommand{
 
-    float posfloat;
+    private float posfloat;
     public Posfloat(Token token, double posfloat) {
         super(token);
         if(posfloat > Float.MAX_VALUE) throw new IllegalArgumentException("try a smaller position value");
@@ -14,5 +14,9 @@ public class Posfloat extends TerminalCommand{
     @Override
     public String toString() {
         return " "+posfloat+" ";
+    }
+
+    public float getPosfloat() {
+        return posfloat;
     }
 }

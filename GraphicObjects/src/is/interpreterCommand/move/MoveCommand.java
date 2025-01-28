@@ -3,6 +3,9 @@ package is.interpreterCommand.move;
 import is.interpreterCommand.PosCommand;
 import is.interpreterCommand.terminal.ObjID;
 import is.interpreterCommand.terminal.TerminalCommand;
+import is.visitor.Visitor;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class MoveCommand extends MovementCommand{
 
@@ -18,4 +21,6 @@ public class MoveCommand extends MovementCommand{
     public String toString() {
         return "MovementCommand: "+ mvoff + objID + pos;
     }
+
+
 }

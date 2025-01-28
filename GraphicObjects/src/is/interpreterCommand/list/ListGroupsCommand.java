@@ -1,6 +1,9 @@
 package is.interpreterCommand.list;
 
 import is.interpreterCommand.terminal.TerminalCommand;
+import is.visitor.Visitor;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class ListGroupsCommand extends ListCommand{
 
@@ -15,4 +18,6 @@ public class ListGroupsCommand extends ListCommand{
     public String toString() {
         return "ListCommand: "+ ls + groups;
     }
+
+
 }

@@ -11,18 +11,22 @@ import is.interpreterCommand.move.MoveOffCommand;
 import is.interpreterCommand.perimeter.PerimeterAllCommand;
 import is.interpreterCommand.perimeter.PerimeterIDCommand;
 import is.interpreterCommand.perimeter.PerimeterTypeCommand;
+import is.interpreterCommand.terminal.ObjID;
+import is.interpreterCommand.terminal.Path;
+import is.interpreterCommand.terminal.Posfloat;
 import is.interpreterCommand.terminal.TerminalCommand;
 import is.interpreterCommand.type.TypeCommand;
-import is.interpreterCommand.typeconstr.CircleCommand;
-import is.interpreterCommand.typeconstr.ImageCommand;
-import is.interpreterCommand.typeconstr.RectangleCommand;
-import is.shapes.model.GraphicObject;
+import is.interpreterCommand.typeconstr.TypeconstrCommand;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public interface Visitor {
 
-    void interpret(CreateCommand c);
+
+
+    String interpret(Command c);
+    String interpret(CreateCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException;
     void interpret(RemoveCommand c);
     void interpret(MoveCommand c);
     void interpret(MoveOffCommand c);
@@ -40,10 +44,11 @@ public interface Visitor {
     void interpret(PerimeterTypeCommand c);
     void interpret(PerimeterAllCommand c);
     float[] interpret(PosCommand c);
-    void interpret(RectangleCommand c);
-    void interpret(CircleCommand c);
-    void interpret(ImageCommand c);
-    Constructor<? extends GraphicObject> interpret(TypeCommand c);
+    CommandVisitor.WrapTypeConstr interpret(TypeconstrCommand c) throws NoSuchMethodException;
+    String interpret(TypeCommand c);
+    float interpret(Posfloat c);
+    String interpret(ObjID c);
+    String interpret(Path c);
     void interpret(ListIDCommand c);
     Constructor<? extends Cmd> interpret(TerminalCommand c);
 }

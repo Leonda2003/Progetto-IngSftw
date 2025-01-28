@@ -8,7 +8,5 @@ public abstract class ListCommand extends AbstractCommand {
 
     TerminalCommand ls;
 
-    public void accept(Visitor v){
-        v.interpret(this);
-    }
+
 }

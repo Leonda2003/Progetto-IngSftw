@@ -1,6 +1,9 @@
 package is.interpreterCommand.perimeter;
 
 import is.interpreterCommand.terminal.TerminalCommand;
+import is.visitor.Visitor;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class PerimeterAllCommand extends PerimeterCommand{
 
@@ -15,4 +18,6 @@ public class PerimeterAllCommand extends PerimeterCommand{
     public String toString() {
         return "PerimeterCommand: "+perimeter + all;
     }
+
+
 }

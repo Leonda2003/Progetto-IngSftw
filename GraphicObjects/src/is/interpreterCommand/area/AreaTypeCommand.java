@@ -2,6 +2,9 @@ package is.interpreterCommand.area;
 
 import is.interpreterCommand.terminal.TerminalCommand;
 import is.interpreterCommand.type.TypeCommand;
+import is.visitor.Visitor;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class AreaTypeCommand extends AreaCommand{
 
@@ -17,4 +20,6 @@ public class AreaTypeCommand extends AreaCommand{
     public String toString() {
         return "AreaCommand: "+ area + type;
     }
+
+
 }
