@@ -9,18 +9,24 @@ import java.lang.reflect.InvocationTargetException;
 
 public class MoveOffCommand extends MovementCommand{
 
-    TerminalCommand mv;
+    TerminalCommand mvoff;
 
-    public MoveOffCommand(TerminalCommand mv,  ObjID objID, PosCommand pos){
-        this.mv = mv;
+    public MoveOffCommand(TerminalCommand mvoff,  ObjID objID, PosCommand pos){
+        this.mvoff = mvoff;
         super.objID = objID;
         super.pos = pos;
     }
-
     @Override
     public String toString() {
-        return "MovementCommand: "+ mv + objID + pos;
+        return "MoveOffCommand: "+ mvoff + objID + pos;
     }
 
+    public TerminalCommand getMvoff() {
+        return mvoff;
+    }
 
+    @Override
+    public void accept(Visitor v) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        v.interpret(this);
+    }
 }

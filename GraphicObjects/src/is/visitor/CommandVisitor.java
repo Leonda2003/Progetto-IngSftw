@@ -86,7 +86,6 @@ public class CommandVisitor implements Visitor{
     }
 
 
-
     @Override
     public void interpret(RemoveCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
         String id = interpret(c.getObjID());
@@ -96,22 +95,39 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public void interpret(MoveCommand c) {
+    public void interpret(MoveCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
+        Constructor<MoveCmd> command = (Constructor<MoveCmd>) interpret(c.getMv());
+        String id = interpret(c.getObjID());
+        float[] pos = interpret(c.getPos());
+        GraphicObject go = Context.CONTEXT.getGraphicObject(id);
+        cmdHandler.handle(command.newInstance(go,new Point2D.Float(pos[0],pos[1])));
     }
 
     @Override
-    public void interpret(MoveOffCommand c) {
+    public void interpret(MoveOffCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
+        Constructor<MoveCmd> command = (Constructor<MoveCmd>) interpret(c.getMvoff());
+        String id = interpret(c.getObjID());
+        float[] pos = interpret(c.getPos());
+        GraphicObject go = Context.CONTEXT.getGraphicObject(id);
+        cmdHandler.handle(command.newInstance(go,new Point2D.Double(go.getPosition().getX()+pos[0],go.getPosition().getX()+pos[1])));
     }
 
     @Override
-    public void interpret(ScaleCommand c) {
+    public void interpret(ScaleCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
+        Constructor<ZoomCmd> command = (Constructor<ZoomCmd>) interpret(c.getScale());
+        String id = interpret(c.getObjID());
+        double factor = interpret(c.getPosfloat());
+        GraphicObject go = Context.CONTEXT.getGraphicObject(id);
+        cmdHandler.handle(command.newInstance(go,factor));
     }
 
     @Override
     public void interpret(ListObjIDCommand c) {
+
+        Constructor<Li>
 
     }
 
@@ -238,11 +254,10 @@ public class CommandVisitor implements Visitor{
                 case DEL:
                     return RemoveObjectCmd.class.getConstructor(GraphicObjectPanel.class,String.class);
                 case MV:
-                    return MoveCmd.class.getConstructor();
                 case MVOFF:
-                    return MoveCmd.class.getConstructor();
+                    return MoveCmd.class.getConstructor(GraphicObject.class,Point2D.class);
                 case SCALE:
-                    return ZoomCmd.class.getConstructor();
+                    return ZoomCmd.class.getConstructor(GraphicObject.class, double.class);
                 case LS:
                     return ListCmd.class.getConstructor();
                 case ALL:

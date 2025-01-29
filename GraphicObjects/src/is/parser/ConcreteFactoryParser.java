@@ -60,7 +60,6 @@ public class ConcreteFactoryParser extends FactoryParser{
         }if(currentToken.equals(Token.MV)){
 
             TerminalCommand terminalCommand = createTerminal();
-            expected(Token.OBJ_ID);
             ObjID objID = createObjID();
             PosCommand posCommand = createPos();
             return new MoveCommand(terminalCommand,objID,posCommand);

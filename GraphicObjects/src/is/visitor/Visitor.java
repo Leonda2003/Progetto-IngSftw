@@ -25,9 +25,9 @@ public interface Visitor {
 
     void interpret(CreateCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException;
     void interpret(RemoveCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
-    void interpret(MoveCommand c);
-    void interpret(MoveOffCommand c);
-    void interpret(ScaleCommand c);
+    void interpret(MoveCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
+    void interpret(MoveOffCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
+    void interpret(ScaleCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
     void interpret(ListObjIDCommand c);
     void interpret(ListTypeCommand c);
     void interpret(ListAllCommand c);

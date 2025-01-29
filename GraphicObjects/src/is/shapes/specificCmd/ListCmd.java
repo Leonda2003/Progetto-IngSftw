@@ -1,31 +1,29 @@
 package is.shapes.specificCmd;
 
+import is.analyzer.Token;
 import is.cmd.Cmd;
 import is.shapes.model.GraphicObject;
 import is.shapes.view.GraphicObjectPanel;
 
 public class ListCmd implements Cmd {
 
-    /*
-    private final GraphicObjectPanel panel;
-    private final GraphicObject object;
+    ;
+    private final String id;
 
-    public AreaCmd(GraphicObject object,GraphicObjectPanel panel){
-        this.panel = panel;
-        this.object = object;
+    private final Token token;
+
+    public ListCmd(String id,Token t){
+        this.id = id;
+        this.token = t;
     }
 
-    public AreaCmd(,GraphicObjectPanel panel){
-        this.panel = panel;
-        this.object = object;
+    public ListCmd(Token t){
+        this.token = t;
+        id= "null";
     }
 
-    public AreaCmd(GraphicObject object,GraphicObjectPanel panel){
-        this.panel = panel;
-        this.object = object;
-    }
 
-     */
+
 
     @Override
     public boolean doIt() {

@@ -11,7 +11,6 @@ public class ZoomCmd implements Cmd {
 	public ZoomCmd(GraphicObject obj, double factor) {
 		object = obj;
 		this.factor = factor;
-		
 	}
 
 	@Override

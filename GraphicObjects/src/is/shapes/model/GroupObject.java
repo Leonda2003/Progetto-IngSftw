@@ -8,7 +8,7 @@ import java.util.List;
 
 public class GroupObject extends AbstractGraphicObject{
 
-    List<AbstractGraphicObject> group=new ArrayList<>();
+    List<GraphicObject> group=new ArrayList<>();
 
     GroupObject(AbstractGraphicObject... graphicObjects){
         Collections.addAll(this.group, graphicObjects);
@@ -26,12 +26,17 @@ public class GroupObject extends AbstractGraphicObject{
 
     @Override
     public void moveTo(Point2D p) {
+        for(GraphicObject go : group){
+            go.moveTo(p);
+        }
 
     }
 
     @Override
     public void moveTo(double x, double y) {
-
+        for(GraphicObject go : group){
+            go.moveTo(x,y);
+        }
     }
 
     @Override
@@ -46,6 +51,9 @@ public class GroupObject extends AbstractGraphicObject{
 
     @Override
     public void scale(double factor) {
+        for(GraphicObject go : group){
+            go.scale(factor);
+        }
 
     }
 

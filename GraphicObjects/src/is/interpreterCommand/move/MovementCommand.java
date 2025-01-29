@@ -12,6 +12,11 @@ public abstract class MovementCommand extends AbstractCommand {
     PosCommand pos;
 
 
+    public ObjID getObjID() {
+        return objID;
+    }
 
-
+    public PosCommand getPos() {
+        return pos;
+    }
 }
