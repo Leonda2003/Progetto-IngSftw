@@ -3,6 +3,7 @@ package is.shapes.view;
 import is.shapes.model.GraphicEvent;
 import is.shapes.model.GraphicObject;
 import is.shapes.model.GraphicObjectListener;
+import is.visitor.Context;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -29,6 +30,8 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 
 	private final List<GraphicObject> objects = new LinkedList<>();
 
+	private HashMap<String,GraphicObject> objectsWithID = Context.CONTEXT.getAllShape();
+
 
 	public GraphicObjectPanel() {
 		setBackground(Color.WHITE);
@@ -43,19 +46,24 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 
 	
 	public GraphicObject getGraphicObjectAt(Point2D p) {
-		for (GraphicObject g : objects) {
-			if (g.contains(p))
-				return g;
+
+		for (String id : objectsWithID.keySet()) {
+			GraphicObject go = objectsWithID.get(id);
+			if (go.contains(p))
+				return go;
 		}
 		return null;
 	}
 
 	@Override
 	public Dimension getPreferredSize() {
+
+
 		Dimension ps = super.getPreferredSize();
 		double x = ps.getWidth();
 		double y = ps.getHeight();
-		for (GraphicObject go : objects) {
+		for (String id : objectsWithID.keySet()) {
+			GraphicObject go = objectsWithID.get(id);
 			double nx = go.getPosition().getX() + go.getDimension().getWidth() / 2;
 			double ny = go.getPosition().getY() + go.getDimension().getHeight() / 2;
 			if (nx > x)
@@ -69,9 +77,11 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 	@Override
 	protected void paintComponent(Graphics g) {
 
+
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		for (GraphicObject go : objects) {
+		for (String id : objectsWithID.keySet()) {
+			GraphicObject go = objectsWithID.get(id);
 			GraphicObjectView view = GraphicObjectViewFactory.FACTORY.createView(go);
 			view.drawGraphicObject(go, g2);
 		}
@@ -79,13 +89,16 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 	}
 
 	public void add(GraphicObject go) {
-		objects.add(go);
+
+		objectsWithID = Context.CONTEXT.getAllShape();
 		go.addGraphicObjectListener(this);
 		repaint();
 	}
 
 	public void remove(GraphicObject go) {
-		if (objects.remove(go)) {
+
+		objectsWithID = Context.CONTEXT.getAllShape();
+		if (!objectsWithID.containsValue(go)) {
 			repaint();
 			go.removeGraphicObjectListener(this);
 		}

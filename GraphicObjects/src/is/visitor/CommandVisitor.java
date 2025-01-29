@@ -53,7 +53,6 @@ public class CommandVisitor implements Visitor{
         float[] pos = interpret(c.getPos());
         Point2D position = new Point2D.Float(pos[0],pos[1]);
         GraphicObject go=null;
-        Cmd ret;
         WrapTypeConstr wrapTypeConstr = interpret(c.getTypeconstr());
         Constructor<NewObjectCmd> command = (Constructor<NewObjectCmd>) interpret(c.getNEW());
         switch (wrapTypeConstr.getType()){
@@ -84,13 +83,13 @@ public class CommandVisitor implements Visitor{
                 throw new IllegalStateException("Unexpected value: " + wrapTypeConstr.getType());
         }
 
+        int ret = Context.CONTEXT.addGrapichObject(go);
         cmdHandler.handle(command.newInstance(panel,go));
-        return ""+Context.CONTEXT.addGrapichObject(go);
+        return "new "+go.getType()+" object created with id"+ret;
     }
 
     @Override
     public String interpret(RemoveCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
-
         Constructor<RemoveObjectCmd> command = (Constructor<RemoveObjectCmd>) interpret(c.getDel());
         GraphicObject go = Context.CONTEXT.remove(interpret(c.getObjID()));
         if(go == null) return "No object with the specified ID found";

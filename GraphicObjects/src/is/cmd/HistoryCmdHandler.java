@@ -39,7 +39,6 @@ public class HistoryCmdHandler implements CmdHandler {
 			Cmd redoCmd = redoList.removeFirst();
 			redoCmd.doIt();
 			history.addFirst(redoCmd);
-
 		}
 	}
 

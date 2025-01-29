@@ -4,6 +4,7 @@ import is.cmd.CmdHandler;
 import is.shapes.model.AbstractGraphicObject;
 import is.shapes.model.GraphicObject;
 import is.shapes.specificCmd.NewObjectCmd;
+import is.visitor.Context;
 
 import java.awt.event.ActionEvent;
 
@@ -16,6 +17,8 @@ public class CreateObjectAction extends AbstractAction {
 	private static final long serialVersionUID = 5399493440620423134L;
 	AbstractGraphicObject prototype;
 	GraphicObjectPanel panel;
+
+
 	CmdHandler ch;
 
 	public CreateObjectAction(AbstractGraphicObject prototype,
@@ -30,6 +33,9 @@ public class CreateObjectAction extends AbstractAction {
 	public void actionPerformed(ActionEvent e) {
 
 		GraphicObject go = prototype.clone();
+		Context.CONTEXT.addGrapichObject(go);
+
+
 		ch.handle(new NewObjectCmd(panel, go));
 
 	}
