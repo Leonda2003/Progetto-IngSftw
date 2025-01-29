@@ -21,4 +21,12 @@ public class ListTypeCommand extends ListCommand{
     }
 
 
+    public TypeCommand getTypeCommand() {
+        return typeCommand;
+    }
+
+    @Override
+    public void accept(Visitor v) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        v.interpret(this);
+    }
 }

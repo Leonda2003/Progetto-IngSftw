@@ -28,4 +28,6 @@ public interface GraphicObject {
 	double perimeter();
 
 	String getType();
+
+	public String properties();
 }

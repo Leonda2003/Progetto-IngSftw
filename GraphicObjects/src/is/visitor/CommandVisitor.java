@@ -1,6 +1,7 @@
 package is.visitor;
 
 import is.TestGraphics2;
+import is.analyzer.Token;
 import is.cmd.Cmd;
 import is.cmd.CmdHandler;
 import is.exception.SyntaxException;
@@ -14,10 +15,7 @@ import is.interpreterCommand.move.MoveOffCommand;
 import is.interpreterCommand.perimeter.PerimeterAllCommand;
 import is.interpreterCommand.perimeter.PerimeterIDCommand;
 import is.interpreterCommand.perimeter.PerimeterTypeCommand;
-import is.interpreterCommand.terminal.ObjID;
-import is.interpreterCommand.terminal.Path;
-import is.interpreterCommand.terminal.Posfloat;
-import is.interpreterCommand.terminal.TerminalCommand;
+import is.interpreterCommand.terminal.*;
 import is.interpreterCommand.type.TypeCommand;
 import is.interpreterCommand.typeconstr.CircleCommand;
 import is.interpreterCommand.typeconstr.ImageCommand;
@@ -27,6 +25,7 @@ import is.shapes.model.CircleObject;
 import is.shapes.model.GraphicObject;
 import is.shapes.model.ImageObject;
 import is.shapes.model.RectangleObject;
+import is.shapes.prompt.GraphicObjectCommandPrompt;
 import is.shapes.specificCmd.*;
 import is.shapes.view.GraphicObjectPanel;
 
@@ -39,11 +38,14 @@ public class CommandVisitor implements Visitor{
 
     private final GraphicObjectPanel panel ;
 
+    private final GraphicObjectCommandPrompt prompt;
+
     private final CmdHandler cmdHandler;
 
-    public CommandVisitor(GraphicObjectPanel panel,CmdHandler cmdHandler){
+    public CommandVisitor(GraphicObjectPanel panel,CmdHandler cmdHandler,GraphicObjectCommandPrompt prompt){
         this.cmdHandler = cmdHandler;
         this.panel = panel;
+        this.prompt = prompt;
     }
 
 
@@ -125,25 +127,33 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public void interpret(ListObjIDCommand c) {
+    public void interpret(ListObjIDCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
-        Constructor<Li>
-
-    }
-
-    @Override
-    public void interpret(ListTypeCommand c) {
+        Constructor<ListCmd> command = (Constructor<ListCmd>) interpret(c.getLs());
+        String id = interpret(c.getObjID());
+        cmdHandler.handle(command.newInstance(id,c.getObjID().getToken(),prompt));
 
     }
 
     @Override
-    public void interpret(ListAllCommand c) {
+    public void interpret(ListTypeCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
+        Constructor<ListCmd> command = (Constructor<ListCmd>) interpret(c.getLs());
+        cmdHandler.handle(command.newInstance("",c.getTypeCommand().getToken(),prompt));
     }
 
     @Override
-    public void interpret(ListGroupsCommand c) {
+    public void interpret(ListAllCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
+        Constructor<ListCmd> command = (Constructor<ListCmd>) interpret(c.getLs());
+        cmdHandler.handle(command.newInstance("",interpret(c.getAll()),prompt));
+    }
+
+    @Override
+    public void interpret(ListGroupsCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+
+        Constructor<ListCmd> command = (Constructor<ListCmd>) interpret(c.getLs());
+        cmdHandler.handle(command.newInstance("",interpret(c.getGroups()),prompt));
     }
 
     @Override
@@ -215,6 +225,11 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
+    public void interpret(ListIDCommand c) {
+
+    }
+
+    @Override
     public float[] interpret(PosCommand c) {return new float[]{interpret(c.getPosfloat1()),interpret(c.getPosfloat2())};}
 
 
@@ -240,10 +255,12 @@ public class CommandVisitor implements Visitor{
     @Override
     public String interpret(Path c) {return c.getPath();}
 
-    @Override
-    public void interpret(ListIDCommand c) {
 
+    @Override
+    public Token interpret(All_Groups c) {
+        return c.getToken();
     }
+
 
     @Override
     public Constructor<? extends Cmd> interpret(TerminalCommand c) {
@@ -259,11 +276,7 @@ public class CommandVisitor implements Visitor{
                 case SCALE:
                     return ZoomCmd.class.getConstructor(GraphicObject.class, double.class);
                 case LS:
-                    return ListCmd.class.getConstructor();
-                case ALL:
-                    break;
-                case GROUPS:
-                    break;
+                    return ListCmd.class.getConstructor(String.class, Token.class,GraphicObjectCommandPrompt.class);
                 case GRP:
                     return GroupCmd.class.getConstructor();
                 case UNGRP:

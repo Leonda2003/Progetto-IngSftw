@@ -1,14 +1,15 @@
 package is.interpreterCommand.list;
 
+import is.interpreterCommand.terminal.All_Groups;
 import is.interpreterCommand.terminal.TerminalCommand;
 import is.visitor.Visitor;
 
 import java.lang.reflect.InvocationTargetException;
 
 public class ListAllCommand extends ListCommand{
-    TerminalCommand all;
+    All_Groups all;
 
-    public ListAllCommand(TerminalCommand ls, TerminalCommand all) {
+    public ListAllCommand(TerminalCommand ls, All_Groups all) {
         this.ls = ls;
         this.all = all;
     }
@@ -19,4 +20,12 @@ public class ListAllCommand extends ListCommand{
     }
 
 
+    public All_Groups getAll() {
+        return all;
+    }
+
+    @Override
+    public void accept(Visitor v) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        v.interpret(this);
+    }
 }

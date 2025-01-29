@@ -13,10 +13,7 @@ import is.interpreterCommand.move.MoveOffCommand;
 import is.interpreterCommand.perimeter.PerimeterAllCommand;
 import is.interpreterCommand.perimeter.PerimeterIDCommand;
 import is.interpreterCommand.perimeter.PerimeterTypeCommand;
-import is.interpreterCommand.terminal.ObjID;
-import is.interpreterCommand.terminal.Path;
-import is.interpreterCommand.terminal.Posfloat;
-import is.interpreterCommand.terminal.TerminalCommand;
+import is.interpreterCommand.terminal.*;
 import is.interpreterCommand.type.Circle;
 import is.interpreterCommand.type.Image;
 import is.interpreterCommand.type.Rectangle;
@@ -205,13 +202,13 @@ public class ConcreteFactoryParser extends FactoryParser{
 
         }else if(currentToken.equals(Token.ALL)){
 
-            TerminalCommand terminalCommand2 = createTerminal();
-            return new ListAllCommand(terminalCommand,terminalCommand2);
+            All_Groups allGroups = createAll_Groups();
+            return new ListAllCommand(terminalCommand,allGroups);
 
         }else if(currentToken.equals(Token.GROUPS)){
 
-            TerminalCommand terminalCommand2 = createTerminal();
-            return new ListGroupsCommand(terminalCommand,terminalCommand2);
+            All_Groups allGroups = createAll_Groups();
+            return new ListGroupsCommand(terminalCommand,allGroups);
 
         }else{
 
@@ -219,6 +216,7 @@ public class ConcreteFactoryParser extends FactoryParser{
             return new ListTypeCommand(terminalCommand,typeCommand);
         }
     }
+
 
     private ListIDCommand createListID() {
 
@@ -274,8 +272,16 @@ public class ConcreteFactoryParser extends FactoryParser{
             return path;
         }
         throw new SyntaxException("Insert a valid Path in quotes");
+    }
 
-
+    private All_Groups createAll_Groups() {
+        switch (currentToken){
+            case Token.ALL:
+            case Token.GROUPS:
+                currentToken = analyzer.nexToken();
+                return new All_Groups(currentToken);
+        }
+        throw new SyntaxException("Insert All or Groups");
     }
 
     private void expected(Token t) {

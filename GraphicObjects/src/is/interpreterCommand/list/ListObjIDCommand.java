@@ -15,9 +15,18 @@ public class ListObjIDCommand extends ListCommand{
         this.objID = objID;
     }
 
+    public ObjID getObjID() {
+        return objID;
+    }
+
     @Override
     public String toString() {
         return "ListCommand: "+ ls + objID;
+    }
+
+    @Override
+    public void accept(Visitor v) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        v.interpret(this);
     }
 
 

@@ -60,6 +60,15 @@ public enum Context {
         throw new SyntaxException("No graphic objects were found whit "+id);
     }
 
+    public HashMap<String,GraphicObject> getType(String type) {
+        if(inizialize()) {throw new SyntaxException("No graphic objects were found. Try initializing some.");}
+        if(cache.containsKey(type)) { return new HashMap<>(cache.get(type));}
+        throw new SyntaxException("No graphic objects were found whit type "+type);
+    }
+
+
+
+
     public HashMap<String,GraphicObject> All() {
         if(inizialize()) {throw new SyntaxException("No graphic objects were found. Try initializing some.");}
        return new HashMap<>(cache.get("All"));

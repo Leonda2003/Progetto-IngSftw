@@ -9,4 +9,7 @@ public abstract class ListCommand extends AbstractCommand {
     TerminalCommand ls;
 
 
+    public TerminalCommand getLs() {
+        return ls;
+    }
 }

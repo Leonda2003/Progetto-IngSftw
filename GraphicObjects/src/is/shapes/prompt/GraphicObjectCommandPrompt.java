@@ -32,7 +32,7 @@ public class GraphicObjectCommandPrompt extends JFrame {
         cmdHandler = cmdH;
         graphicObjectPanel = panel;
 
-        visitor = new CommandVisitor(graphicObjectPanel,cmdHandler);
+        visitor = new CommandVisitor(graphicObjectPanel,cmdHandler,this);
 
         setTitle("Command Prompt");
         setSize(600, 400);
