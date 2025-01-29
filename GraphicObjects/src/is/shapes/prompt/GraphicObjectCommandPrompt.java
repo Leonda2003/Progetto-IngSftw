@@ -25,7 +25,6 @@ public class GraphicObjectCommandPrompt extends JFrame {
     private FactoryParser parser;
     private Visitor visitor;
     private final CmdHandler cmdHandler;
-
     private final GraphicObjectPanel graphicObjectPanel;
 
     public GraphicObjectCommandPrompt(CmdHandler cmdH,GraphicObjectPanel panel) {
@@ -68,8 +67,9 @@ public class GraphicObjectCommandPrompt extends JFrame {
             StringReader sr = new StringReader(command);
             parser = new ConcreteFactoryParser(sr);
             Command realCommand = parser.getCommandToInterpret();
-            outputArea.append(realCommand.accept(visitor)+"\n");
-        }catch (SyntaxException e){outputArea.append(e.toString());} catch (InvocationTargetException e) {
+            realCommand.accept(visitor);
+        }catch (SyntaxException e){outputArea.append(e.toString()+"\n");}
+        catch (InvocationTargetException e) {
             throw new RuntimeException(e);
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
@@ -78,6 +78,10 @@ public class GraphicObjectCommandPrompt extends JFrame {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void write(String s){
+        outputArea.append(s+"\n");
     }
 
     public static void main(String[] args) {

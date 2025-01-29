@@ -48,7 +48,7 @@ public class CommandVisitor implements Visitor{
 
 
     @Override
-    public String interpret(CreateCommand c) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(CreateCommand c) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 
         float[] pos = interpret(c.getPos());
         Point2D position = new Point2D.Float(pos[0],pos[1]);
@@ -75,26 +75,24 @@ public class CommandVisitor implements Visitor{
             case "Image":
 
                 Constructor<ImageObject> constructorI = (Constructor<ImageObject>) wrapTypeConstr.getConstructor();
-                ImageIcon imageIcon = new ImageIcon(TestGraphics2.class.getResource(wrapTypeConstr.getParam()));
+                ImageIcon imageIcon = new ImageIcon(wrapTypeConstr.getParam());
                 go = constructorI.newInstance(imageIcon,position);
                 break;
 
             default:
                 throw new IllegalStateException("Unexpected value: " + wrapTypeConstr.getType());
         }
-
-        int ret = Context.CONTEXT.addGrapichObject(go);
         cmdHandler.handle(command.newInstance(panel,go));
-        return "new "+go.getType()+" object created with id"+ret;
     }
 
+
+
     @Override
-    public String interpret(RemoveCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(RemoveCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+        String id = interpret(c.getObjID());
+        Context.CONTEXT.NotContainShape(id);
         Constructor<RemoveObjectCmd> command = (Constructor<RemoveObjectCmd>) interpret(c.getDel());
-        GraphicObject go = Context.CONTEXT.remove(interpret(c.getObjID()));
-        if(go == null) return "No object with the specified ID found";
-        cmdHandler.handle(command.newInstance(panel,go));
-        return null;
+        cmdHandler.handle(command.newInstance(panel,id));
     }
 
     @Override
@@ -238,7 +236,7 @@ public class CommandVisitor implements Visitor{
                 case NEW:
                     return NewObjectCmd.class.getConstructor(GraphicObjectPanel.class,GraphicObject.class);
                 case DEL:
-                    return RemoveObjectCmd.class.getConstructor(GraphicObjectPanel.class,GraphicObject.class);
+                    return RemoveObjectCmd.class.getConstructor(GraphicObjectPanel.class,String.class);
                 case MV:
                     return MoveCmd.class.getConstructor();
                 case MVOFF:

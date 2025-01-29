@@ -7,7 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 public abstract class AbstractCommand implements Command{
 
     @Override
-    public String accept(Visitor v) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        return null;
+    public void accept(Visitor v) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+
     }
 }

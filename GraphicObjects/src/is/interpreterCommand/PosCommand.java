@@ -13,9 +13,8 @@ public class PosCommand extends AbstractCommand{
         this.posfloat2 = posfloat2;
     }
 
-    public String accept(Visitor v){
+    public void accept(Visitor v){
         v.interpret(this);
-        return null;
     }
 
     @Override

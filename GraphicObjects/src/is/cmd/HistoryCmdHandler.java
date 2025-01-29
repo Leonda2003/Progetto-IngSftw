@@ -34,6 +34,8 @@ public class HistoryCmdHandler implements CmdHandler {
 			redoList.clear();
 	}
 
+
+
 	public void redo() {
 		if (redoList.size() > 0) {
 			Cmd redoCmd = redoList.removeFirst();

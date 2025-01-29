@@ -3,6 +3,7 @@ package is.shapes.specificCmd;
 import is.cmd.Cmd;
 import is.shapes.model.GraphicObject;
 import is.shapes.view.GraphicObjectPanel;
+import is.visitor.Context;
 
 public class NewObjectCmd implements Cmd {
 
@@ -16,12 +17,14 @@ public class NewObjectCmd implements Cmd {
 
 	@Override
 	public boolean doIt() {
+		Context.CONTEXT.addGrapichObject(go);
 		panel.add(go);
 		return true;
 	}
 
 	@Override
 	public boolean undoIt() {
+		Context.CONTEXT.removeLastAdded();
 		panel.remove(go);
 		return true;
 	}

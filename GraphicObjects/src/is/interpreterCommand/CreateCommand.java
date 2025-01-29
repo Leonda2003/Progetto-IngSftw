@@ -18,8 +18,8 @@ public class CreateCommand extends AbstractCommand{
         this.pos = pos;
     }
 
-    public String accept(Visitor v) throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
-        return v.interpret(this);
+    public void accept(Visitor v) throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+        v.interpret(this);
     }
 
 

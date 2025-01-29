@@ -274,7 +274,7 @@ public class ConcreteFactoryParser extends FactoryParser{
             currentToken = analyzer.nexToken();
             return path;
         }
-        throw new SyntaxException("Insert a valid path starting with 'C:/' or '/' ");
+        throw new SyntaxException("Insert a valid Path in quotes");
 
 
     }

@@ -23,8 +23,8 @@ import java.lang.reflect.InvocationTargetException;
 
 public interface Visitor {
 
-    String interpret(CreateCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException;
-    String interpret(RemoveCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
+    void interpret(CreateCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException;
+    void interpret(RemoveCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
     void interpret(MoveCommand c);
     void interpret(MoveOffCommand c);
     void interpret(ScaleCommand c);

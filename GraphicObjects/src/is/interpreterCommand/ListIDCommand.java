@@ -17,9 +17,8 @@ public class ListIDCommand extends AbstractCommand{
         listObjID.add(objID);
     }
 
-    public String accept(Visitor v){
+    public void accept(Visitor v){
         v.interpret(this);
-        return null;
     }
 
     public String toString() {

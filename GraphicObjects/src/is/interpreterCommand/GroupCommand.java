@@ -14,9 +14,8 @@ public class GroupCommand extends AbstractCommand{
         this.listIDCommand = listIDCommand;
     }
 
-    public String accept(Visitor v){
+    public void accept(Visitor v){
         v.interpret(this);
-        return null;
     }
 
     public String toString() {

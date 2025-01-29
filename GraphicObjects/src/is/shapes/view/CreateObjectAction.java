@@ -31,13 +31,8 @@ public class CreateObjectAction extends AbstractAction {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		GraphicObject go = prototype.clone();
-		Context.CONTEXT.addGrapichObject(go);
-
-
 		ch.handle(new NewObjectCmd(panel, go));
-
 	}
 
 }

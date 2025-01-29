@@ -1,6 +1,7 @@
 package is;
 
 import is.cmd.HistoryCmdHandler;
+import is.interpreterCommand.Command;
 import is.shapes.controller.GraphicObjectController;
 import is.shapes.model.AbstractGraphicObject;
 import is.shapes.model.CircleObject;
@@ -8,6 +9,7 @@ import is.shapes.model.ImageObject;
 import is.shapes.model.RectangleObject;
 import is.shapes.prompt.GraphicObjectCommandPrompt;
 import is.shapes.view.*;
+import is.visitor.Context;
 
 import javax.swing.*;
 import java.awt.*;
@@ -68,6 +70,7 @@ public class TestGraphics3 {
         final GraphicObjectController goc = new GraphicObjectController(handler);
         final GraphicObjectCommandPrompt gocp = new GraphicObjectCommandPrompt(handler,gpanel);
         gocp.setVisible(true);
+        Context.CONTEXT.setGraphicObjectPanel(gocp);
 
         gpanel.addMouseListener(new MouseAdapter() {
 

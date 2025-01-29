@@ -16,8 +16,8 @@ public class RemoveCommand extends AbstractCommand{
         this.objID = objID;
     }
 
-    public String accept(Visitor v) throws InvocationTargetException, InstantiationException, IllegalAccessException {
-        return v.interpret(this);
+    public void accept(Visitor v) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+        v.interpret(this);
     }
 
     @Override

@@ -20,11 +20,14 @@ public class LexicalAnalyzer {
         input.wordChars('A', 'Z');
         input.wordChars('/','/');
         input.wordChars(':', ':');
+        input.wordChars('.', '.');
         input.parseNumbers();
         input.whitespaceChars('\u0000', ' ');
         input.ordinaryChar('(');
         input.ordinaryChar(')');
         input.ordinaryChar(',');
+        input.quoteChar('"');
+
     }
 
     /*
@@ -77,8 +80,6 @@ public class LexicalAnalyzer {
                         terminalToken = Token.RECTANGLE;
                     else if (input.sval.equalsIgnoreCase("img"))
                         terminalToken = Token.IMG;
-                    else if (input.sval.startsWith("C:/") || input.sval.startsWith("/"))
-                        terminalToken = Token.PATH;
                     else if (input.sval.startsWith("id") && isInteger(input.sval.substring(2)))
                         terminalToken = Token.OBJ_ID;
                     else
@@ -86,6 +87,9 @@ public class LexicalAnalyzer {
                     break;
                 case StreamTokenizer.TT_NUMBER:
                     terminalToken = Token.POSFLOAT;
+                    break;
+                case '"':
+                    terminalToken = Token.PATH;
                     break;
                 case '(':
                     terminalToken = Token.LEFT_PAR;
@@ -95,9 +99,6 @@ public class LexicalAnalyzer {
                     break;
                 case ')':
                     terminalToken = Token.RIGHT_PAR;
-                    break;
-                case '-':
-                    terminalToken = Token.NOT_VALID_CHAR;
                     break;
                 default:
                     terminalToken = Token.NOT_VALID_CHAR;
