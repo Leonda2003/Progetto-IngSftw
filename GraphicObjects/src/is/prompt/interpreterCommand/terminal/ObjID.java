@@ -1,0 +1,21 @@
+package is.prompt.interpreterCommand.terminal;
+
+import is.prompt.parser.analyzer.Token;
+
+public class ObjID extends TerminalCommand{
+
+    private String ID;
+    public ObjID(Token token, String ID) {
+        super(token);
+        this.ID = ID;
+    }
+
+    @Override
+    public String toString() {
+        return ID+" ";
+    }
+
+    public String getID() {
+        return ID;
+    }
+}

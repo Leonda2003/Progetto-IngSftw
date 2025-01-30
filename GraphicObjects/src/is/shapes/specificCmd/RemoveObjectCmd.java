@@ -3,9 +3,7 @@ package is.shapes.specificCmd;
 import is.cmd.Cmd;
 import is.shapes.model.GraphicObject;
 import is.shapes.view.GraphicObjectPanel;
-import is.visitor.Context;
-
-import java.awt.geom.Point2D;
+import is.prompt.visitor.Context;
 
 public class RemoveObjectCmd implements Cmd {
     private final GraphicObjectPanel panel;

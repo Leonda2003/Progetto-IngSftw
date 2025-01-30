@@ -3,7 +3,7 @@ package is.shapes.view;
 import is.shapes.model.GraphicEvent;
 import is.shapes.model.GraphicObject;
 import is.shapes.model.GraphicObjectListener;
-import is.visitor.Context;
+import is.prompt.visitor.Context;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,7 +13,6 @@ import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.swing.JComponent;
 

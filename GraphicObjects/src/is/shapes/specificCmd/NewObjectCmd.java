@@ -3,7 +3,7 @@ package is.shapes.specificCmd;
 import is.cmd.Cmd;
 import is.shapes.model.GraphicObject;
 import is.shapes.view.GraphicObjectPanel;
-import is.visitor.Context;
+import is.prompt.visitor.Context;
 
 public class NewObjectCmd implements Cmd {
 

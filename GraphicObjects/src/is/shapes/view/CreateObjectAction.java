@@ -4,7 +4,6 @@ import is.cmd.CmdHandler;
 import is.shapes.model.AbstractGraphicObject;
 import is.shapes.model.GraphicObject;
 import is.shapes.specificCmd.NewObjectCmd;
-import is.visitor.Context;
 
 import java.awt.event.ActionEvent;
 

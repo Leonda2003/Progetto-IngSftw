@@ -44,8 +44,8 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 	}
 
 	@Override
-	public String properties() {
-		return String.format ("[%s] pos=[%f,%f] dim=[%f,%f]%n", this.getType(), this
+	public String properties(String id) {
+		return String.format ("[%s] [%s] pos=[%f,%f] dim=[%f,%f]%n",id, this.getType(), this
 						.getPosition().getX(), this.getPosition().getY(), this
 						.getDimension().getWidth(),
 				this.getDimension().getHeight());

@@ -29,5 +29,5 @@ public interface GraphicObject {
 
 	String getType();
 
-	public String properties();
+	public String properties(String id);
 }

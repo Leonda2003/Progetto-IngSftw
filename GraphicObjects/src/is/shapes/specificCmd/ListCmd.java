@@ -1,11 +1,10 @@
 package is.shapes.specificCmd;
 
-import is.analyzer.Token;
+import is.prompt.parser.analyzer.Token;
 import is.cmd.Cmd;
 import is.shapes.model.GraphicObject;
-import is.shapes.prompt.GraphicObjectCommandPrompt;
-import is.shapes.view.GraphicObjectPanel;
-import is.visitor.Context;
+import is.prompt.GraphicObjectCommandPrompt;
+import is.prompt.visitor.Context;
 
 import java.util.HashMap;
 
@@ -30,7 +29,7 @@ public class ListCmd implements Cmd {
         StringBuilder sb = new StringBuilder();
         switch (token){
             case OBJ_ID:
-                prompt.write("id: "+id+" "+Context.CONTEXT.getGraphicObject(id).properties());
+                prompt.write(Context.CONTEXT.getGraphicObject(id).properties(id));
                 return false;
             case CIRCLE:
                 objectHashMap=Context.CONTEXT.getType("Circle");
@@ -55,7 +54,7 @@ public class ListCmd implements Cmd {
         }
         for(String id : objectHashMap.keySet()){
             GraphicObject g = objectHashMap.get(id);
-            sb.append("id "+id+" "+g.properties());
+            sb.append(g.properties(id));
             sb.append("\n");
         }
         prompt.write(sb.toString());

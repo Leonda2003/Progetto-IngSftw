@@ -1,15 +1,14 @@
 package is;
 
 import is.cmd.HistoryCmdHandler;
-import is.interpreterCommand.Command;
 import is.shapes.controller.GraphicObjectController;
 import is.shapes.model.AbstractGraphicObject;
 import is.shapes.model.CircleObject;
 import is.shapes.model.ImageObject;
 import is.shapes.model.RectangleObject;
-import is.shapes.prompt.GraphicObjectCommandPrompt;
+import is.prompt.GraphicObjectCommandPrompt;
 import is.shapes.view.*;
-import is.visitor.Context;
+import is.prompt.visitor.Context;
 
 import javax.swing.*;
 import java.awt.*;
