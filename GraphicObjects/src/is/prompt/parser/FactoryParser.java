@@ -1,6 +1,6 @@
 package is.prompt.parser;
 
-import is.prompt.interpreterCommand.Command;
+import is.prompt.grammarCommand.Command;
 
 public abstract class FactoryParser {
 

@@ -4,27 +4,27 @@ import is.prompt.parser.analyzer.Token;
 import is.cmd.Cmd;
 import is.cmd.CmdHandler;
 import is.exception.SyntaxException;
-import is.prompt.interpreterCommand.*;
-import is.prompt.interpreterCommand.area.AreaAllCommand;
-import is.prompt.interpreterCommand.area.AreaIDCommand;
-import is.prompt.interpreterCommand.area.AreaTypeCommand;
-import is.prompt.interpreterCommand.list.*;
-import is.prompt.interpreterCommand.move.MoveCommand;
-import is.prompt.interpreterCommand.move.MoveOffCommand;
-import is.prompt.interpreterCommand.perimeter.PerimeterAllCommand;
-import is.prompt.interpreterCommand.perimeter.PerimeterIDCommand;
-import is.prompt.interpreterCommand.perimeter.PerimeterTypeCommand;
-import is.prompt.interpreterCommand.terminal.*;
-import is.prompt.interpreterCommand.type.TypeCommand;
-import is.prompt.interpreterCommand.typeconstr.CircleCommand;
-import is.prompt.interpreterCommand.typeconstr.ImageCommand;
-import is.prompt.interpreterCommand.typeconstr.RectangleCommand;
-import is.prompt.interpreterCommand.typeconstr.TypeconstrCommand;
+import is.prompt.grammarCommand.*;
+import is.prompt.grammarCommand.area.AreaAllCommand;
+import is.prompt.grammarCommand.area.AreaIDCommand;
+import is.prompt.grammarCommand.area.AreaTypeCommand;
+import is.prompt.grammarCommand.list.*;
+import is.prompt.grammarCommand.move.MoveCommand;
+import is.prompt.grammarCommand.move.MoveOffCommand;
+import is.prompt.grammarCommand.perimeter.PerimeterAllCommand;
+import is.prompt.grammarCommand.perimeter.PerimeterIDCommand;
+import is.prompt.grammarCommand.perimeter.PerimeterTypeCommand;
+import is.prompt.grammarCommand.terminal.*;
+import is.prompt.grammarCommand.type.TypeCommand;
+import is.prompt.grammarCommand.typeconstr.CircleCommand;
+import is.prompt.grammarCommand.typeconstr.ImageCommand;
+import is.prompt.grammarCommand.typeconstr.RectangleCommand;
+import is.prompt.grammarCommand.typeconstr.TypeconstrCommand;
 import is.shapes.model.CircleObject;
 import is.shapes.model.GraphicObject;
 import is.shapes.model.ImageObject;
 import is.shapes.model.RectangleObject;
-import is.prompt.GraphicObjectCommandPrompt;
+import is.prompt.GraphicObjectPromptPanel;
 import is.shapes.specificCmd.*;
 import is.shapes.view.GraphicObjectPanel;
 
@@ -35,15 +35,14 @@ import java.lang.reflect.InvocationTargetException;
 
 public class CommandVisitor implements Visitor{
 
-    private final GraphicObjectPanel panel ;
 
-    private final GraphicObjectCommandPrompt prompt;
-
+    private final GraphicObjectPromptPanel prompt;
     private final CmdHandler cmdHandler;
+    private final GraphicObjectPanel panel;
 
-    public CommandVisitor(GraphicObjectPanel panel,CmdHandler cmdHandler,GraphicObjectCommandPrompt prompt){
+    public CommandVisitor(CmdHandler cmdHandler, GraphicObjectPromptPanel prompt){
         this.cmdHandler = cmdHandler;
-        this.panel = panel;
+        this.panel = Context.CONTEXT.getGraphicObjectPanel();
         this.prompt = prompt;
     }
 
@@ -275,7 +274,7 @@ public class CommandVisitor implements Visitor{
                 case SCALE:
                     return ZoomCmd.class.getConstructor(GraphicObject.class, double.class);
                 case LS:
-                    return ListCmd.class.getConstructor(String.class, Token.class,GraphicObjectCommandPrompt.class);
+                    return ListCmd.class.getConstructor(String.class, Token.class, GraphicObjectPromptPanel.class);
                 case GRP:
                     return GroupCmd.class.getConstructor();
                 case UNGRP:

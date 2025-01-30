@@ -1,6 +1,7 @@
 package is.shapes.view;
 
 import is.cmd.CmdHandler;
+import is.prompt.visitor.Context;
 import is.shapes.model.AbstractGraphicObject;
 import is.shapes.model.GraphicObject;
 import is.shapes.specificCmd.NewObjectCmd;

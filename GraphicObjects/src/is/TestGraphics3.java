@@ -6,10 +6,8 @@ import is.shapes.model.AbstractGraphicObject;
 import is.shapes.model.CircleObject;
 import is.shapes.model.ImageObject;
 import is.shapes.model.RectangleObject;
-import is.prompt.GraphicObjectCommandPrompt;
+import is.prompt.GraphicObjectPromptPanel;
 import is.shapes.view.*;
-import is.prompt.visitor.Context;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -67,9 +65,9 @@ public class TestGraphics3 {
         toolbar.add(imgButton);
 
         final GraphicObjectController goc = new GraphicObjectController(handler);
-        final GraphicObjectCommandPrompt gocp = new GraphicObjectCommandPrompt(handler,gpanel);
+        final GraphicObjectPromptPanel gocp = new GraphicObjectPromptPanel(handler,gpanel);
         gocp.setVisible(true);
-        Context.CONTEXT.setGraphicObjectPanel(gocp);
+
 
         gpanel.addMouseListener(new MouseAdapter() {
 

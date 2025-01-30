@@ -27,13 +27,13 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 	 * @directed true
 	 */
 
-	private final List<GraphicObject> objects = new LinkedList<>();
 
 	private HashMap<String,GraphicObject> objectsWithID = Context.CONTEXT.getAllShape();
 
 
 	public GraphicObjectPanel() {
 		setBackground(Color.WHITE);
+		Context.CONTEXT.setGraphicPanel(this);
 	}
 
 	@Override
@@ -75,8 +75,6 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 
 	@Override
 	protected void paintComponent(Graphics g) {
-
-
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		for (String id : objectsWithID.keySet()) {
@@ -84,7 +82,6 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 			GraphicObjectView view = GraphicObjectViewFactory.FACTORY.createView(go);
 			view.drawGraphicObject(go, g2);
 		}
-
 	}
 
 	public void add(GraphicObject go) {

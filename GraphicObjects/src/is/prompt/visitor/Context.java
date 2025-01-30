@@ -3,7 +3,8 @@ package is.prompt.visitor;
 import is.exception.SyntaxException;
 import is.shapes.model.GraphicObject;
 import is.shapes.model.GroupObject;
-import is.prompt.GraphicObjectCommandPrompt;
+import is.prompt.GraphicObjectPromptPanel;
+import is.shapes.view.GraphicObjectPanel;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -12,12 +13,30 @@ public enum Context {
 
     CONTEXT;
     private final AtomicInteger ID=new AtomicInteger(0);
-    private GraphicObjectCommandPrompt graphicObjectCommandPrompt=null;
+    private GraphicObjectPromptPanel graphicObjectPromptPanel;
+    private boolean promptPanel = true;
+    private GraphicObjectPanel graphicObjectPanel;
+    private boolean graphicPanel = true;
     private final Map<String,HashMap<String,GraphicObject>> cache = Collections.synchronizedMap(new HashMap<>());
 
-    public void setGraphicObjectPanel(GraphicObjectCommandPrompt graphicObjectCommandPrompt) {
-        this.graphicObjectCommandPrompt = graphicObjectCommandPrompt;
+    public void setGraphicObjectPromptPanel(GraphicObjectPromptPanel graphicObjectPromptPanel) {
+        if(promptPanel){
+            this.graphicObjectPromptPanel = graphicObjectPromptPanel;
+            this.promptPanel=false;
+        }
     }
+
+    public void setGraphicPanel(GraphicObjectPanel graphicObjectPanel) {
+        if(graphicPanel){
+            this.graphicObjectPanel = graphicObjectPanel;
+            graphicPanel = false;
+        }
+    }
+
+    protected GraphicObjectPanel getGraphicObjectPanel(){
+        return graphicObjectPanel;
+    }
+
 
     public int addGrapichObject(GraphicObject g){
         inizialize();
@@ -25,7 +44,7 @@ public enum Context {
         cache.get(g.getType()).put("id"+ID,g);
         if(write()){
             String s = "new "+g.getType()+" object created with id"+ID;
-            graphicObjectCommandPrompt.write(s);
+            graphicObjectPromptPanel.write(s);
         }
         return ID.intValue();
     }
@@ -44,7 +63,7 @@ public enum Context {
             cache.get("All").remove(id,g);
             if(write()){
                 String s = "removed the "+g.getType()+" with "+id;
-                graphicObjectCommandPrompt.write(s);
+                graphicObjectPromptPanel.write(s);
             }
         }
         return g;
@@ -109,13 +128,13 @@ public enum Context {
         cache.get(go.getType()).put(id,go);
         if(write()){
             String s = "added again the "+go.getType()+" with "+id;
-            graphicObjectCommandPrompt.write(s);
+            graphicObjectPromptPanel.write(s);
         }
         return go;
     }
 
     private boolean write(){
-        return (graphicObjectCommandPrompt!=null);
+        return (graphicObjectPromptPanel !=null);
     }
 
 

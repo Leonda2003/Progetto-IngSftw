@@ -3,25 +3,32 @@ package is.prompt.parser;
 import is.prompt.parser.analyzer.LexicalAnalyzer;
 import is.prompt.parser.analyzer.Token;
 import is.exception.SyntaxException;
-import is.prompt.interpreterCommand.*;
-import is.prompt.interpreterCommand.area.AreaAllCommand;
-import is.prompt.interpreterCommand.area.AreaIDCommand;
-import is.prompt.interpreterCommand.area.AreaTypeCommand;
-import is.prompt.interpreterCommand.list.*;
-import is.prompt.interpreterCommand.move.MoveCommand;
-import is.prompt.interpreterCommand.move.MoveOffCommand;
-import is.prompt.interpreterCommand.perimeter.PerimeterAllCommand;
-import is.prompt.interpreterCommand.perimeter.PerimeterIDCommand;
-import is.prompt.interpreterCommand.perimeter.PerimeterTypeCommand;
-import is.prompt.interpreterCommand.terminal.*;
-import is.prompt.interpreterCommand.type.Circle;
-import is.prompt.interpreterCommand.type.Image;
-import is.prompt.interpreterCommand.type.Rectangle;
-import is.prompt.interpreterCommand.type.TypeCommand;
-import is.prompt.interpreterCommand.typeconstr.CircleCommand;
-import is.prompt.interpreterCommand.typeconstr.ImageCommand;
-import is.prompt.interpreterCommand.typeconstr.RectangleCommand;
-import is.prompt.interpreterCommand.typeconstr.TypeconstrCommand;
+import is.prompt.grammarCommand.*;
+import is.prompt.grammarCommand.area.AreaAllCommand;
+import is.prompt.grammarCommand.area.AreaIDCommand;
+import is.prompt.grammarCommand.area.AreaTypeCommand;
+import is.prompt.grammarCommand.list.*;
+import is.prompt.grammarCommand.move.MoveCommand;
+import is.prompt.grammarCommand.move.MoveOffCommand;
+import is.prompt.grammarCommand.perimeter.PerimeterAllCommand;
+import is.prompt.grammarCommand.perimeter.PerimeterIDCommand;
+import is.prompt.grammarCommand.perimeter.PerimeterTypeCommand;
+import is.prompt.grammarCommand.terminal.*;
+import is.prompt.grammarCommand.type.Circle;
+import is.prompt.grammarCommand.type.Image;
+import is.prompt.grammarCommand.type.Rectangle;
+import is.prompt.grammarCommand.type.TypeCommand;
+import is.prompt.grammarCommand.typeconstr.CircleCommand;
+import is.prompt.grammarCommand.typeconstr.ImageCommand;
+import is.prompt.grammarCommand.typeconstr.RectangleCommand;
+import is.prompt.grammarCommand.typeconstr.TypeconstrCommand;
+import is.prompt.parser.ConcreteFactoryParser;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.Reader;
 import java.io.StringReader;
@@ -278,8 +285,9 @@ public class ConcreteFactoryParser extends FactoryParser{
         switch (currentToken){
             case Token.ALL:
             case Token.GROUPS:
+                Token t = currentToken;
                 currentToken = analyzer.nexToken();
-                return new All_Groups(currentToken);
+                return new All_Groups(t);
         }
         throw new SyntaxException("Insert All or Groups");
     }
@@ -291,23 +299,6 @@ public class ConcreteFactoryParser extends FactoryParser{
         }
         currentToken = analyzer.nexToken();
     }
-
-
-    public static void main(String[] args) {
-
-
-        while(true){
-            Scanner sc = new Scanner(System.in);
-            System.out.print("Fornisci la combinazione: ");
-            String combinazione = sc.nextLine();
-            //sc.close();
-
-            StringReader sr = new StringReader(combinazione);
-            FactoryParser parser = new ConcreteFactoryParser(sr);
-            System.out.println(parser.getCommandToInterpret());
-        }
-    }
-
 
     @Override
     public Command getCommandToInterpret() {
