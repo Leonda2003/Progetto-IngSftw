@@ -25,7 +25,7 @@ public class UngroupCmd implements Cmd {
 
     @Override
     public boolean undoIt() {
-        C
+        Context.CONTEXT.removeLastAddedGroup();
         return true;
     }
 }
