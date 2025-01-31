@@ -1,6 +1,7 @@
 package is.shapes.model;
 
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -8,6 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class AbstractGraphicObject implements GraphicObject, Cloneable {
 
 
+	private HashMap<String,GroupObject> group = new HashMap<>();
 
 	private  List<GraphicObjectListener> listeners = new LinkedList<>();
 
@@ -31,6 +33,25 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 			gol.graphicChanged(e);
 	}
 
+	public void addGroup(String id,GroupObject group){
+		this.group.put(id,group);
+	}
+
+	public void removeGroup(String id,GroupObject group){
+		this.group.remove(id,group);
+	}
+
+	@Override
+	public void removeFromGroup(String objid){
+		for(String id :group.keySet()){
+			group.get(id).removeMember(objid);
+		}
+	}
+
+	@Override
+	public void readToGroup(String id){
+		for(GroupObject group : group.values()) group.addMember(id,this);
+	}
 
 	@Override
 	public GraphicObject clone() {

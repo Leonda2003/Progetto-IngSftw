@@ -15,9 +15,11 @@ import is.prompt.grammarCommand.perimeter.PerimeterTypeCommand;
 import is.prompt.grammarCommand.terminal.*;
 import is.prompt.grammarCommand.type.TypeCommand;
 import is.prompt.grammarCommand.typeconstr.TypeconstrCommand;
+import is.shapes.model.GraphicObject;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
 
 public interface Visitor {
 
@@ -30,8 +32,8 @@ public interface Visitor {
     void interpret(ListTypeCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
     void interpret(ListAllCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
     void interpret(ListGroupsCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
-    void interpret(GroupCommand c);
-    void interpret(UngroupCommand c);
+    void interpret(GroupCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
+    void interpret(UngroupCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
     void interpret(AreaIDCommand c);
     void interpret(AreaTypeCommand c);
     void interpret(AreaAllCommand c);
@@ -44,7 +46,7 @@ public interface Visitor {
     float interpret(Posfloat c);
     String interpret(ObjID c);
     String interpret(Path c);
-    void interpret(ListIDCommand c);
+    HashMap<String, GraphicObject> interpret(ListIDCommand c);
     Token interpret(All_Groups c);
     Constructor<? extends Cmd> interpret(TerminalCommand c);
 }

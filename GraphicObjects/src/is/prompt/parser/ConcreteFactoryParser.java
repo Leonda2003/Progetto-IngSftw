@@ -110,7 +110,7 @@ public class ConcreteFactoryParser extends FactoryParser{
             return createPerimeter(terminalCommand);
         }
         String word = analyzer.getWord();
-        throw new SyntaxException("No commands found that start like this \n"+
+        throw new SyntaxException("No commands found that start like this: "+word+"\n"+
                                    "try one of new-del-mv-mvoff-scale-ls-grp-ungrp-area-perimeter");
 
     }

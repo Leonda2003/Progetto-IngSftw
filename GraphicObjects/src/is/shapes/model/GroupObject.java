@@ -4,29 +4,44 @@ import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class GroupObject extends AbstractGraphicObject{
 
-    List<GraphicObject> group=new ArrayList<>();
+    private HashMap<String,GraphicObject> group;
 
-    GroupObject(AbstractGraphicObject... graphicObjects){
-        Collections.addAll(this.group, graphicObjects);
+    public GroupObject(HashMap<String,GraphicObject> group){
+        this.group = group;
     }
 
-    public List<AbstractGraphicObject> list() {
-        return null;
+    public void notifyGroup(String id) {
+        for (GraphicObject g : group.values()){
+            g.addGroup(id,this);
+        }
     }
 
-    public boolean ungroup(GraphicObject g) {return group.remove(g);}
+    public HashMap<String,GraphicObject> getGroup(){
+        return new HashMap<>(group);
+    }
 
-    public void ungroupAll(GraphicObject g) {group.clear();}
+    public void removeMember(String objid){
+        group.remove(objid);
+    }
 
+    public void addMember(String id, GraphicObject g){
+        group.put(id,g);
+    }
 
+    public void ungroup(String id) {
+        for(GraphicObject g : group.values()){
+            g.removeFromGroup(id);
+        }
+    }
 
     @Override
     public void moveTo(Point2D p) {
-        for(GraphicObject go : group){
+        for(GraphicObject go : group.values()){
             go.moveTo(p);
         }
 
@@ -34,7 +49,7 @@ public class GroupObject extends AbstractGraphicObject{
 
     @Override
     public void moveTo(double x, double y) {
-        for(GraphicObject go : group){
+        for(GraphicObject go : group.values()){
             go.moveTo(x,y);
         }
     }
@@ -51,7 +66,7 @@ public class GroupObject extends AbstractGraphicObject{
 
     @Override
     public void scale(double factor) {
-        for(GraphicObject go : group){
+        for(GraphicObject go : group.values()){
             go.scale(factor);
         }
 
@@ -75,5 +90,19 @@ public class GroupObject extends AbstractGraphicObject{
     @Override
     public String getType() {
         return "Group";
+    }
+
+    @Override
+    public String properties(String id) {
+        String info = String.format ("[%s] [%s] dim=[%d]%n",id, this.getType(),this.group.size()) ;
+        StringBuilder sb = new StringBuilder();
+        sb.append(info);
+        for(String objid: group.keySet()){
+            GraphicObject g = group.get(objid);
+
+            sb.append("\t"+g.properties(objid));
+        }
+        sb.append("\n");
+        return sb.toString();
     }
 }

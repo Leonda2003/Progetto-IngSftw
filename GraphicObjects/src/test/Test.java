@@ -31,7 +31,7 @@ public class Test {
     @ParameterizedTest
     @ValueSource(strings={"new circle (5.0) (3.1,4.5)", "new img (\"./pippo.png\") (6.1,4.6)", "del id1", "mv id1 (5.9,8.2)", "mvoff id1 (5.9,8.2)",
             "scale id1 2.0", "ls id1", "ls circle", "ls all", "ls groups", "grp id1, id2, id3", "ungrp id3", "area id1", "perimeter rectangle",
-            "area all"})
+            "area all","grp id1,id2,id3"})
     void testParser(String command) {
         Reader reader = new StringReader(command);
         // Passa il Reader al costruttore della classe ConcreteFactoryParser
@@ -43,7 +43,7 @@ public class Test {
     @ParameterizedTest
     @ValueSource(strings={"new circle (5.0) (3.1,4.5)", "new img (\"./pippo.png\") (6.1,4.6)", "del id1", "mv id1 (5.9,8.2)", "mvoff id1 (5.9,8.2)",
             "scale id1 2.0", "ls id1", "ls circle", "ls all", "ls groups", "grp id1, id2, id3", "ungrp id3", "area id1", "perimeter rectangle",
-            "area all"})
+            "area all","grp id1,id2,id3"})
     void testGraphic(String command) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         JFrame f = new JFrame();
 

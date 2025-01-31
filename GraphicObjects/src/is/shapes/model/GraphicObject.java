@@ -29,5 +29,13 @@ public interface GraphicObject {
 
 	String getType();
 
-	public String properties(String id);
+	String properties(String id);
+
+	void addGroup(String id,GroupObject group);
+
+	void removeGroup(String id,GroupObject group);
+
+	void removeFromGroup(String objid);
+
+	void readToGroup(String id);
 }

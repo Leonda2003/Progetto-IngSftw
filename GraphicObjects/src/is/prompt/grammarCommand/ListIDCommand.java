@@ -35,5 +35,7 @@ public class ListIDCommand extends AbstractCommand{
 
     }
 
-
+    public List<ObjID> getListObjID() {
+        return listObjID;
+    }
 }

@@ -61,7 +61,7 @@ public class GraphicObjectPromptPanel extends JComponent {
                         String command = outputArea.getText(startPosition(), endPosition()-startPosition());
                         processCommand(command);
                         lastLineIndex = outputArea.getLineCount() - 1;
-                        outputArea.setCaretPosition(startPosition()+1);
+                        outputArea.setCaretPosition(startPosition());
 
                     } else if ((Character.isLetterOrDigit(c) || Character.isWhitespace(c)) || isOKSymbol(c)) {
                         e.consume();
@@ -146,7 +146,7 @@ public class GraphicObjectPromptPanel extends JComponent {
     private void processCommand(String command){
         try{
             index = 0;
-            outputArea.append("\n");
+            outputArea.append("\n\n");
             if( history.size()==1 || !(history.get(1).equals(command.trim()))){
                 history.removeFirst();
                 history.addFirst(command.trim());
@@ -156,15 +156,15 @@ public class GraphicObjectPromptPanel extends JComponent {
             parser = new ConcreteFactoryParser(sr);
             Command realCommand = parser.getCommandToInterpret();
             realCommand.accept(visitor);
-            outputArea.append("\n");
-            outputArea.append(prompt);
 
 
         } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
             outputArea.append(offset+e +"\n");
             outputArea.append(prompt);
+            e.printStackTrace();
             throw new RuntimeException(e);
         } catch ( Exception e){
+            e.printStackTrace();
             outputArea.append(offset+e +"\n");
             outputArea.append(prompt);
         }
@@ -177,7 +177,7 @@ public class GraphicObjectPromptPanel extends JComponent {
 
 
         public void write(String s){
-        outputArea.append(s+"\n");
+        outputArea.append("\n"+offset+s+"\n"+prompt);
     }
 
     private boolean isOKSymbol(char c) {

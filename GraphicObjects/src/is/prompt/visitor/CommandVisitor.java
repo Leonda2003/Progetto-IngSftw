@@ -20,10 +20,7 @@ import is.prompt.grammarCommand.typeconstr.CircleCommand;
 import is.prompt.grammarCommand.typeconstr.ImageCommand;
 import is.prompt.grammarCommand.typeconstr.RectangleCommand;
 import is.prompt.grammarCommand.typeconstr.TypeconstrCommand;
-import is.shapes.model.CircleObject;
-import is.shapes.model.GraphicObject;
-import is.shapes.model.ImageObject;
-import is.shapes.model.RectangleObject;
+import is.shapes.model.*;
 import is.prompt.GraphicObjectPromptPanel;
 import is.shapes.specificCmd.*;
 import is.shapes.view.GraphicObjectPanel;
@@ -32,6 +29,8 @@ import javax.swing.*;
 import java.awt.geom.Point2D;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.List;
 
 public class CommandVisitor implements Visitor{
 
@@ -155,13 +154,19 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public void interpret(GroupCommand c) {
-
+    public void interpret(GroupCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+        HashMap<String,GraphicObject> listg= interpret(c.getListIDCommand());
+        GroupObject grp = new GroupObject(listg);
+        Constructor<GroupCmd> command = (Constructor<GroupCmd>) interpret(c.getGrp());
+        cmdHandler.handle(command.newInstance(panel,grp));
     }
 
     @Override
-    public void interpret(UngroupCommand c) {
-
+    public void interpret(UngroupCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+        String id = interpret(c.getObjID());
+        GroupObject group = Context.CONTEXT.getGroupObject(id);
+        Constructor<UngroupCmd> command = (Constructor<UngroupCmd>) interpret(c.getUngrp());
+        cmdHandler.handle(command.newInstance(group,id));
     }
 
     @Override
@@ -223,8 +228,13 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public void interpret(ListIDCommand c) {
-
+    public HashMap<String, GraphicObject> interpret(ListIDCommand c) {
+        HashMap<String,GraphicObject> group = new HashMap<>();
+        for(ObjID objid : c.getListObjID()){
+            String id = interpret(objid);
+            group.put(id,Context.CONTEXT.getGraphicObject(id));
+        }
+        return group;
     }
 
     @Override
@@ -276,13 +286,13 @@ public class CommandVisitor implements Visitor{
                 case LS:
                     return ListCmd.class.getConstructor(String.class, Token.class, GraphicObjectPromptPanel.class);
                 case GRP:
-                    return GroupCmd.class.getConstructor();
+                    return GroupCmd.class.getConstructor(GraphicObjectPanel.class,GraphicObject.class);
                 case UNGRP:
-                    return UngroupCmd.class.getConstructor();
+                    return UngroupCmd.class.getConstructor(GroupObject.class,String.class);
                 case AREA:
-                    return NewObjectCmd.class.getConstructor();
+                    return AreaCmd.class.getConstructor();
                 case PERIMETER:
-                    return NewObjectCmd.class.getConstructor();
+                    return PerimeterCmd.class.getConstructor();
                 default: throw new SyntaxException("ERROR");
             }
         }catch (NoSuchMethodException | SyntaxException e){e.printStackTrace();}

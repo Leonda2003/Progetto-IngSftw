@@ -17,8 +17,6 @@ public class CreateObjectAction extends AbstractAction {
 	private static final long serialVersionUID = 5399493440620423134L;
 	AbstractGraphicObject prototype;
 	GraphicObjectPanel panel;
-
-
 	CmdHandler ch;
 
 	public CreateObjectAction(AbstractGraphicObject prototype,
