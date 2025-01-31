@@ -6,82 +6,195 @@ import is.prompt.grammarCommand.Command;
 import is.prompt.parser.ConcreteFactoryParser;
 import is.prompt.parser.FactoryParser;
 import is.prompt.visitor.Context;
-import is.shapes.view.GraphicObjectPanel;
 import is.prompt.visitor.CommandVisitor;
 import is.prompt.visitor.Visitor;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.text.BadLocationException;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.ListIterator;
 
 
-public class GraphicObjectPromptPanel extends JFrame {
+public class GraphicObjectPromptPanel extends JComponent {
 
     private JTextArea outputArea;
-    private JTextField inputField;
     private FactoryParser parser;
     private Visitor visitor;
     private final CmdHandler cmdHandler;
-    private final GraphicObjectPanel graphicObjectPanel;
+    private int lastLineIndex = 0;
+    private final ArrayList<String> history = new ArrayList<>();
+    private int index = 0;
+    private final String prompt=">  ";
 
-    public GraphicObjectPromptPanel(CmdHandler cmdH, GraphicObjectPanel panel) {
+    private final String offset="   ";
+
+    public GraphicObjectPromptPanel(CmdHandler cmdH) {
 
         cmdHandler = cmdH;
-        graphicObjectPanel = panel;
-
         visitor = new CommandVisitor(cmdHandler,this);
-
-        setTitle("Command Prompt");
-        setSize(600, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-
-
         outputArea = new JTextArea();
         outputArea.setEditable(false);
+        outputArea.append("> ");
         JScrollPane scrollPane = new JScrollPane(outputArea);
+        history.add("");
 
 
-        inputField = new JTextField();
-
-        inputField.addActionListener(new ActionListener() {
+        outputArea.addKeyListener(new KeyAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                String command = inputField.getText();
-                processCommand(command);
-                inputField.setText("");
+            public void keyPressed(KeyEvent e) {
+                try {
+                    char c = e.getKeyChar();
+                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                        e.consume();
+                        String command = outputArea.getText(startPosition(), endPosition()-startPosition());
+                        processCommand(command);
+                        lastLineIndex = outputArea.getLineCount() - 1;
+                        outputArea.setCaretPosition(startPosition()+1);
+
+                    } else if ((Character.isLetterOrDigit(c) || Character.isWhitespace(c)) || isOKSymbol(c)) {
+                        e.consume();
+                        int caretPosition = outputArea.getCaretPosition();
+                        if(caretPosition >= startPosition()) outputArea.getDocument().insertString(caretPosition, String.valueOf(e.getKeyChar()), null);
+
+                    } else if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+                        e.consume();
+                        int caretPosition = outputArea.getCaretPosition();
+                        if (caretPosition > startPosition()) {
+                            if (caretPosition > 0 && caretPosition < endPosition() ) {
+                                outputArea.getDocument().remove(caretPosition, 1);
+                            }
+                        }
+                    }else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+                        e.consume();
+                        String selectedText = outputArea.getSelectedText();
+                        if (selectedText != null) {
+                            int start = outputArea.getSelectionStart();
+                            int end = outputArea.getSelectionEnd();
+                            if (start >= startPosition()) {
+                                outputArea.getDocument().remove(start, end - start);
+                            }
+                        }else{
+                            int caretPosition = outputArea.getCaretPosition();
+                            if (caretPosition > startPosition()) {
+                                if (caretPosition > 0) {
+                                    outputArea.getDocument().remove(caretPosition -1, 1);
+                                }
+                            }
+                        }
+                    }
+                    else if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_C){
+                        String selectedText = outputArea.getSelectedText();
+                        if (selectedText != null) {
+                            StringSelection stringSelection = new StringSelection(selectedText);
+                            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                            clipboard.setContents(stringSelection, null);
+                        }
+                    }else if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_V){
+                        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                        if(clipboard.isDataFlavorAvailable(DataFlavor.stringFlavor)){
+                            String string = (String) clipboard.getData(DataFlavor.stringFlavor);
+                             String data = string.trim();
+                            outputArea.append(data);
+                            outputArea.setCaretPosition(endPosition());
+                        }
+                    }else if(e.getKeyCode() == KeyEvent.VK_UP){
+                        e.consume();
+                        if(index >-1 && index < history.size()-1){
+                            index++;
+                            outputArea.getDocument().remove(startPosition(),endPosition()-startPosition());
+                            outputArea.append(history.get(index));
+
+                        }
+
+                    }else if(e.getKeyCode() == KeyEvent.VK_DOWN){
+                        e.consume();
+                        if(index > 0 && index < history.size()){
+                            index--;
+                            outputArea.getDocument().remove(startPosition(),endPosition()-startPosition());
+                            outputArea.append(history.get(index));
+                        }
+                    }
+
+                } catch (BadLocationException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                } catch (UnsupportedFlavorException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
-        add(inputField, BorderLayout.SOUTH);
         Context.CONTEXT.setGraphicObjectPromptPanel(this);
+
     }
 
-    private void processCommand(String command) {
+    private void processCommand(String command){
         try{
+            index = 0;
+            outputArea.append("\n");
+            if( history.size()==1 || !(history.get(1).equals(command.trim()))){
+                history.removeFirst();
+                history.addFirst(command.trim());
+                history.addFirst("");
+            }
             StringReader sr = new StringReader(command);
             parser = new ConcreteFactoryParser(sr);
             Command realCommand = parser.getCommandToInterpret();
             realCommand.accept(visitor);
-        }catch (SyntaxException e){outputArea.append(e.toString()+"\n");}
-        catch (InvocationTargetException e) {
+            outputArea.append("\n");
+            outputArea.append(prompt);
+
+
+        } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
+            outputArea.append(offset+e +"\n");
+            outputArea.append(prompt);
             throw new RuntimeException(e);
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
+        } catch ( Exception e){
+            outputArea.append(offset+e +"\n");
+            outputArea.append(prompt);
         }
     }
 
-    public void write(String s){
+
+    public Dimension getPreferredSize() {
+        return new Dimension(500, 850);
+    }
+
+
+        public void write(String s){
         outputArea.append(s+"\n");
+    }
+
+    private boolean isOKSymbol(char c) {
+        switch (c) {
+            case '!': case '@': case '#': case '$': case '%': case '^': case '&': case '*': case '(': case ')': case']': case'.': case',':
+                case'[': case '_': case '+': case '{': case '}': case ':': case '"': case '<': case '>': case '?': case'/': return true;
+            default:
+                return false;
+        }
+    }
+
+    private int startPosition() throws BadLocationException {
+        return outputArea.getLineStartOffset(lastLineIndex)+2;
+    }
+
+    private int endPosition() throws BadLocationException {
+        return outputArea.getLineEndOffset(lastLineIndex);
     }
 
 }

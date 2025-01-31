@@ -34,9 +34,9 @@ public class TestGraphics3 {
         toolbar.add(redoButt);
 
         final GraphicObjectPanel gpanel = new GraphicObjectPanel();
-
-
         gpanel.setPreferredSize(new Dimension(400, 400));
+
+
 
         GraphicObjectViewFactory.FACTORY.installView(RectangleObject.class, new RectangleObjectView());
         GraphicObjectViewFactory.FACTORY.installView(CircleObject.class, new CircleObjectView());
@@ -65,29 +65,25 @@ public class TestGraphics3 {
         toolbar.add(imgButton);
 
         final GraphicObjectController goc = new GraphicObjectController(handler);
-        final GraphicObjectPromptPanel gocp = new GraphicObjectPromptPanel(handler,gpanel);
-        gocp.setVisible(true);
-
+        final GraphicObjectPromptPanel gocp = new GraphicObjectPromptPanel(handler);
+        JPanel controlPanel = new JPanel(new FlowLayout());
+        JPanel promptPanel = new JPanel(new FlowLayout());
 
         gpanel.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-
                 goc.setControlledObject(gpanel.getGraphicObjectAt(e.getPoint()));
             }
         });
 
         f.add(toolbar, BorderLayout.NORTH);
-        f.add(new JScrollPane(gpanel), BorderLayout.CENTER);
-
-
-
-        JPanel controlPanel = new JPanel(new FlowLayout());
-
+        f.getContentPane().add(new JScrollPane(gpanel), BorderLayout.CENTER);
         controlPanel.add(goc);
+        promptPanel.add(gocp);
         f.setTitle("Shapes");
         f.getContentPane().add(controlPanel, BorderLayout.SOUTH);
+        f.getContentPane().add(promptPanel, BorderLayout.EAST);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.pack();
         f.setVisible(true);

@@ -56,8 +56,6 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 
 	@Override
 	public Dimension getPreferredSize() {
-
-
 		Dimension ps = super.getPreferredSize();
 		double x = ps.getWidth();
 		double y = ps.getHeight();
