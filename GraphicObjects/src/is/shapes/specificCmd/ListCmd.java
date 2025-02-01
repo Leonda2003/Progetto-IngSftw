@@ -13,14 +13,11 @@ public class ListCmd implements Cmd {
     ;
     private final String id;
 
-    private final GraphicObjectPromptPanel prompt;
-
     private final Token token;
 
-    public ListCmd(String id,Token t, GraphicObjectPromptPanel prompt){
+    public ListCmd(String id,Token t){
         this.id = id;
         this.token = t;
-        this.prompt = prompt;
     }
 
     @Override
@@ -29,7 +26,7 @@ public class ListCmd implements Cmd {
         StringBuilder sb = new StringBuilder();
         switch (token){
             case OBJ_ID:
-                prompt.write(Context.CONTEXT.getGraphicObject(id).properties(id));
+                Context.CONTEXT.write(Context.CONTEXT.getGraphicObject(id).properties(id));
                 return false;
             case CIRCLE:
                 objectHashMap=Context.CONTEXT.getType("Circle");
@@ -58,7 +55,7 @@ public class ListCmd implements Cmd {
             sb.append("   "+g.properties(id));
             sb.append("\n");
         }
-        prompt.write(sb.toString());
+        Context.CONTEXT.write(sb.toString());
         return false;
     }
 

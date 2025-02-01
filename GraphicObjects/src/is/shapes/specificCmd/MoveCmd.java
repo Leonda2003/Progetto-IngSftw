@@ -1,6 +1,7 @@
 package is.shapes.specificCmd;
 
 import is.cmd.Cmd;
+import is.prompt.visitor.Context;
 import is.shapes.model.GraphicObject;
 
 import java.awt.geom.Point2D;
@@ -22,12 +23,14 @@ public class MoveCmd implements Cmd {
 	@Override
 	public boolean doIt() {
 		object.moveTo(newPos);
+		Context.CONTEXT.write("moved");
 		return true;
 	}
 
 	@Override
 	public boolean undoIt() {
 		object.moveTo(oldPos);
+		Context.CONTEXT.write("unmoved");
 		return true;
 	}
 

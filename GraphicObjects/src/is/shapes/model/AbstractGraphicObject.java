@@ -9,10 +9,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class AbstractGraphicObject implements GraphicObject, Cloneable {
 
 
-	private HashMap<String,GroupObject> group = new HashMap<>();
+	/*____________________________LISTENER_______________________________*/
 
 	private  List<GraphicObjectListener> listeners = new LinkedList<>();
-
 
 	@Override
 	public void addGraphicObjectListener(GraphicObjectListener l) {
@@ -20,7 +19,6 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 			return;
 		listeners.add(l);
 	}
-
 
 	@Override
 	public void removeGraphicObjectListener(GraphicObjectListener l) {
@@ -33,24 +31,32 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 			gol.graphicChanged(e);
 	}
 
-	public void addGroup(String id,GroupObject group){
+	/*____________________________LISTENER_______________________________*/
+
+	/*______________________________GROUP________________________________*/
+
+	private HashMap<String,GroupObject> group = new HashMap<>();
+
+	@Override
+	public void addGroupToMyMap(String id,GroupObject group){
 		this.group.put(id,group);
 	}
 
-	public void removeGroup(String id,GroupObject group){
+	@Override
+	public void removeGroupToMyMap(String id,GroupObject group){
 		this.group.remove(id,group);
 	}
 
 	@Override
-	public void removeFromGroup(String objid){
+	public void removeMeFromAllMyGroups(String objid){
 		for(String id :group.keySet()){
-			group.get(id).removeMember(objid);
+			group.get(id).removeMemberFromGroup(objid,this);
 		}
 	}
 
 	@Override
-	public void readToGroup(String id){
-		for(GroupObject group : group.values()) group.addMember(id,this);
+	public void addMeToAllMyOldGroups(String id){
+		for(GroupObject group : group.values()) group.addMemberToGroup(id,this);
 	}
 
 	@Override

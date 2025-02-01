@@ -47,6 +47,7 @@ public class GraphicObjectPromptPanel extends JComponent {
         outputArea = new JTextArea();
         outputArea.setEditable(false);
         outputArea.append("> ");
+        outputArea.setBorder(BorderFactory.createEmptyBorder(0, 0, 50, 0));
         JScrollPane scrollPane = new JScrollPane(outputArea);
         history.add("");
 
@@ -141,12 +142,13 @@ public class GraphicObjectPromptPanel extends JComponent {
         add(scrollPane, BorderLayout.CENTER);
         Context.CONTEXT.setGraphicObjectPromptPanel(this);
 
+
+
     }
 
     private void processCommand(String command){
         try{
             index = 0;
-            outputArea.append("\n\n");
             if( history.size()==1 || !(history.get(1).equals(command.trim()))){
                 history.removeFirst();
                 history.addFirst(command.trim());
@@ -157,27 +159,26 @@ public class GraphicObjectPromptPanel extends JComponent {
             Command realCommand = parser.getCommandToInterpret();
             realCommand.accept(visitor);
 
-
         } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
-            outputArea.append(offset+e +"\n");
-            outputArea.append(prompt);
+           write(e.toString());
             e.printStackTrace();
             throw new RuntimeException(e);
         } catch ( Exception e){
             e.printStackTrace();
-            outputArea.append(offset+e +"\n");
-            outputArea.append(prompt);
+            write(e.toString());
         }
     }
 
 
     public Dimension getPreferredSize() {
-        return new Dimension(500, 850);
+        return new Dimension(500, 600);
     }
 
 
-        public void write(String s){
-        outputArea.append("\n"+offset+s+"\n"+prompt);
+    public void write(String s){
+        outputArea.append("\n\n"+offset+s+"\n\n"+prompt);
+        lastLineIndex = outputArea.getLineCount() - 1;
+
     }
 
     private boolean isOKSymbol(char c) {

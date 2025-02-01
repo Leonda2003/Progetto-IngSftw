@@ -18,4 +18,7 @@ public class AreaIDCommand extends AreaCommand{
     }
 
 
+    public ObjID getObjID() {
+        return objID;
+    }
 }

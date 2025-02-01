@@ -17,17 +17,18 @@ public class RemoveObjectCmd implements Cmd {
     }
 
     @Override
-    public boolean undoIt() {
-        Context.CONTEXT.addRemoved(id,go);
-        panel.add(go);
-        return true;
-    }
-
-    @Override
     public boolean doIt() {
         GraphicObject go =  Context.CONTEXT.remove(id);
         panel.remove(go);
         return true;
     }
+
+    @Override
+    public boolean undoIt() {
+        Context.CONTEXT.addAllRemoved(id,go);
+        panel.add(go);
+        return true;
+    }
+
 
 }

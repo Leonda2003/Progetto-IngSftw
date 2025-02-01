@@ -15,27 +15,31 @@ public class GroupObject extends AbstractGraphicObject{
         this.group = group;
     }
 
-    public void notifyGroup(String id) {
-        for (GraphicObject g : group.values()){
-            g.addGroup(id,this);
-        }
-    }
-
     public HashMap<String,GraphicObject> getGroup(){
         return new HashMap<>(group);
     }
-
-    public void removeMember(String objid){
-        group.remove(objid);
+    public void setGroup(HashMap<String,GraphicObject> group){
+        this.group=group;
     }
 
-    public void addMember(String id, GraphicObject g){
+    public void notifyTheyAreAGroup(String id) {
+        for (GraphicObject g : group.values()){
+            g.addGroupToMyMap(id,this);
+        }
+    }
+
+    public void removeMemberFromGroup(String objid,GraphicObject g){
+        group.remove(objid, g);
+    }
+
+    public void addMemberToGroup(String id, GraphicObject g){
         group.put(id,g);
+
     }
 
-    public void ungroup(String id) {
+    public void ungroupAll(String id) {
         for(GraphicObject g : group.values()){
-            g.removeFromGroup(id);
+            g.removeGroupToMyMap(id,this);
         }
     }
 

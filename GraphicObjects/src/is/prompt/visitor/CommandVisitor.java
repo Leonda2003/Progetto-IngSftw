@@ -108,9 +108,15 @@ public class CommandVisitor implements Visitor{
 
         Constructor<MoveCmd> command = (Constructor<MoveCmd>) interpret(c.getMvoff());
         String id = interpret(c.getObjID());
-        float[] pos = interpret(c.getPos());
         GraphicObject go = Context.CONTEXT.getGraphicObject(id);
-        cmdHandler.handle(command.newInstance(go,new Point2D.Double(go.getPosition().getX()+pos[0],go.getPosition().getX()+pos[1])));
+        if(go instanceof GroupObject){
+            for(String objid : ((GroupObject) go).getGroup().keySet()){
+                interpret(new MoveOffCommand(c.getMvoff(),new ObjID(c.getObjID().getToken(),objid),c.getPos()));
+            }
+        }else{
+            float[] pos = interpret(c.getPos());
+            cmdHandler.handle(command.newInstance(go,new Point2D.Double(go.getPosition().getX()+pos[0],go.getPosition().getX()+pos[1])));
+        }
     }
 
     @Override
@@ -128,29 +134,28 @@ public class CommandVisitor implements Visitor{
 
         Constructor<ListCmd> command = (Constructor<ListCmd>) interpret(c.getLs());
         String id = interpret(c.getObjID());
-        cmdHandler.handle(command.newInstance(id,c.getObjID().getToken(),prompt));
-
+        cmdHandler.handle(command.newInstance(id,c.getObjID().getToken()));
     }
 
     @Override
     public void interpret(ListTypeCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Constructor<ListCmd> command = (Constructor<ListCmd>) interpret(c.getLs());
-        cmdHandler.handle(command.newInstance("",c.getTypeCommand().getToken(),prompt));
+        cmdHandler.handle(command.newInstance("",c.getTypeCommand().getToken()));
     }
 
     @Override
     public void interpret(ListAllCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Constructor<ListCmd> command = (Constructor<ListCmd>) interpret(c.getLs());
-        cmdHandler.handle(command.newInstance("",interpret(c.getAll()),prompt));
+        cmdHandler.handle(command.newInstance("",interpret(c.getAll())));
     }
 
     @Override
     public void interpret(ListGroupsCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Constructor<ListCmd> command = (Constructor<ListCmd>) interpret(c.getLs());
-        cmdHandler.handle(command.newInstance("",interpret(c.getGroups()),prompt));
+        cmdHandler.handle(command.newInstance("",interpret(c.getGroups())));
     }
 
     @Override
@@ -171,6 +176,9 @@ public class CommandVisitor implements Visitor{
 
     @Override
     public void interpret(AreaIDCommand c) {
+
+        String id = interpret(c.ge);
+        GroupObject group = Context.CONTEXT.getGroupObject(id);
 
     }
 
@@ -284,9 +292,9 @@ public class CommandVisitor implements Visitor{
                 case SCALE:
                     return ZoomCmd.class.getConstructor(GraphicObject.class, double.class);
                 case LS:
-                    return ListCmd.class.getConstructor(String.class, Token.class, GraphicObjectPromptPanel.class);
+                    return ListCmd.class.getConstructor(String.class, Token.class);
                 case GRP:
-                    return GroupCmd.class.getConstructor(GraphicObjectPanel.class,GraphicObject.class);
+                    return GroupCmd.class.getConstructor(GraphicObjectPanel.class,GroupObject.class);
                 case UNGRP:
                     return UngroupCmd.class.getConstructor(GroupObject.class,String.class);
                 case AREA:

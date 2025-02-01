@@ -31,11 +31,12 @@ public interface GraphicObject {
 
 	String properties(String id);
 
-	void addGroup(String id,GroupObject group);
+	void addGroupToMyMap(String id,GroupObject group);
 
-	void removeGroup(String id,GroupObject group);
+	void removeGroupToMyMap(String id,GroupObject group);
 
-	void removeFromGroup(String objid);
 
-	void readToGroup(String id);
+	void removeMeFromAllMyGroups(String objid);
+
+	void addMeToAllMyOldGroups(String id);
 }

@@ -19,13 +19,13 @@ public class UngroupCmd implements Cmd {
 
     @Override
     public boolean doIt() {
-        Context.CONTEXT.removeGroup(id);
+        Context.CONTEXT.removeTheGroup(id,go);
         return true;
     }
 
     @Override
     public boolean undoIt() {
-        Context.CONTEXT.removeLastAddedGroup();
+        Context.CONTEXT.addRemovedGroup(id,go);
         return true;
     }
 }
