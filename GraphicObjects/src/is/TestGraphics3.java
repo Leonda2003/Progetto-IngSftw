@@ -34,8 +34,20 @@ public class TestGraphics3 {
         toolbar.add(redoButt);
 
         final GraphicObjectPanel gpanel = new GraphicObjectPanel();
-        gpanel.setPreferredSize(new Dimension(400, 400));
+        gpanel.setPreferredSize(new Dimension(500, 500));
 
+        final GraphicObjectPromptPanel prompt = new GraphicObjectPromptPanel(handler);
+
+        final GraphicObjectController goc = new GraphicObjectController(handler);
+
+
+        JScrollPane panel = new JScrollPane(gpanel);
+
+        JPanel controlPanel = new JPanel(new FlowLayout());
+        controlPanel.add(goc);
+
+        JSplitPane splitPane1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panel, goc);
+        JSplitPane splitPane2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, splitPane1, prompt);
 
 
         GraphicObjectViewFactory.FACTORY.installView(RectangleObject.class, new RectangleObjectView());
@@ -57,17 +69,10 @@ public class TestGraphics3 {
         circButton2.setText("big " + go.getType());
         toolbar.add(circButton2);
 
-        go = new ImageObject(new ImageIcon(TestGraphics2.class.getResource("shapes/model/NyaNya.gif")),
-                new Point(240, 187));
-
+        go = new ImageObject(new ImageIcon(TestGraphics2.class.getResource("shapes/model/NyaNya.gif")), new Point(240, 187));
         JButton imgButton = new JButton(new CreateObjectAction(go, gpanel, handler));
         imgButton.setText(go.getType());
         toolbar.add(imgButton);
-
-        final GraphicObjectController goc = new GraphicObjectController(handler);
-        final GraphicObjectPromptPanel gocp = new GraphicObjectPromptPanel(handler);
-        JPanel controlPanel = new JPanel(new FlowLayout());
-        JPanel promptPanel = new JPanel(new FlowLayout());
 
         gpanel.addMouseListener(new MouseAdapter() {
 
@@ -77,13 +82,13 @@ public class TestGraphics3 {
             }
         });
 
+
+
+        f.add(splitPane2);
         f.add(toolbar, BorderLayout.NORTH);
-        f.getContentPane().add(new JScrollPane(gpanel), BorderLayout.CENTER);
-        controlPanel.add(goc);
-        promptPanel.add(gocp);
+
         f.setTitle("Shapes");
-        f.getContentPane().add(controlPanel, BorderLayout.SOUTH);
-        f.getContentPane().add(promptPanel, BorderLayout.EAST);
+
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.pack();
         f.setVisible(true);

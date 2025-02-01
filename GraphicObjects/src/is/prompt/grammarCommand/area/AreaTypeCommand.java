@@ -2,6 +2,9 @@ package is.prompt.grammarCommand.area;
 
 import is.prompt.grammarCommand.terminal.TerminalCommand;
 import is.prompt.grammarCommand.type.TypeCommand;
+import is.prompt.visitor.Visitor;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class AreaTypeCommand extends AreaCommand{
 
@@ -19,4 +22,12 @@ public class AreaTypeCommand extends AreaCommand{
     }
 
 
+    @Override
+    public void accept(Visitor v) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        v.interpret(this);
+    }
+
+    public TypeCommand getType() {
+        return type;
+    }
 }

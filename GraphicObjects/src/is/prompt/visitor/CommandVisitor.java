@@ -1,5 +1,6 @@
 package is.prompt.visitor;
 
+import is.prompt.grammarCommand.perimeter.PerimeterCommand;
 import is.prompt.parser.analyzer.Token;
 import is.cmd.Cmd;
 import is.cmd.CmdHandler;
@@ -175,26 +176,48 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public void interpret(AreaIDCommand c) {
+    public void interpret(AreaIDCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
-        String id = interpret(c.ge);
-        GroupObject group = Context.CONTEXT.getGroupObject(id);
-
+        String id = interpret(c.getObjID());
+        Constructor<AreaCmd> command = (Constructor<AreaCmd>) interpret(c.getArea());
+        cmdHandler.handle(command.newInstance(id,c.getObjID().getToken()));
     }
 
     @Override
-    public void interpret(AreaTypeCommand c) {
+    public void interpret(AreaTypeCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
+        Constructor<AreaCmd> command = (Constructor<AreaCmd>) interpret(c.getArea());
+        cmdHandler.handle(command.newInstance("",c.getType().getToken()));
     }
 
     @Override
-    public void interpret(AreaAllCommand c) {
+    public void interpret(AreaAllCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
+        Constructor<AreaCmd> command = (Constructor<AreaCmd>) interpret(c.getArea());
+        cmdHandler.handle(command.newInstance("",c.getAll().getToken()));
     }
 
     @Override
-    public void interpret(PerimeterIDCommand c) {
+    public void interpret(PerimeterIDCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
+        String id = interpret(c.getObjID());
+        Constructor<PerimeterCmd> command = (Constructor<PerimeterCmd>) interpret(c.getPerimeter());
+        cmdHandler.handle(command.newInstance(id,c.getObjID().getToken()));
+    }
+
+
+    @Override
+    public void interpret(PerimeterTypeCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+
+        Constructor<PerimeterCmd> command = (Constructor<PerimeterCmd>) interpret(c.getPerimeter());
+        cmdHandler.handle(command.newInstance("",c.getType().getToken()));
+    }
+
+    @Override
+    public void interpret(PerimeterAllCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+
+        Constructor<PerimeterCmd> command = (Constructor<PerimeterCmd>) interpret(c.getPerimeter());
+        cmdHandler.handle(command.newInstance("",c.getAll().getToken()));
     }
 
     @Override
@@ -223,16 +246,6 @@ public class CommandVisitor implements Visitor{
                 throw new IllegalStateException("Unexpected value: " + type);
         }
         return wrapTypeConstr;
-    }
-
-    @Override
-    public void interpret(PerimeterTypeCommand c) {
-
-    }
-
-    @Override
-    public void interpret(PerimeterAllCommand c) {
-
     }
 
     @Override
@@ -298,9 +311,9 @@ public class CommandVisitor implements Visitor{
                 case UNGRP:
                     return UngroupCmd.class.getConstructor(GroupObject.class,String.class);
                 case AREA:
-                    return AreaCmd.class.getConstructor();
+                    return AreaCmd.class.getConstructor(String.class, Token.class);
                 case PERIMETER:
-                    return PerimeterCmd.class.getConstructor();
+                    return PerimeterCmd.class.getConstructor(String.class, Token.class);
                 default: throw new SyntaxException("ERROR");
             }
         }catch (NoSuchMethodException | SyntaxException e){e.printStackTrace();}

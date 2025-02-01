@@ -7,4 +7,7 @@ public abstract class AreaCommand extends AbstractCommand {
 
     TerminalCommand area;
 
+    public TerminalCommand getArea() {
+        return area;
+    }
 }

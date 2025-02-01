@@ -60,7 +60,11 @@ public class GraphicObjectPromptPanel extends JComponent {
                     if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                         e.consume();
                         String command = outputArea.getText(startPosition(), endPosition()-startPosition());
-                        processCommand(command);
+                        if(command.trim().equalsIgnoreCase("clear")){
+                            outputArea.setText(">  ");
+                        }else{
+                            processCommand(command);
+                        }
                         lastLineIndex = outputArea.getLineCount() - 1;
                         outputArea.setCaretPosition(startPosition());
 
@@ -72,7 +76,7 @@ public class GraphicObjectPromptPanel extends JComponent {
                     } else if (e.getKeyCode() == KeyEvent.VK_DELETE) {
                         e.consume();
                         int caretPosition = outputArea.getCaretPosition();
-                        if (caretPosition > startPosition()) {
+                        if (caretPosition >= startPosition()) {
                             if (caretPosition > 0 && caretPosition < endPosition() ) {
                                 outputArea.getDocument().remove(caretPosition, 1);
                             }

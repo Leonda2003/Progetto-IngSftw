@@ -140,7 +140,7 @@ public class ConcreteFactoryParser extends FactoryParser{
             return new ImageCommand(typeCommand,path);
         }
         String word = analyzer.getWord();
-        throw new SyntaxException("Command Syntax Error "+analyzer.getWord());
+        throw new SyntaxException("Command Syntax Error, expected a type of graphic object ");
 
     }
 
@@ -160,7 +160,7 @@ public class ConcreteFactoryParser extends FactoryParser{
                 currentToken = analyzer.nexToken();
                 return image;
             default:
-                throw new SyntaxException("Expected one of circle-rectangle-img-all-groups");
+                throw new SyntaxException("Expected one of circle-rectangle-img");
         }
     }
 
@@ -173,7 +173,7 @@ public class ConcreteFactoryParser extends FactoryParser{
 
         }else if(currentToken.equals(Token.ALL)){
 
-            TerminalCommand terminalCommand2 = createTerminal();
+            TerminalCommand terminalCommand2 = createAll_Groups();
             return new PerimeterAllCommand(terminalCommand,terminalCommand2);
 
         }else{
@@ -191,7 +191,7 @@ public class ConcreteFactoryParser extends FactoryParser{
 
         }else if(currentToken.equals(Token.ALL)){
 
-            TerminalCommand terminalCommand2 = createTerminal();
+            TerminalCommand terminalCommand2 = createAll_Groups();
             return new AreaAllCommand(terminalCommand,terminalCommand2);
 
         }else{

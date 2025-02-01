@@ -83,12 +83,16 @@ public class GroupObject extends AbstractGraphicObject{
 
     @Override
     public double area() {
-        return 0;
+        double sum = 0;
+        for(GraphicObject g : group.values()){sum += g.area();}
+        return sum;
     }
 
     @Override
     public double perimeter() {
-        return 0;
+        double sum = 0;
+        for(GraphicObject g : group.values()){sum += g.perimeter();}
+        return sum;
     }
 
     @Override

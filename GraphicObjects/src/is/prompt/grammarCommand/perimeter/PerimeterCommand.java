@@ -8,6 +8,7 @@ public abstract class PerimeterCommand extends AbstractCommand{
     TerminalCommand perimeter;
 
 
-
-
+    public TerminalCommand getPerimeter() {
+        return perimeter;
+    }
 }

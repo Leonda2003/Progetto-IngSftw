@@ -34,12 +34,12 @@ public interface Visitor {
     void interpret(ListGroupsCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
     void interpret(GroupCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
     void interpret(UngroupCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
-    void interpret(AreaIDCommand c);
-    void interpret(AreaTypeCommand c);
-    void interpret(AreaAllCommand c);
-    void interpret(PerimeterIDCommand c);
-    void interpret(PerimeterTypeCommand c);
-    void interpret(PerimeterAllCommand c);
+    void interpret(AreaIDCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
+    void interpret(AreaTypeCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
+    void interpret(AreaAllCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
+    void interpret(PerimeterIDCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
+    void interpret(PerimeterTypeCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
+    void interpret(PerimeterAllCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
     float[] interpret(PosCommand c);
     CommandVisitor.WrapTypeConstr interpret(TypeconstrCommand c) throws NoSuchMethodException;
     String interpret(TypeCommand c);
