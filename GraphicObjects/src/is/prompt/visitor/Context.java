@@ -147,6 +147,7 @@ public enum Context {
             cache.get("All").remove(id,group);
             String s = "removed the the group with "+id;
             graphicObjectPromptPanel.write(s);
+            group.removeMeFromAllMyGroups(id);
             group.setGroup(map);
             return group;
         }
@@ -215,10 +216,6 @@ public enum Context {
         return allShape;
     }
 
-    public int getID() {
-        return ID.intValue();
-    }
-
     /*_________________________SUPPORT METHODS_________________________ */
 
     private boolean inizialize(){
@@ -243,6 +240,10 @@ public enum Context {
 
     public void clearLine(){
         if(graphicObjectPromptPanel !=null) graphicObjectPromptPanel.clearLine();
+    }
+
+    public int getID() {
+        return ID.intValue();
     }
 
 

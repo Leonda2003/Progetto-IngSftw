@@ -1,6 +1,5 @@
 package is.prompt.visitor;
 
-import is.prompt.grammarCommand.perimeter.PerimeterCommand;
 import is.prompt.parser.analyzer.Token;
 import is.cmd.Cmd;
 import is.cmd.CmdHandler;
@@ -22,7 +21,6 @@ import is.prompt.grammarCommand.typeconstr.ImageCommand;
 import is.prompt.grammarCommand.typeconstr.RectangleCommand;
 import is.prompt.grammarCommand.typeconstr.TypeconstrCommand;
 import is.shapes.model.*;
-import is.prompt.GraphicObjectPromptPanel;
 import is.shapes.specificCmd.*;
 import is.shapes.view.GraphicObjectPanel;
 
@@ -31,7 +29,7 @@ import java.awt.geom.Point2D;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.List;
+
 
 public class CommandVisitor implements Visitor{
 
@@ -225,18 +223,18 @@ public class CommandVisitor implements Visitor{
             case "Circle":
                 CircleCommand circleCommand= (CircleCommand) typeconstrCommand;
                 param = String.valueOf(interpret(circleCommand.getPosfloat()));
-                wrapTypeConstr = new WrapTypeConstr(CircleObject.class.getConstructor(Point2D.class,double.class),param,type);
+                wrapTypeConstr = new WrapTypeConstr(CircleObject.class.getConstructor(Point2D.class, double.class), param, type);
                 break;
             case "Rectangle":
                 RectangleCommand rectangleCommand= (RectangleCommand) typeconstrCommand;
                 float[] pos  = interpret(rectangleCommand.getPos());
                 param = ""+pos[0]+"-"+pos[1];
-                wrapTypeConstr = new WrapTypeConstr(RectangleObject.class.getConstructor(Point2D.class,double.class,double.class),param,type);
+                wrapTypeConstr = new WrapTypeConstr(RectangleObject.class.getConstructor(Point2D.class, double.class, double.class), param, type);
                 break;
             case "Image":
                 ImageCommand imageCommand = (ImageCommand) typeconstrCommand;
                 param =  interpret(imageCommand.getPath());
-                wrapTypeConstr = new WrapTypeConstr(ImageObject.class.getConstructor(ImageIcon.class, Point2D.class),param,type);
+                wrapTypeConstr = new WrapTypeConstr(ImageObject.class.getConstructor(ImageIcon.class, Point2D.class), param, type);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
@@ -318,7 +316,7 @@ public class CommandVisitor implements Visitor{
 
 
 
-    class WrapTypeConstr{
+    static class WrapTypeConstr{
 
         Constructor<? extends GraphicObject> constructor;
         String param;

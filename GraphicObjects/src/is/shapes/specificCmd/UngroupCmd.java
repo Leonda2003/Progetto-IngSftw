@@ -23,14 +23,14 @@ public class UngroupCmd implements Cmd {
     @Override
     public boolean doIt() {
         Context.CONTEXT.removeTheGroup(id,go);
-        //panel.remove(go);
+        panel.remove(go);
         return true;
     }
 
     @Override
     public boolean undoIt() {
         Context.CONTEXT.addRemovedGroup(id,go);
-        //panel.add(go);
+        panel.add(go);
         return true;
     }
 }

@@ -47,7 +47,6 @@ public class GroupObject extends AbstractGraphicObject{
         for(GraphicObject go : group.values()){
             go.moveTo(p);
         }
-
     }
 
     @Override
@@ -74,8 +73,8 @@ public class GroupObject extends AbstractGraphicObject{
         for(GraphicObject go : group.values()){
             go.scale(factor);
         }
-
     }
+
     @Override
     public boolean contains(Point2D p) {
         return false;
@@ -90,14 +89,18 @@ public class GroupObject extends AbstractGraphicObject{
     @Override
     public double area() {
         double sum = 0;
-        for(GraphicObject g : group.values()){sum += g.area();}
+        for(GraphicObject g : group.values()){
+            if(!g.getType().equals("Group")) sum += g.area();
+        }
         return sum;
     }
 
     @Override
     public double perimeter() {
         double sum = 0;
-        for(GraphicObject g : group.values()){sum += g.perimeter();}
+        for(GraphicObject g : group.values()){
+            if(!g.getType().equals("Group")) sum += g.perimeter();
+        }
         return sum;
     }
 
