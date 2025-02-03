@@ -30,6 +30,7 @@ import java.util.ListIterator;
 public class GraphicObjectPromptPanel extends JComponent {
 
     private JTextArea outputArea;
+    private JScrollPane scrollPane;
     private FactoryParser parser;
     private Visitor visitor;
     private final CmdHandler cmdHandler;
@@ -43,11 +44,13 @@ public class GraphicObjectPromptPanel extends JComponent {
 
         cmdHandler = cmdH;
         visitor = new CommandVisitor(cmdHandler);
+
         outputArea = new JTextArea();
         outputArea.setEditable(false);
         outputArea.append("> ");
-        outputArea.setBorder(BorderFactory.createEmptyBorder(0, 0, 50, 0));
-        JScrollPane scrollPane = new JScrollPane(outputArea);
+        outputArea.setBorder(BorderFactory.createEmptyBorder(0, 0, 80, 0));
+
+        scrollPane = new JScrollPane(outputArea);
         history.add("");
 
 
@@ -146,8 +149,6 @@ public class GraphicObjectPromptPanel extends JComponent {
         add(scrollPane, BorderLayout.CENTER);
         Context.CONTEXT.setGraphicObjectPromptPanel(this);
 
-
-
     }
 
     private void processCommand(String command){
@@ -167,7 +168,7 @@ public class GraphicObjectPromptPanel extends JComponent {
            write(e.toString());
             e.printStackTrace();
             throw new RuntimeException(e);
-        } catch ( Exception e){
+        } catch ( SyntaxException e){
             e.printStackTrace();
             write(e.toString());
         }
@@ -184,6 +185,11 @@ public class GraphicObjectPromptPanel extends JComponent {
         lastLineIndex = outputArea.getLineCount() - 1;
         try {
             outputArea.setCaretPosition(startPosition());
+            SwingUtilities.invokeLater(() -> {
+                int scrollHeight = outputArea.getHeight();
+                scrollPane.getVerticalScrollBar().setValue(scrollHeight);
+            });
+
         } catch (BadLocationException e) {
             throw new RuntimeException(e);
         }
