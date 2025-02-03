@@ -2,12 +2,15 @@ package is.shapes.view;
 
 import is.shapes.model.GraphicObject;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 public class RectangleObjectView implements GraphicObjectView {
+
+	private String id;
+	private String group;
 	@Override
 	public void drawGraphicObject(GraphicObject go, Graphics2D g) {
 		Point2D position = go.getPosition();
@@ -16,5 +19,36 @@ public class RectangleObjectView implements GraphicObjectView {
 		double y = position.getY() - dim.getHeight() / 2.0;
 		g.draw(new Rectangle2D.Double(x, y, dim.getWidth(), dim.getHeight()));
 
+		double fontSizeID = Math.min(dim.getWidth() / 2, dim.getHeight() / 2);
+		Font fontID = new Font("Arial", Font.PLAIN, (int)fontSizeID);
+		g.setFont(fontID);
+		FontMetrics metricsID = g.getFontMetrics();
+		double textX = x + (dim.getWidth() - metricsID.stringWidth(id)) / 2;
+		double textY = y + ((dim.getHeight() - metricsID.getHeight()) / 2) + metricsID.getAscent();
+
+		g.drawString(id,(float) textX, (float) textY);
+
+		double fontSizeGroup = fontSizeID * 0.5;
+		Font fontGroup = new Font("Arial", Font.PLAIN, (int) fontSizeGroup);
+		g.setFont(fontGroup);
+		FontMetrics metricsGroup = g.getFontMetrics(fontGroup);
+		double textXSubText = x + (dim.getWidth() - metricsGroup.stringWidth(group)) / 2;
+		double textYSubText = textY + metricsGroup.getHeight();
+
+		g.drawString(group, (float) textXSubText, (float) textYSubText);
+
+
 	}
+
+	@Override
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	@Override
+	public void setGroup(String group) {
+		this.group = group;
+
+	}
+
 }

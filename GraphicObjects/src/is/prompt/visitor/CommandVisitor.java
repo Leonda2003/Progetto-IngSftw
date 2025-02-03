@@ -168,7 +168,7 @@ public class CommandVisitor implements Visitor{
         String id = interpret(c.getObjID());
         GroupObject group = context.getGroupObject(id);
         Constructor<UngroupCmd> command = (Constructor<UngroupCmd>) interpret(c.getUngrp());
-        cmdHandler.handle(command.newInstance(group,id));
+        cmdHandler.handle(command.newInstance(group,id,context.getGraphicObjectPanel()));
     }
 
     @Override
@@ -305,7 +305,7 @@ public class CommandVisitor implements Visitor{
                 case GRP:
                     return GroupCmd.class.getConstructor(GraphicObjectPanel.class,GroupObject.class);
                 case UNGRP:
-                    return UngroupCmd.class.getConstructor(GroupObject.class,String.class);
+                    return UngroupCmd.class.getConstructor(GroupObject.class,String.class,GraphicObjectPanel.class);
                 case AREA:
                     return AreaCmd.class.getConstructor(String.class, Token.class);
                 case PERIMETER:

@@ -51,10 +51,10 @@ public enum Context {
      */
     public int addGraphicObject(GraphicObject g){
         inizialize();
+        cache.get("All").put("id"+ID.incrementAndGet(),g);
         if(g.getType().equals("Group")){
             ((GroupObject) g).notifyTheyAreAGroup("id"+ID);
         }
-        cache.get("All").put("id"+ID.incrementAndGet(),g);
         cache.get(g.getType()).put("id"+ID,g);
         String s = "new "+g.getType()+" object created with id"+ID;
         write(s);
@@ -71,7 +71,13 @@ public enum Context {
      * @return The added graphical object.
      */
     public GraphicObject addAllRemoved(String id, GraphicObject go){
-        if(cache.get("All").containsKey(id)) throw new SyntaxException("IMPOSSIBILE RICREARE L'OGGETTO CON "+ID+"PERCHE' CE NE STA QUALCHE ALTRO CON LO STESSO ID");
+        if(cache.get("All").containsKey(id)){
+            for(GraphicObject g : cache.get("Group").values()){
+                GroupObject group = (GroupObject) g;
+                if(group.contains(id)) return go;
+            }
+            throw new SyntaxException("IMPOSSIBILE RICREARE L'OGGETTO CON "+ID+"PERCHE' CE NE STA QUALCHE ALTRO CON LO STESSO ID");
+        }
         cache.get("All").put(id,go);
         cache.get(go.getType()).put(id,go);
         go.addMeToAllMyOldGroups(id);
@@ -114,8 +120,9 @@ public enum Context {
      */
     public GraphicObject remove(String id){
         if(inizialize()) {throw new SyntaxException("No graphic objects were found. Try initializing some.");}
+        GraphicObject g = null;
         if(cache.get("All").containsKey(id)){
-            GraphicObject g = cache.get("All").get(id);
+            g = cache.get("All").get(id);
             if(g.getType().equals("Group")){
                 GroupObject group = (GroupObject) g;
                 return removeGroup(id,group);
@@ -125,9 +132,8 @@ public enum Context {
             g.removeMeFromAllMyGroups(id);
             String s = "removed the "+g.getType()+" with "+id;
             write(s);
-            return g;
         }
-        throw new SyntaxException("No graphic objects were found whit "+id);
+        return g;
     }
 
 
@@ -139,12 +145,12 @@ public enum Context {
             }
             cache.get(group.getType()).remove(id,group);
             cache.get("All").remove(id,group);
-            String s = "removed the the group with"+id;
+            String s = "removed the the group with "+id;
             graphicObjectPromptPanel.write(s);
             group.setGroup(map);
             return group;
         }
-        throw new SyntaxException("No group objects were found whit "+id);
+        throw new SyntaxException("No group objects were found with "+id);
     }
 
     /**

@@ -54,9 +54,19 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 		}
 	}
 
+
 	@Override
 	public void addMeToAllMyOldGroups(String id){
 		for(GroupObject group : group.values()) group.addMemberToGroup(id,this);
+	}
+
+	@Override
+	public String myGroup() {
+		if(group.isEmpty()) return "";
+		StringBuilder sb = new StringBuilder();
+		sb.append("Group: ");
+		for(String id : group.keySet()) sb.append(id+",");
+		return sb.toString();
 	}
 
 	@Override
@@ -64,7 +74,10 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 		try {
 			AbstractGraphicObject go = (AbstractGraphicObject) super.clone();
 			go.listeners = new LinkedList<>();
+			go.group = new HashMap<>();
+
 			return go;
+
 		} catch (CloneNotSupportedException e) {
 			throw new Error(e);
 		}

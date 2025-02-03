@@ -22,7 +22,7 @@ public class GroupCmd implements Cmd {
     @Override
     public boolean doIt() {
         Context.CONTEXT.addGraphicObject(go);
-        //panel.add(go);
+        panel.add(go);
         return true;
     }
 

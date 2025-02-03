@@ -9,6 +9,9 @@ import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 
 public class ImageObjectView implements GraphicObjectView {
+
+	private String id;
+	private String group;
 	@Override
 	public void drawGraphicObject(GraphicObject go, Graphics2D g) {
 		ImageObject io = (ImageObject) go;
@@ -19,8 +22,19 @@ public class ImageObjectView implements GraphicObjectView {
 		int h = (int) (dim.getHeight());
 		int x = (int) (position.getX()) - w / 2;
 		int y = (int) (position.getY()) - h / 2;
-
 		g.drawImage(image, x, y, w, h, null);
+		g.drawString(id,x,y);
+		g.drawString(group.toString(),x,y);
+	}
+
+	@Override
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	@Override
+	public void setGroup(String group) {
+		this.group = group;
 
 	}
 }

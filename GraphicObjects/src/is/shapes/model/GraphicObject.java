@@ -35,8 +35,9 @@ public interface GraphicObject {
 
 	void removeGroupToMyMap(String id,GroupObject group);
 
-
 	void removeMeFromAllMyGroups(String objid);
 
 	void addMeToAllMyOldGroups(String id);
+
+	String myGroup();
 }

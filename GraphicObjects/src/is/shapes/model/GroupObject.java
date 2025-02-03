@@ -81,6 +81,12 @@ public class GroupObject extends AbstractGraphicObject{
         return false;
     }
 
+
+    public boolean contains(String id) {
+        return group.containsKey(id);
+    }
+
+
     @Override
     public double area() {
         double sum = 0;

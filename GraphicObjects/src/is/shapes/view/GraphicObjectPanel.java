@@ -78,6 +78,8 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 		for (String id : objectsWithID.keySet()) {
 			GraphicObject go = objectsWithID.get(id);
 			GraphicObjectView view = GraphicObjectViewFactory.FACTORY.createView(go);
+			view.setId(id);
+			view.setGroup(go.myGroup());
 			view.drawGraphicObject(go, g2);
 		}
 	}
