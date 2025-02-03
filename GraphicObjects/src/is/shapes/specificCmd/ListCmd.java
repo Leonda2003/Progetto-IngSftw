@@ -30,30 +30,31 @@ public class ListCmd implements Cmd {
                 return false;
             case CIRCLE:
                 objectHashMap=Context.CONTEXT.getType("Circle");
-                sb.append("   CIRCLE OBJECT:");
+                sb.append("\tCIRCLE OBJECT:");
                 break;
             case RECTANGLE:
                 objectHashMap=Context.CONTEXT.getType("Rectangle");
-                sb.append("   RECTANGLE OBJECT:");
+                sb.append("\tRECTANGLE OBJECT:");
                 break;
             case IMG:
                 objectHashMap=Context.CONTEXT.getType("Image");
-                sb.append("   IMAGE OBJECT:");
+                sb.append("\tIMAGE OBJECT:");
                 break;
             case GROUPS:
-                objectHashMap=Context.CONTEXT.getType("Groups");
-                sb.append("   GROUPS OBJECT:");
+                objectHashMap=Context.CONTEXT.getType("Group");
+                sb.append("\tGROUPS OBJECT:");
                 break;
             case ALL:
                 objectHashMap=Context.CONTEXT.getType("All");
-                sb.append("   ALL OBJECT:");
+                sb.append("\tALL OBJECT:");
                 break;
         }
 
+        sb.append("\n");
         for(String id : objectHashMap.keySet()){
-            sb.append("\n");
+            sb.append("\n\t");
             GraphicObject g = objectHashMap.get(id);
-            sb.append("\t"+g.properties(id));
+            sb.append(g.properties(id));
         }
         Context.CONTEXT.write(sb.toString());
         return false;

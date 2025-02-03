@@ -17,7 +17,6 @@ public enum Context {
     private boolean promptPanel = true;
     private GraphicObjectPanel graphicObjectPanel;
     private boolean graphicPanel = true;
-
     private final String offset="   ";
     private final Map<String,HashMap<String,GraphicObject>> cache = Collections.synchronizedMap(new HashMap<>());
 
@@ -50,7 +49,7 @@ public enum Context {
      * @param g is the graphical object
      * @return returns the ID number assigned to the new object in the cache.
      */
-    public int addGrapichObject(GraphicObject g){
+    public int addGraphicObject(GraphicObject g){
         inizialize();
         if(g.getType().equals("Group")){
             ((GroupObject) g).notifyTheyAreAGroup("id"+ID);
@@ -72,21 +71,19 @@ public enum Context {
      * @return The added graphical object.
      */
     public GraphicObject addAllRemoved(String id, GraphicObject go){
-        if(cache.get("All").containsKey(id)) throw new SyntaxException("IMPOSSIBILE ANNULARE RICREARE L'OGGETTO CON "+ID+"PERCHE' CE NE STA QUALCHE ALTRO CON LO STESSO ID");
+        if(cache.get("All").containsKey(id)) throw new SyntaxException("IMPOSSIBILE RICREARE L'OGGETTO CON "+ID+"PERCHE' CE NE STA QUALCHE ALTRO CON LO STESSO ID");
         cache.get("All").put(id,go);
         cache.get(go.getType()).put(id,go);
         go.addMeToAllMyOldGroups(id);
+        StringBuilder sb = new StringBuilder();
         if(go.getType().equals("Group")){
             GroupObject group = (GroupObject) go;
             HashMap<String,GraphicObject> members = group.getGroup();
+            sb.append("added again the "+go.getType()+" with "+id);
             for(String objid : members.keySet()){
-                addAllRemoved(objid,members.get(objid));
-                String s = "added again the "+go.getType()+" with "+id;
-                write(s);
+                sb.append("\n\tadded again the "+addAllRemoved(objid,members.get(objid)).getType()+" with "+objid);
             }
-            go.addMeToAllMyOldGroups(id);
-            String s = "added again the "+go.getType()+" with "+id;
-            write(s);
+            write(sb.toString());
         }
         return go;
     }
@@ -98,15 +95,13 @@ public enum Context {
      * @return The added group object.
      */
     public GroupObject addRemovedGroup(String id, GroupObject go){
-        if(cache.get("All").containsKey(id)) throw new SyntaxException("IMPOSSIBILE ANNULARE RICREARE L'OGGETTO CON "+ID+"PERCHE' CE NE STA QUALCHE ALTRO CON LO STESSO ID");
+        if(cache.get("All").containsKey(id)) throw new SyntaxException("IMPOSSIBILE RICREARE L'OGGETTO CON "+ID+"PERCHE' CE NE STA QUALCHE ALTRO CON LO STESSO ID");
         cache.get("All").put(id,go);
         cache.get(go.getType()).put(id,go);
         go.addMeToAllMyOldGroups(id);
         go.notifyTheyAreAGroup(id);
-
         String s = "added again the "+go.getType()+" with "+id;
         write(s);
-
         return go;
     }
 
@@ -144,8 +139,8 @@ public enum Context {
             }
             cache.get(group.getType()).remove(id,group);
             cache.get("All").remove(id,group);
-            //String s = "removed the the group with"+id;
-            //graphicObjectPromptPanel.write(s);
+            String s = "removed the the group with"+id;
+            graphicObjectPromptPanel.write(s);
             group.setGroup(map);
             return group;
         }

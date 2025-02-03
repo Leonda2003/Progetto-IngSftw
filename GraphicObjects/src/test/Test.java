@@ -78,7 +78,7 @@ public class Test {
         f.pack();
         f.setVisible(true);
 
-        CommandVisitor visitor = new CommandVisitor(handler,gocp);
+        CommandVisitor visitor = new CommandVisitor(handler);
         Command realCommand = new ConcreteFactoryParser(new StringReader(command)).getCommandToInterpret();
         realCommand.accept(visitor);
     }
@@ -101,7 +101,7 @@ public class Test {
 
 
 
-        CommandVisitor visitor = new CommandVisitor(handler,gocp);
+        CommandVisitor visitor = new CommandVisitor(handler);
         Command realCommand = new ConcreteFactoryParser(new StringReader(command)).getCommandToInterpret();
         realCommand.accept(visitor);
     }

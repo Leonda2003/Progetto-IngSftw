@@ -35,15 +35,11 @@ import java.util.List;
 
 public class CommandVisitor implements Visitor{
 
-
-    private final GraphicObjectPromptPanel prompt;
     private final CmdHandler cmdHandler;
-    private final GraphicObjectPanel panel;
+    private final Context context = Context.CONTEXT;
 
-    public CommandVisitor(CmdHandler cmdHandler, GraphicObjectPromptPanel prompt){
+    public CommandVisitor(CmdHandler cmdHandler){
         this.cmdHandler = cmdHandler;
-        this.panel = Context.CONTEXT.getGraphicObjectPanel();
-        this.prompt = prompt;
     }
 
 
@@ -52,7 +48,7 @@ public class CommandVisitor implements Visitor{
 
         float[] pos = interpret(c.getPos());
         Point2D position = new Point2D.Float(pos[0],pos[1]);
-        GraphicObject go=null;
+        GraphicObject go;
         WrapTypeConstr wrapTypeConstr = interpret(c.getTypeconstr());
         Constructor<NewObjectCmd> command = (Constructor<NewObjectCmd>) interpret(c.getNEW());
         switch (wrapTypeConstr.getType()){
@@ -82,16 +78,16 @@ public class CommandVisitor implements Visitor{
             default:
                 throw new IllegalStateException("Unexpected value: " + wrapTypeConstr.getType());
         }
-        cmdHandler.handle(command.newInstance(panel,go));
+        cmdHandler.handle(command.newInstance(context.getGraphicObjectPanel(),go));
     }
 
 
     @Override
     public void interpret(RemoveCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
         String id = interpret(c.getObjID());
-        Context.CONTEXT.NotContainShape(id);
+        context.NotContainShape(id);
         Constructor<RemoveObjectCmd> command = (Constructor<RemoveObjectCmd>) interpret(c.getDel());
-        cmdHandler.handle(command.newInstance(panel,id));
+        cmdHandler.handle(command.newInstance(context.getGraphicObjectPanel(),id));
     }
 
     @Override
@@ -100,7 +96,7 @@ public class CommandVisitor implements Visitor{
         Constructor<MoveCmd> command = (Constructor<MoveCmd>) interpret(c.getMv());
         String id = interpret(c.getObjID());
         float[] pos = interpret(c.getPos());
-        GraphicObject go = Context.CONTEXT.getGraphicObject(id);
+        GraphicObject go = context.getGraphicObject(id);
         cmdHandler.handle(command.newInstance(go,new Point2D.Float(pos[0],pos[1])));
     }
 
@@ -109,7 +105,7 @@ public class CommandVisitor implements Visitor{
 
         Constructor<MoveCmd> command = (Constructor<MoveCmd>) interpret(c.getMvoff());
         String id = interpret(c.getObjID());
-        GraphicObject go = Context.CONTEXT.getGraphicObject(id);
+        GraphicObject go = context.getGraphicObject(id);
         if(go instanceof GroupObject){
             for(String objid : ((GroupObject) go).getGroup().keySet()){
                 interpret(new MoveOffCommand(c.getMvoff(),new ObjID(c.getObjID().getToken(),objid),c.getPos()));
@@ -126,7 +122,7 @@ public class CommandVisitor implements Visitor{
         Constructor<ZoomCmd> command = (Constructor<ZoomCmd>) interpret(c.getScale());
         String id = interpret(c.getObjID());
         double factor = interpret(c.getPosfloat());
-        GraphicObject go = Context.CONTEXT.getGraphicObject(id);
+        GraphicObject go = context.getGraphicObject(id);
         cmdHandler.handle(command.newInstance(go,factor));
     }
 
@@ -164,13 +160,13 @@ public class CommandVisitor implements Visitor{
         HashMap<String,GraphicObject> listg= interpret(c.getListIDCommand());
         GroupObject grp = new GroupObject(listg);
         Constructor<GroupCmd> command = (Constructor<GroupCmd>) interpret(c.getGrp());
-        cmdHandler.handle(command.newInstance(panel,grp));
+        cmdHandler.handle(command.newInstance(context.getGraphicObjectPanel(),grp));
     }
 
     @Override
     public void interpret(UngroupCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
         String id = interpret(c.getObjID());
-        GroupObject group = Context.CONTEXT.getGroupObject(id);
+        GroupObject group = context.getGroupObject(id);
         Constructor<UngroupCmd> command = (Constructor<UngroupCmd>) interpret(c.getUngrp());
         cmdHandler.handle(command.newInstance(group,id));
     }
@@ -234,7 +230,7 @@ public class CommandVisitor implements Visitor{
             case "Rectangle":
                 RectangleCommand rectangleCommand= (RectangleCommand) typeconstrCommand;
                 float[] pos  = interpret(rectangleCommand.getPos());
-                param = STR."\{pos[0]}-\{pos[1]}";
+                param = ""+pos[0]+"-"+pos[1];
                 wrapTypeConstr = new WrapTypeConstr(RectangleObject.class.getConstructor(Point2D.class,double.class,double.class),param,type);
                 break;
             case "Image":
@@ -253,7 +249,7 @@ public class CommandVisitor implements Visitor{
         HashMap<String,GraphicObject> group = new HashMap<>();
         for(ObjID objid : c.getListObjID()){
             String id = interpret(objid);
-            group.put(id,Context.CONTEXT.getGraphicObject(id));
+            group.put(id,context.getGraphicObject(id));
         }
         return group;
     }

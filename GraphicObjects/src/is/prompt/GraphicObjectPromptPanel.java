@@ -37,13 +37,12 @@ public class GraphicObjectPromptPanel extends JComponent {
     private final ArrayList<String> history = new ArrayList<>();
     private int index = 0;
     private final String prompt=">  ";
-
     private final String offset="   ";
 
     public GraphicObjectPromptPanel(CmdHandler cmdH) {
 
         cmdHandler = cmdH;
-        visitor = new CommandVisitor(cmdHandler,this);
+        visitor = new CommandVisitor(cmdHandler);
         outputArea = new JTextArea();
         outputArea.setEditable(false);
         outputArea.append("> ");
@@ -110,8 +109,9 @@ public class GraphicObjectPromptPanel extends JComponent {
                         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                         if(clipboard.isDataFlavorAvailable(DataFlavor.stringFlavor)){
                             String string = (String) clipboard.getData(DataFlavor.stringFlavor);
-                             String data = string.trim();
-                            outputArea.append(data);
+                            String data = string.trim();
+                            int caretPosition = outputArea.getCaretPosition();
+                            if(caretPosition >= startPosition()) outputArea.getDocument().insertString(caretPosition, data, null);
                             outputArea.setCaretPosition(endPosition());
                         }
                     }else if(e.getKeyCode() == KeyEvent.VK_UP){
@@ -179,16 +179,20 @@ public class GraphicObjectPromptPanel extends JComponent {
     }
 
 
-    public void write(String s){
+    public void write(String s)  {
         outputArea.append("\n\n"+offset+s+"\n\n"+prompt);
         lastLineIndex = outputArea.getLineCount() - 1;
-
+        try {
+            outputArea.setCaretPosition(startPosition());
+        } catch (BadLocationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private boolean isOKSymbol(char c) {
         switch (c) {
             case '!': case '@': case '#': case '$': case '%': case '^': case '&': case '*': case '(': case ')': case']': case'.': case',':
-                case'[': case '_': case '+': case '{': case '}': case ':': case '"': case '<': case '>': case '?': case'/': return true;
+                case'[': case '_': case '+': case '{': case '}': case ':': case '"': case '<': case '>': case '?': case'/': case'-': return true;
             default:
                 return false;
         }

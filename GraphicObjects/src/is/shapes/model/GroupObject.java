@@ -1,5 +1,6 @@
 package is.shapes.model;
 
+import java.awt.*;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -10,11 +11,9 @@ import java.util.List;
 public class GroupObject extends AbstractGraphicObject{
 
     private HashMap<String,GraphicObject> group;
-
     public GroupObject(HashMap<String,GraphicObject> group){
         this.group = group;
     }
-
     public HashMap<String,GraphicObject> getGroup(){
         return new HashMap<>(group);
     }
@@ -65,7 +64,9 @@ public class GroupObject extends AbstractGraphicObject{
 
     @Override
     public Dimension2D getDimension() {
-        return null;
+        Dimension d = new Dimension();
+        d.setSize(group.size(),group.size());
+        return d;
     }
 
     @Override
@@ -75,7 +76,6 @@ public class GroupObject extends AbstractGraphicObject{
         }
 
     }
-
     @Override
     public boolean contains(Point2D p) {
         return false;
@@ -107,10 +107,10 @@ public class GroupObject extends AbstractGraphicObject{
         sb.append(info);
         for(String objid: group.keySet()){
             GraphicObject g = group.get(objid);
-
-            sb.append("\t"+g.properties(objid));
+            if(g.getType().equals("Group")) sb.append("\t\t"+
+                    String.format ("[%s] [%s] dim=[%d]%n",objid, g.getType(),(int)g.getDimension().getHeight()));
+            else sb.append("\t\t"+g.properties(objid));
         }
-        sb.append("\n");
         return sb.toString();
     }
 }

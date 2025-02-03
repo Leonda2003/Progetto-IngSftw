@@ -22,17 +22,9 @@ import is.prompt.grammarCommand.typeconstr.CircleCommand;
 import is.prompt.grammarCommand.typeconstr.ImageCommand;
 import is.prompt.grammarCommand.typeconstr.RectangleCommand;
 import is.prompt.grammarCommand.typeconstr.TypeconstrCommand;
-import is.prompt.parser.ConcreteFactoryParser;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assumptions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.Reader;
-import java.io.StringReader;
-import java.util.Scanner;
+
 
 public class ConcreteFactoryParser extends FactoryParser{
 

@@ -17,14 +17,14 @@ public class NewObjectCmd implements Cmd {
 
 	@Override
 	public boolean doIt() {
-		Context.CONTEXT.addGrapichObject(go);
+		Context.CONTEXT.addGraphicObject(go);
 		panel.add(go);
 		return true;
 	}
 
 	@Override
 	public boolean undoIt() {
-		Context.CONTEXT.removeLastAdded ();
+		Context.CONTEXT.removeLastAdded();
 		panel.remove(go);
 		return true;
 	}
