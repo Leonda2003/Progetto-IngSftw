@@ -21,15 +21,26 @@ public class CircleObjectView implements GraphicObjectView {
 		double x = position.getX() - r;
 		double y = position.getY() - r;
 		g.draw(new Ellipse2D.Double(x, y, r * 2.0, r * 2.0));
-		double fontSize = Math.min(dim.getWidth() / 2, dim.getHeight() / 2);
-		Font font = new Font("Arial", Font.PLAIN, (int)fontSize);
-		g.setFont(font);
 
-		FontMetrics metrics = g.getFontMetrics();
-		double textX = x + (dim.getWidth() - metrics.stringWidth(id)) / 2;
-		double textY = y + ((dim.getHeight() - metrics.getHeight()) / 2) + metrics.getAscent();
+		double fontSizeID = dim.getWidth() / 3;
+		Font fontID = new Font("Arial", Font.PLAIN, (int)fontSizeID);
+		g.setFont(fontID);
+		FontMetrics metricsID = g.getFontMetrics();
+		double textX = x + (dim.getWidth() - metricsID.stringWidth(id)) / 2;
+		double textY = y + ((dim.getHeight() - metricsID.getHeight()) / 2) + metricsID.getAscent();
 
 		g.drawString(id,(float) textX, (float) textY);
+
+		double fontSizeGroup = fontSizeID * 0.3;
+		Font fontGroup = new Font("Arial", Font.PLAIN, (int) fontSizeGroup);
+		g.setFont(fontGroup);
+		FontMetrics metricsGroup = g.getFontMetrics(fontGroup);
+		double textXGroupText = x + (dim.getWidth() - metricsGroup.stringWidth(group)) / 2;
+		double textYGroupText = textY + metricsGroup.getHeight();
+
+		g.drawString(group, (float) textXGroupText, (float) textYGroupText);
+
+
 	}
 
 	@Override

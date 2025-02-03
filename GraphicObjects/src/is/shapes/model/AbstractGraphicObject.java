@@ -64,8 +64,8 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 	public String myGroup() {
 		if(group.isEmpty()) return "";
 		StringBuilder sb = new StringBuilder();
-		sb.append("Group: ");
-		for(String id : group.keySet()) sb.append(id+",");
+		sb.append("grp");
+		for(String id : group.keySet()) sb.append(" "+id);
 		return sb.toString();
 	}
 

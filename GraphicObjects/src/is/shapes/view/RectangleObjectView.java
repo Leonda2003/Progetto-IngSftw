@@ -28,14 +28,14 @@ public class RectangleObjectView implements GraphicObjectView {
 
 		g.drawString(id,(float) textX, (float) textY);
 
-		double fontSizeGroup = fontSizeID * 0.5;
+		double fontSizeGroup = fontSizeID * 0.3;
 		Font fontGroup = new Font("Arial", Font.PLAIN, (int) fontSizeGroup);
 		g.setFont(fontGroup);
 		FontMetrics metricsGroup = g.getFontMetrics(fontGroup);
-		double textXSubText = x + (dim.getWidth() - metricsGroup.stringWidth(group)) / 2;
-		double textYSubText = textY + metricsGroup.getHeight();
+		double textXGroupText = x + (dim.getWidth() - metricsGroup.stringWidth(group)) / 2;
+		double textYGroupText = textY + metricsGroup.getHeight();
 
-		g.drawString(group, (float) textXSubText, (float) textYSubText);
+		g.drawString(group, (float) textXGroupText, (float) textYGroupText);
 
 
 	}
