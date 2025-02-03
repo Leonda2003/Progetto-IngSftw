@@ -23,14 +23,14 @@ public class MoveCmd implements Cmd {
 	@Override
 	public boolean doIt() {
 		object.moveTo(newPos);
-		Context.CONTEXT.write("moved");
+		Context.CONTEXT.clearLine();
 		return true;
 	}
 
 	@Override
 	public boolean undoIt() {
 		object.moveTo(oldPos);
-		Context.CONTEXT.write("unmoved");
+		Context.CONTEXT.clearLine();
 		return true;
 	}
 

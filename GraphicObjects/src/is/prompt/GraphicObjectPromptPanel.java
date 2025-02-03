@@ -189,6 +189,15 @@ public class GraphicObjectPromptPanel extends JComponent {
         }
     }
 
+    public void clearLine()  {
+        try {
+            outputArea.getDocument().remove(startPosition(),endPosition()-startPosition());
+            outputArea.setCaretPosition(startPosition());
+        } catch (BadLocationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private boolean isOKSymbol(char c) {
         switch (c) {
             case '!': case '@': case '#': case '$': case '%': case '^': case '&': case '*': case '(': case ')': case']': case'.': case',':

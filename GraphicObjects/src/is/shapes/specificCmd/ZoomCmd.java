@@ -17,14 +17,14 @@ public class ZoomCmd implements Cmd {
 	@Override
 	public boolean doIt() {
 		object.scale(factor);
-		Context.CONTEXT.write("zommed");
+		Context.CONTEXT.clearLine();
 		return true;
 	}
 
 	@Override
 	public boolean undoIt() {
 		object.scale(1.0 / factor);
-		Context.CONTEXT.write("unzommed");
+		Context.CONTEXT.clearLine();
 		return true;
 	}
 

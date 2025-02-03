@@ -241,6 +241,10 @@ public enum Context {
         if(graphicObjectPromptPanel !=null) graphicObjectPromptPanel.write(s);
     }
 
+    public void clearLine(){
+        if(graphicObjectPromptPanel !=null) graphicObjectPromptPanel.clearLine();
+    }
+
 
 
 
