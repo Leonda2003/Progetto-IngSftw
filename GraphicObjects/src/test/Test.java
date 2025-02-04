@@ -212,7 +212,7 @@ public class Test {
         CommandVisitor visitor = new CommandVisitor(handler);
 
 
-        while(i<3000){
+        while(i<2000){
 
             String[] s1 = {"new circle (5.0) (3.1,4.5)", "new img (\"C:/Users/mikit/Desktop/minecraft-1-logo.png\") (6.1,4.6)","scale id"+(i+1)+" 0.1","new rectangle (80,80) (80,80)", "del id"+i};
             for(String string : s1 ){
@@ -264,7 +264,7 @@ public class Test {
         realGrammarCommand1.accept(visitor);
 
         int z = 0;
-        while(z < 500){
+        while(z < 50000){
             int p1 = new Random().nextInt(0,1000);
             int p2 = new Random().nextInt(0,1000);
             GrammarCommand realGrammarCommand2 = new ConcreteBuilderParser(new StringReader("mv id"+i+"("+p1+","+p2+")")).getCommandToInterpret();
