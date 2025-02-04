@@ -1,18 +1,12 @@
-package is.prompt.grammarCommand.terminal;
+package is.prompt.grammarCommand;
 
-import is.prompt.parser.analyzer.Token;
 import is.prompt.visitor.Visitor;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class All_Groups extends TerminalGrammarCommand {
-    public All_Groups(Token token) {
-        super(token);
-    }
-
+public abstract class AbstractGrammarCommand implements GrammarCommand {
     @Override
     public void accept(Visitor v) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        v.interpret(this);
-    }
 
+    }
 }

@@ -2,9 +2,9 @@ package is.prompt;
 
 import is.cmd.CmdHandler;
 import is.exception.SyntaxException;
-import is.prompt.grammarCommand.Command;
-import is.prompt.parser.ConcreteFactoryParser;
-import is.prompt.parser.FactoryParser;
+import is.prompt.grammarCommand.GrammarCommand;
+import is.prompt.parser.ConcreteBuilderParser;
+import is.prompt.parser.BuilderParser;
 import is.prompt.visitor.Context;
 import is.prompt.visitor.CommandVisitor;
 import is.prompt.visitor.Visitor;
@@ -29,8 +29,8 @@ public class GraphicObjectPromptPanel extends JComponent {
 
     private JTextArea outputArea;
     private JScrollPane scrollPane;
-    private FactoryParser parser;
-    private Visitor visitor;
+    private BuilderParser parser;
+    private final Visitor visitor;
     private final CmdHandler cmdHandler;
     private int lastLineIndex = 0;
     private final ArrayList<String> history = new ArrayList<>();
@@ -46,7 +46,7 @@ public class GraphicObjectPromptPanel extends JComponent {
         outputArea = new JTextArea();
         outputArea.setEditable(false);
         outputArea.append("> ");
-        outputArea.setBorder(BorderFactory.createEmptyBorder(0, 0, 80, 0));
+        outputArea.setBorder(BorderFactory.createEmptyBorder(0, 10, 80, 0));
 
         scrollPane = new JScrollPane(outputArea);
         history.add("");
@@ -158,17 +158,17 @@ public class GraphicObjectPromptPanel extends JComponent {
                 history.addFirst("");
             }
             StringReader sr = new StringReader(command);
-            parser = new ConcreteFactoryParser(sr);
-            Command realCommand = parser.getCommandToInterpret();
-            realCommand.accept(visitor);
+            parser = new ConcreteBuilderParser(sr);
+            GrammarCommand realGrammarCommand = parser.getCommandToInterpret();
+            realGrammarCommand.accept(visitor);
 
         } catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
-           write(e.toString());
+           write(e.getMessage());
             e.printStackTrace();
             throw new RuntimeException(e);
         } catch ( SyntaxException e){
             e.printStackTrace();
-            write(e.toString());
+            write(e.getMessage());
         }
     }
 

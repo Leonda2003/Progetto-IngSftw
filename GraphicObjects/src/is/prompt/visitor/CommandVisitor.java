@@ -5,21 +5,21 @@ import is.cmd.Cmd;
 import is.cmd.CmdHandler;
 import is.exception.SyntaxException;
 import is.prompt.grammarCommand.*;
-import is.prompt.grammarCommand.area.AreaAllCommand;
-import is.prompt.grammarCommand.area.AreaIDCommand;
-import is.prompt.grammarCommand.area.AreaTypeCommand;
+import is.prompt.grammarCommand.area.AreaAllGrammarCommand;
+import is.prompt.grammarCommand.area.AreaIDGrammarCommand;
+import is.prompt.grammarCommand.area.AreaTypeGrammarCommand;
 import is.prompt.grammarCommand.list.*;
-import is.prompt.grammarCommand.move.MoveCommand;
-import is.prompt.grammarCommand.move.MoveOffCommand;
-import is.prompt.grammarCommand.perimeter.PerimeterAllCommand;
-import is.prompt.grammarCommand.perimeter.PerimeterIDCommand;
-import is.prompt.grammarCommand.perimeter.PerimeterTypeCommand;
+import is.prompt.grammarCommand.move.MoveGrammarCommand;
+import is.prompt.grammarCommand.move.MoveOffGrammarCommand;
+import is.prompt.grammarCommand.perimeter.PerimeterAllGrammarCommand;
+import is.prompt.grammarCommand.perimeter.PerimeterIDGrammarCommand;
+import is.prompt.grammarCommand.perimeter.PerimeterTypeGrammarCommand;
 import is.prompt.grammarCommand.terminal.*;
-import is.prompt.grammarCommand.type.TypeCommand;
-import is.prompt.grammarCommand.typeconstr.CircleCommand;
-import is.prompt.grammarCommand.typeconstr.ImageCommand;
-import is.prompt.grammarCommand.typeconstr.RectangleCommand;
-import is.prompt.grammarCommand.typeconstr.TypeconstrCommand;
+import is.prompt.grammarCommand.type.TypeGrammarCommand;
+import is.prompt.grammarCommand.typeconstr.CircleGrammarCommand;
+import is.prompt.grammarCommand.typeconstr.ImageGrammarCommand;
+import is.prompt.grammarCommand.typeconstr.RectangleGrammarCommand;
+import is.prompt.grammarCommand.typeconstr.TypeconstrGrammarCommand;
 import is.shapes.model.*;
 import is.shapes.specificCmd.*;
 import is.shapes.view.GraphicObjectPanel;
@@ -42,7 +42,7 @@ public class CommandVisitor implements Visitor{
 
 
     @Override
-    public void interpret(CreateCommand c) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(CreateGrammarCommand c) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 
         float[] pos = interpret(c.getPos());
         Point2D position = new Point2D.Float(pos[0],pos[1]);
@@ -81,7 +81,7 @@ public class CommandVisitor implements Visitor{
 
 
     @Override
-    public void interpret(RemoveCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(RemoveGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
         String id = interpret(c.getObjID());
         context.NotContainShape(id);
         Constructor<RemoveObjectCmd> command = (Constructor<RemoveObjectCmd>) interpret(c.getDel());
@@ -89,7 +89,7 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public void interpret(MoveCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(MoveGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Constructor<MoveCmd> command = (Constructor<MoveCmd>) interpret(c.getMv());
         String id = interpret(c.getObjID());
@@ -99,14 +99,14 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public void interpret(MoveOffCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(MoveOffGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Constructor<MoveCmd> command = (Constructor<MoveCmd>) interpret(c.getMvoff());
         String id = interpret(c.getObjID());
         GraphicObject go = context.getGraphicObject(id);
         if(go instanceof GroupObject){
             for(String objid : ((GroupObject) go).getGroup().keySet()){
-                interpret(new MoveOffCommand(c.getMvoff(),new ObjID(c.getObjID().getToken(),objid),c.getPos()));
+                interpret(new MoveOffGrammarCommand(c.getMvoff(),new ObjID(c.getObjID().getToken(),objid),c.getPos()));
             }
         }else{
             float[] pos = interpret(c.getPos());
@@ -115,7 +115,7 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public void interpret(ScaleCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(ScaleGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Constructor<ZoomCmd> command = (Constructor<ZoomCmd>) interpret(c.getScale());
         String id = interpret(c.getObjID());
@@ -125,7 +125,7 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public void interpret(ListObjIDCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(ListObjIDGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Constructor<ListCmd> command = (Constructor<ListCmd>) interpret(c.getLs());
         String id = interpret(c.getObjID());
@@ -133,28 +133,28 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public void interpret(ListTypeCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(ListTypeGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Constructor<ListCmd> command = (Constructor<ListCmd>) interpret(c.getLs());
         cmdHandler.handle(command.newInstance("",c.getTypeCommand().getToken()));
     }
 
     @Override
-    public void interpret(ListAllCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(ListAllGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Constructor<ListCmd> command = (Constructor<ListCmd>) interpret(c.getLs());
         cmdHandler.handle(command.newInstance("",interpret(c.getAll())));
     }
 
     @Override
-    public void interpret(ListGroupsCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(ListGroupsGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Constructor<ListCmd> command = (Constructor<ListCmd>) interpret(c.getLs());
         cmdHandler.handle(command.newInstance("",interpret(c.getGroups())));
     }
 
     @Override
-    public void interpret(GroupCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(GroupGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
         HashMap<String,GraphicObject> listg= interpret(c.getListIDCommand());
         GroupObject grp = new GroupObject(listg);
         Constructor<GroupCmd> command = (Constructor<GroupCmd>) interpret(c.getGrp());
@@ -162,7 +162,7 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public void interpret(UngroupCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(UngroupGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
         String id = interpret(c.getObjID());
         GroupObject group = context.getGroupObject(id);
         Constructor<UngroupCmd> command = (Constructor<UngroupCmd>) interpret(c.getUngrp());
@@ -170,7 +170,7 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public void interpret(AreaIDCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(AreaIDGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         String id = interpret(c.getObjID());
         Constructor<AreaCmd> command = (Constructor<AreaCmd>) interpret(c.getArea());
@@ -178,21 +178,21 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public void interpret(AreaTypeCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(AreaTypeGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Constructor<AreaCmd> command = (Constructor<AreaCmd>) interpret(c.getArea());
         cmdHandler.handle(command.newInstance("",c.getType().getToken()));
     }
 
     @Override
-    public void interpret(AreaAllCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(AreaAllGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Constructor<AreaCmd> command = (Constructor<AreaCmd>) interpret(c.getArea());
         cmdHandler.handle(command.newInstance("",c.getAll().getToken()));
     }
 
     @Override
-    public void interpret(PerimeterIDCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(PerimeterIDGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         String id = interpret(c.getObjID());
         Constructor<PerimeterCmd> command = (Constructor<PerimeterCmd>) interpret(c.getPerimeter());
@@ -201,38 +201,38 @@ public class CommandVisitor implements Visitor{
 
 
     @Override
-    public void interpret(PerimeterTypeCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(PerimeterTypeGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Constructor<PerimeterCmd> command = (Constructor<PerimeterCmd>) interpret(c.getPerimeter());
         cmdHandler.handle(command.newInstance("",c.getType().getToken()));
     }
 
     @Override
-    public void interpret(PerimeterAllCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void interpret(PerimeterAllGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
         Constructor<PerimeterCmd> command = (Constructor<PerimeterCmd>) interpret(c.getPerimeter());
         cmdHandler.handle(command.newInstance("",c.getAll().getToken()));
     }
 
     @Override
-    public WrapTypeConstr interpret(TypeconstrCommand typeconstrCommand) throws NoSuchMethodException {
+    public WrapTypeConstr interpret(TypeconstrGrammarCommand typeconstrCommand) throws NoSuchMethodException {
         String param;
         WrapTypeConstr wrapTypeConstr;
         String type = interpret(typeconstrCommand.getShape());
         switch (type){
             case "Circle":
-                CircleCommand circleCommand= (CircleCommand) typeconstrCommand;
+                CircleGrammarCommand circleCommand= (CircleGrammarCommand) typeconstrCommand;
                 param = String.valueOf(interpret(circleCommand.getPosfloat()));
                 wrapTypeConstr = new WrapTypeConstr(CircleObject.class.getConstructor(Point2D.class, double.class), param, type);
                 break;
             case "Rectangle":
-                RectangleCommand rectangleCommand= (RectangleCommand) typeconstrCommand;
+                RectangleGrammarCommand rectangleCommand= (RectangleGrammarCommand) typeconstrCommand;
                 float[] pos  = interpret(rectangleCommand.getPos());
                 param = ""+pos[0]+"-"+pos[1];
                 wrapTypeConstr = new WrapTypeConstr(RectangleObject.class.getConstructor(Point2D.class, double.class, double.class), param, type);
                 break;
             case "Image":
-                ImageCommand imageCommand = (ImageCommand) typeconstrCommand;
+                ImageGrammarCommand imageCommand = (ImageGrammarCommand) typeconstrCommand;
                 param =  interpret(imageCommand.getPath());
                 wrapTypeConstr = new WrapTypeConstr(ImageObject.class.getConstructor(ImageIcon.class, Point2D.class), param, type);
                 break;
@@ -243,7 +243,7 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public HashMap<String, GraphicObject> interpret(ListIDCommand c) {
+    public HashMap<String, GraphicObject> interpret(ListIDGrammarCommand c) {
         HashMap<String,GraphicObject> group = new HashMap<>();
         for(ObjID objid : c.getListObjID()){
             String id = interpret(objid);
@@ -253,11 +253,11 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public float[] interpret(PosCommand c) {return new float[]{interpret(c.getPosfloat1()),interpret(c.getPosfloat2())};}
+    public float[] interpret(PosGrammarCommand c) {return new float[]{interpret(c.getPosfloat1()),interpret(c.getPosfloat2())};}
 
 
     @Override
-    public String interpret(TypeCommand c) {
+    public String interpret(TypeGrammarCommand c) {
             switch (c.getToken()){
                 case CIRCLE:
                     return "Circle";
@@ -286,7 +286,7 @@ public class CommandVisitor implements Visitor{
 
 
     @Override
-    public Constructor<? extends Cmd> interpret(TerminalCommand c) {
+    public Constructor<? extends Cmd> interpret(TerminalGrammarCommand c) {
         try{
             switch (c.getToken()){
                 case NEW:

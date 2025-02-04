@@ -2,7 +2,7 @@ package is.prompt.grammarCommand.terminal;
 
 import is.prompt.parser.analyzer.Token;
 
-public class ObjID extends TerminalCommand{
+public class ObjID extends TerminalGrammarCommand {
 
     private String ID;
     public ObjID(Token token, String ID) {

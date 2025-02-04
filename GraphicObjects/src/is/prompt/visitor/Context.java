@@ -82,15 +82,15 @@ public enum Context {
         cache.get(go.getType()).put(id,go);
         go.addMeToAllMyOldGroups(id);
         StringBuilder sb = new StringBuilder();
+        sb.append("added again the "+go.getType()+" with "+id);
         if(go.getType().equals("Group")){
             GroupObject group = (GroupObject) go;
             HashMap<String,GraphicObject> members = group.getGroup();
-            sb.append("added again the "+go.getType()+" with "+id);
             for(String objid : members.keySet()){
                 sb.append("\n\tadded again the "+addAllRemoved(objid,members.get(objid)).getType()+" with "+objid);
             }
-            write(sb.toString());
         }
+        write(sb.toString());
         return go;
     }
 

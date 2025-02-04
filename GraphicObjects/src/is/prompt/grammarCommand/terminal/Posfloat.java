@@ -2,7 +2,7 @@ package is.prompt.grammarCommand.terminal;
 
 import is.prompt.parser.analyzer.Token;
 
-public class Posfloat extends TerminalCommand{
+public class Posfloat extends TerminalGrammarCommand {
 
     private float posfloat;
     public Posfloat(Token token, double posfloat) {
