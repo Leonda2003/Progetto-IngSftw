@@ -97,8 +97,9 @@ public class GroupObject extends AbstractGraphicObject{
     @Override
     public double perimeter() {
         double sum = 0;
+        HashSet<String> newMap = new HashSet<>(group.keySet());
         for(GraphicObject g : group.values()){
-            if(g.getType().equals("Group")) sum += InnerAreaPerimeter((GroupObject) g, new HashSet<>(group.keySet()),true);
+            if(g.getType().equals("Group")) sum += InnerAreaPerimeter((GroupObject) g, newMap,true);
                 else sum += g.perimeter();
         }
         return sum;
@@ -106,9 +107,10 @@ public class GroupObject extends AbstractGraphicObject{
 
     private double InnerAreaPerimeter(GroupObject group, HashSet<String> map,boolean perimeter){
         double sum = 0;
+
         HashMap<String,GraphicObject> groupmap = group.getGroup();
         for(String id : groupmap.keySet()){
-            if(! map.contains(id)){
+            if(!map.contains(id)){
                 GraphicObject toAdd = groupmap.get(id);
                 if(toAdd.getType().equals("Group")) {
                     GroupObject otherGroup = (GroupObject) toAdd;

@@ -14,17 +14,27 @@ import java.awt.event.MouseEvent;
 
 public class SystemInterface {
 
-    public SystemInterface(){}
+    private final HistoryCmdHandler handler;
+    private final GraphicObjectPanel gpanel ;
+    private final GraphicObjectPromptPanel prompt;
+    private final GraphicObjectController goc ;
+    private final JFrame f;
+
+    public SystemInterface(){
+        handler = new HistoryCmdHandler();
+        gpanel = new GraphicObjectPanel();
+        prompt = new GraphicObjectPromptPanel(handler);
+        goc = new GraphicObjectController(handler);
+        f = new JFrame();
+    }
 
     public void startSystem(){
-        JFrame f = new JFrame();
+
 
         JToolBar toolbar = new JToolBar();
 
         JButton undoButt = new JButton("Undo");
         JButton redoButt = new JButton("Redo");
-
-        final HistoryCmdHandler handler = new HistoryCmdHandler();
 
         undoButt.addActionListener(evt -> handler.undo());
 
@@ -33,13 +43,7 @@ public class SystemInterface {
         toolbar.add(undoButt);
         toolbar.add(redoButt);
 
-        final GraphicObjectPanel gpanel = new GraphicObjectPanel();
         gpanel.setPreferredSize(new Dimension(1100, 800));
-
-        final GraphicObjectPromptPanel prompt = new GraphicObjectPromptPanel(handler);
-
-        final GraphicObjectController goc = new GraphicObjectController(handler);
-
 
         JScrollPane panel = new JScrollPane(gpanel);
 
@@ -48,7 +52,6 @@ public class SystemInterface {
 
         JSplitPane splitPane1 = new JSplitPane(JSplitPane.VERTICAL_SPLIT, panel, goc);
         JSplitPane splitPane2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, splitPane1, prompt);
-
 
         GraphicObjectViewFactory.FACTORY.installView(RectangleObject.class, new RectangleObjectView());
         GraphicObjectViewFactory.FACTORY.installView(CircleObject.class, new CircleObjectView());

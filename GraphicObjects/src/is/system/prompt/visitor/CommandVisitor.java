@@ -74,12 +74,11 @@ public class CommandVisitor implements Visitor{
                 Constructor<ImageObject> constructorI = (Constructor<ImageObject>) wrapTypeConstr.getConstructor();
 
                 try{
-                    Files.exists(Paths.get(wrapTypeConstr.getParam()));
-                    ImageIcon imageIcon = new ImageIcon(wrapTypeConstr.getParam());
-                    go = constructorI.newInstance(imageIcon,position);
-                    break;
-
-
+                    if(Files.exists(Paths.get(wrapTypeConstr.getParam()))){
+                        ImageIcon imageIcon = new ImageIcon(wrapTypeConstr.getParam());
+                        go = constructorI.newInstance(imageIcon,position);
+                        break;
+                    }else throw new SyntaxException("Insert a valid Path");
                 }catch (InvalidPathException e){
                     throw new SyntaxException("Insert a valid Path");
                 }
