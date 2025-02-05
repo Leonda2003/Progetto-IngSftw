@@ -29,6 +29,7 @@ import java.awt.geom.Point2D;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
@@ -72,12 +73,18 @@ public class CommandVisitor implements Visitor{
 
                 Constructor<ImageObject> constructorI = (Constructor<ImageObject>) wrapTypeConstr.getConstructor();
 
-                if(Files.exists(Paths.get(wrapTypeConstr.getParam()))){
+                try{
+                    Files.exists(Paths.get(wrapTypeConstr.getParam()));
                     ImageIcon imageIcon = new ImageIcon(wrapTypeConstr.getParam());
                     go = constructorI.newInstance(imageIcon,position);
                     break;
+
+
+                }catch (InvalidPathException e){
+                    throw new SyntaxException("Insert a valid Path");
                 }
-                throw new SyntaxException("Insert a valid Path");
+
+
 
             default:
                 throw new IllegalStateException("Unexpected value: " + wrapTypeConstr.getType());

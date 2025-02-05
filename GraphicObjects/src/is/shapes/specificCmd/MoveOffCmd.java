@@ -26,8 +26,7 @@ public class MoveOffCmd implements Cmd {
 
         if(go.getType().equals("Group")){
             GroupObject group = (GroupObject) go;
-            HashMap<String,GraphicObject> objectMap=group.getGroup();
-            for(String id : objectMap.keySet()) memberOldPos.put(id,objectMap.get(id).getPosition());
+            addMemberOldPosition(group);
         }
     }
 
@@ -41,32 +40,45 @@ public class MoveOffCmd implements Cmd {
 
     @Override
     public boolean undoIt() {
-        if(object.getType().equals("Group")) return undoItForGroup();
-        object.moveTo(oldPos);
+        if(object.getType().equals("Group")) undoItForGroup((GroupObject) object);
+        else object.moveTo(oldPos);
         Context.CONTEXT.clearLine();
         return true;
     }
 
 
-    private boolean undoItForGroup() {
-        GroupObject group = (GroupObject) object;
+    private void undoItForGroup(GroupObject group) {
         HashMap<String,GraphicObject> objectMap=group.getGroup();
         for(String id : objectMap.keySet()){
             GraphicObject g = objectMap.get(id);
-            g.moveTo(memberOldPos.get(id));
+            if(g.getType().equals("Group")) undoItForGroup((GroupObject) g);
+            else g.moveTo(memberOldPos.get(id));
         }
-        Context.CONTEXT.clearLine();
-        return true;
     }
 
     private boolean doItForGroup() {
         GroupObject group = (GroupObject) object;
+        moveOff(group);
+        Context.CONTEXT.clearLine();
+        return true;
+    }
+
+    private void moveOff(GroupObject group){
+
         HashMap<String,GraphicObject> objectMap=group.getGroup();
         for(String id : objectMap.keySet()){
             GraphicObject g = objectMap.get(id);
-            g.moveTo(new Point2D.Double(g.getPosition().getX()+ newPos.getX(),g.getPosition().getY()+newPos.getY()));
+            if(g.getType().equals("Group")) moveOff((GroupObject) g);
+            else g.moveTo(new Point2D.Double(g.getPosition().getX()+ newPos.getX(),g.getPosition().getY()+newPos.getY()));
         }
-        Context.CONTEXT.clearLine();
-        return true;
+    }
+
+    private void addMemberOldPosition(GroupObject group){
+        HashMap<String,GraphicObject> objectMap=group.getGroup();
+        for(String id : objectMap.keySet()){
+            GraphicObject g = objectMap.get(id);
+            if(g.getType().equals("Group")) addMemberOldPosition((GroupObject) g);
+            else memberOldPos.put(id,g.getPosition());
+        }
     }
 }
