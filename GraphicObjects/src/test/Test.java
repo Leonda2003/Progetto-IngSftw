@@ -98,30 +98,6 @@ public class Test {
         realGrammarCommand.accept(visitor);
     }
 
-    @org.junit.jupiter.api.Test
-    void testGraphicPanel2() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-
-
-
-        String[] s = {"new circle (5.0) (3.1,4.5)", "new img (\"./pippo.png\") (6.1,4.6)", "del id2", "mv id1 (5.9,8.2)", "mvoff id1 (5.9,8.2)",
-                "scale id1 2.0", "ls id1", "ls circle", "ls all", "ls groups", "grp id1", "ungrp id3", "area id1", "perimeter rectangle",
-                "area all"};
-        final HistoryCmdHandler handler = new HistoryCmdHandler();
-        final GraphicObjectPanel gpanel = new GraphicObjectPanel();
-
-
-
-        final GraphicObjectPromptPanel gocp = new GraphicObjectPromptPanel(handler);
-
-
-
-        CommandVisitor visitor = new CommandVisitor(handler);
-        for(String string : s ){
-            GrammarCommand realGrammarCommand = new ConcreteBuilderParser(new StringReader(string)).getCommandToInterpret();
-            realGrammarCommand.accept(visitor);
-        }
-        
-    }
 
     @org.junit.jupiter.api.Test
     void testAllPerformance() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {

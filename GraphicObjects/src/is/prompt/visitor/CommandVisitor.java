@@ -107,17 +107,12 @@ public class CommandVisitor implements Visitor{
     @Override
     public void interpret(MoveOffGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException {
 
-        Constructor<MoveCmd> command = (Constructor<MoveCmd>) interpret(c.getMvoff());
+        Constructor<MoveOffCmd> command = (Constructor<MoveOffCmd>) interpret(c.getMvoff());
         String id = interpret(c.getObjID());
         GraphicObject go = context.getGraphicObject(id);
-        if(go instanceof GroupObject){
-            for(String objid : ((GroupObject) go).getGroup().keySet()){
-                interpret(new MoveOffGrammarCommand(c.getMvoff(),new ObjID(c.getObjID().getToken(),objid),c.getPos()));
-            }
-        }else{
-            float[] pos = interpret(c.getPos());
-            cmdHandler.handle(command.newInstance(go,new Point2D.Double(go.getPosition().getX()+pos[0],go.getPosition().getX()+pos[1])));
-        }
+        float[] pos = interpret(c.getPos());
+
+        cmdHandler.handle(command.newInstance(go,new Point2D.Float(pos[0],pos[1])));
     }
 
     @Override
@@ -300,8 +295,9 @@ public class CommandVisitor implements Visitor{
                 case DEL:
                     return RemoveObjectCmd.class.getConstructor(GraphicObjectPanel.class,String.class);
                 case MV:
-                case MVOFF:
                     return MoveCmd.class.getConstructor(GraphicObject.class,Point2D.class);
+                case MVOFF:
+                    return MoveOffCmd.class.getConstructor(GraphicObject.class,Point2D.class);
                 case SCALE:
                     return ZoomCmd.class.getConstructor(GraphicObject.class, double.class);
                 case LS:

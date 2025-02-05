@@ -34,7 +34,7 @@ public class TestGraphics3 {
         toolbar.add(redoButt);
 
         final GraphicObjectPanel gpanel = new GraphicObjectPanel();
-        gpanel.setPreferredSize(new Dimension(500, 500));
+        gpanel.setPreferredSize(new Dimension(1100, 800));
 
         final GraphicObjectPromptPanel prompt = new GraphicObjectPromptPanel(handler);
 

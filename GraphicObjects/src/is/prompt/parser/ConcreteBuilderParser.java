@@ -158,42 +158,55 @@ public class ConcreteBuilderParser extends BuilderParser {
 
     private GrammarCommand createPerimeter(TerminalGrammarCommand terminalCommand) {
 
-        if(currentToken.equals(Token.OBJ_ID)){
+        try{
+            if(currentToken.equals(Token.OBJ_ID)){
 
-            ObjID objID = createObjID();
-            return new PerimeterIDGrammarCommand(terminalCommand,objID);
+                ObjID objID = createObjID();
+                return new PerimeterIDGrammarCommand(terminalCommand,objID);
 
-        }else if(currentToken.equals(Token.ALL)){
+            }else if(currentToken.equals(Token.ALL)){
 
-            TerminalGrammarCommand terminalCommand2 = createAll_Groups();
-            return new PerimeterAllGrammarCommand(terminalCommand,terminalCommand2);
+                TerminalGrammarCommand terminalCommand2 = createAll_Groups();
+                return new PerimeterAllGrammarCommand(terminalCommand,terminalCommand2);
 
-        }else{
+            }else{
 
-            TypeGrammarCommand typeCommand = createType();
-            return new PerimeterTypeGrammarCommand(terminalCommand,typeCommand);
+                TypeGrammarCommand typeCommand = createType();
+                return new PerimeterTypeGrammarCommand(terminalCommand,typeCommand);
+            }
+        }catch (SyntaxException e){
+            throw new SyntaxException("Expected one of objID-circle-rectangle-img-all");
         }
+
     }
 
     private GrammarCommand createArea(TerminalGrammarCommand terminalCommand) {
 
-        if(currentToken.equals(Token.OBJ_ID)){
-            ObjID objID = createObjID();
-            return new AreaIDGrammarCommand(terminalCommand,objID);
+        try{
+            if(currentToken.equals(Token.OBJ_ID)){
+                ObjID objID = createObjID();
+                return new AreaIDGrammarCommand(terminalCommand,objID);
 
-        }else if(currentToken.equals(Token.ALL)){
+            }else if(currentToken.equals(Token.ALL)){
 
-            TerminalGrammarCommand terminalCommand2 = createAll_Groups();
-            return new AreaAllGrammarCommand(terminalCommand,terminalCommand2);
+                TerminalGrammarCommand terminalCommand2 = createAll_Groups();
+                return new AreaAllGrammarCommand(terminalCommand,terminalCommand2);
 
-        }else{
-            TypeGrammarCommand typeCommand = createType();
-            return new AreaTypeGrammarCommand(terminalCommand,typeCommand);
+            }else{
+                TypeGrammarCommand typeCommand = createType();
+                return new AreaTypeGrammarCommand(terminalCommand,typeCommand);
+            }
+
+        }catch (SyntaxException e){
+            throw new SyntaxException("Expected one of objID-circle-rectangle-img-all");
         }
+
+
     }
 
     private ListGrammarCommand createList(TerminalGrammarCommand terminalCommand) {
 
+        try{
         if(currentToken.equals(Token.OBJ_ID)){
 
             ObjID objID = createObjID();
@@ -213,6 +226,9 @@ public class ConcreteBuilderParser extends BuilderParser {
 
             TypeGrammarCommand typeCommand = createType();
             return new ListTypeGrammarCommand(terminalCommand,typeCommand);
+        }
+        }catch (SyntaxException e){
+            throw new SyntaxException("Expected one of objID-circle-rectangle-img-groups-all");
         }
     }
 

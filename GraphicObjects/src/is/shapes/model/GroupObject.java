@@ -99,7 +99,7 @@ public class GroupObject extends AbstractGraphicObject{
     public double perimeter() {
         double sum = 0;
         for(GraphicObject g : group.values()){
-            if(!g.getType().equals("Group")) sum += g.perimeter();
+            if(!g.getType().equals("Group"))sum += g.perimeter();
         }
         return sum;
     }
@@ -116,9 +116,9 @@ public class GroupObject extends AbstractGraphicObject{
         sb.append(info);
         for(String objid: group.keySet()){
             GraphicObject g = group.get(objid);
-            if(g.getType().equals("Group")) sb.append("\t\t"+
+            if(g.getType().equals("Group")) sb.append("\t"+
                     String.format ("[%s] [%s] dim=[%d]%n",objid, g.getType(),(int)g.getDimension().getHeight()));
-            else sb.append("\t\t"+g.properties(objid));
+            else sb.append("\t"+g.properties(objid));
         }
         return sb.toString();
     }

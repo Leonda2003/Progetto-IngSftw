@@ -143,11 +143,12 @@ public enum Context {
             for(String objid : map.keySet()){
                 remove(objid);
             }
+
             cache.get(group.getType()).remove(id,group);
             cache.get("All").remove(id,group);
-            String s = "removed the the group with "+id;
-            graphicObjectPromptPanel.write(s);
             group.removeMeFromAllMyGroups(id);
+            String s = "removed the the group with "+id;
+            write(s);
             group.setGroup(map);
             return group;
         }
@@ -165,6 +166,7 @@ public enum Context {
             group.ungroupAll(id);
             cache.get(group.getType()).remove(id, group);
             cache.get("All").remove(id, group);
+            group.removeMeFromAllMyGroups(id);
             String s = "removed the the group with" + id;
             write(s);
             return group;

@@ -35,37 +35,37 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 
 	/*______________________________GROUP________________________________*/
 
-	private HashMap<String,GroupObject> group = new HashMap<>();
+	private HashMap<String,GroupObject> mygroups = new HashMap<>();
 
 	@Override
 	public void addGroupToMyMap(String id,GroupObject group){
-		this.group.put(id,group);
+		this.mygroups.put(id,group);
 	}
 
 	@Override
 	public void removeGroupToMyMap(String id,GroupObject group){
-		this.group.remove(id,group);
+		this.mygroups.remove(id,group);
 	}
 
 	@Override
 	public void removeMeFromAllMyGroups(String objid){
-		for(String id :group.keySet()){
-			group.get(id).removeMemberFromGroup(objid,this);
+		for(String id :mygroups.keySet()){
+			mygroups.get(id).removeMemberFromGroup(objid,this);
 		}
 	}
 
 
 	@Override
 	public void addMeToAllMyOldGroups(String id){
-		for(GroupObject group : group.values()) group.addMemberToGroup(id,this);
+		for(GroupObject group : mygroups.values()) group.addMemberToGroup(id,this);
 	}
 
 	@Override
 	public String myGroup() {
-		if(group.isEmpty()) return "";
+		if(mygroups.isEmpty()) return "";
 		StringBuilder sb = new StringBuilder();
 		sb.append("grp");
-		for(String id : group.keySet()) sb.append(" "+id);
+		for(String id : mygroups.keySet()) sb.append(" "+id);
 		return sb.toString();
 	}
 
@@ -74,7 +74,7 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 		try {
 			AbstractGraphicObject go = (AbstractGraphicObject) super.clone();
 			go.listeners = new LinkedList<>();
-			go.group = new HashMap<>();
+			go.mygroups = new HashMap<>();
 
 			return go;
 
