@@ -68,8 +68,27 @@ public class GroupObject extends AbstractGraphicObject{
 
     @Override
     public void scale(double factor) {
-        for(GraphicObject go : group.values()){
-            go.scale(factor);
+        for(GraphicObject g : group.values()){
+            HashSet<String> newMap = new HashSet<>(group.keySet());
+            if(g.getType().equals("Group"))  InnerScale((GroupObject) g, newMap,factor);
+            else g.scale(factor);
+        }
+    }
+
+    private void InnerScale(GroupObject group, HashSet<String> map,double factor){
+
+        HashMap<String,GraphicObject> groupmap = group.getGroup();
+        for(String id : groupmap.keySet()){
+            if(!map.contains(id)){
+                GraphicObject toScale = groupmap.get(id);
+                if(toScale.getType().equals("Group")) {
+                    GroupObject otherGroup = (GroupObject) toScale;
+                    map.addAll(groupmap.keySet());
+                    InnerScale(otherGroup,map,factor);
+                }else{
+                   toScale.scale(factor);
+                }
+            }
         }
     }
 
