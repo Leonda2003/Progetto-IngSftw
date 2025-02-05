@@ -1,13 +1,13 @@
 package is;
 
-import is.cmd.HistoryCmdHandler;
-import is.shapes.controller.GraphicObjectController;
-import is.shapes.model.AbstractGraphicObject;
-import is.shapes.model.CircleObject;
-import is.shapes.model.ImageObject;
-import is.shapes.model.RectangleObject;
-import is.prompt.GraphicObjectPromptPanel;
-import is.shapes.view.*;
+import is.system.exception.cmd.HistoryCmdHandler;
+import is.system.shapes.controller.GraphicObjectController;
+import is.system.shapes.model.AbstractGraphicObject;
+import is.system.shapes.model.CircleObject;
+import is.system.shapes.model.ImageObject;
+import is.system.shapes.model.RectangleObject;
+import is.system.prompt.GraphicObjectPromptPanel;
+import is.system.shapes.view.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
