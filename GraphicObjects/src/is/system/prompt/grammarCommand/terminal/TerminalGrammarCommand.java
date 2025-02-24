@@ -1,9 +1,13 @@
 package is.system.prompt.grammarCommand.terminal;
 
+import is.system.prompt.grammarCommand.GrammarCommand;
 import is.system.prompt.parser.analyzer.Token;
-import is.system.prompt.grammarCommand.AbstractGrammarCommand;
+import is.system.prompt.visitor.Visitor;
 
-public class TerminalGrammarCommand extends AbstractGrammarCommand {
+import java.lang.reflect.InvocationTargetException;
+
+
+public class TerminalGrammarCommand implements GrammarCommand {
 
     Token token;
 
@@ -19,5 +23,10 @@ public class TerminalGrammarCommand extends AbstractGrammarCommand {
     @Override
     public String toString() {
         return token.toString()+" ";
+    }
+
+    @Override
+    public void accept(Visitor v) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        v.interpret(this);
     }
 }

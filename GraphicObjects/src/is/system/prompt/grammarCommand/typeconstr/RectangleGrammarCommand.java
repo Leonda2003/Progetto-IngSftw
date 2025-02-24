@@ -18,8 +18,6 @@ public class RectangleGrammarCommand extends TypeconstrGrammarCommand {
     }
 
 
-
-
     public PosGrammarCommand getPos() {
         return pos;
     }

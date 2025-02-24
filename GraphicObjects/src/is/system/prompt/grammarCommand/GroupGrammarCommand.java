@@ -5,7 +5,7 @@ import is.system.prompt.visitor.Visitor;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class GroupGrammarCommand extends AbstractGrammarCommand {
+public class GroupGrammarCommand implements GrammarCommand {
 
 
     private TerminalGrammarCommand grp;

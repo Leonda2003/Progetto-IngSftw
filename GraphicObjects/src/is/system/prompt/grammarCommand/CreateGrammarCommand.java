@@ -6,7 +6,7 @@ import is.system.prompt.visitor.Visitor;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class CreateGrammarCommand extends AbstractGrammarCommand {
+public class CreateGrammarCommand implements GrammarCommand {
 
     private TerminalGrammarCommand NEW;
     private TypeconstrGrammarCommand typeconstr;

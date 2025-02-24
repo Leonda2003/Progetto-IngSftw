@@ -6,7 +6,7 @@ import is.system.prompt.visitor.Visitor;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class RemoveGrammarCommand extends AbstractGrammarCommand {
+public class RemoveGrammarCommand implements GrammarCommand {
 
     private TerminalGrammarCommand del;
     private ObjID objID;

@@ -7,7 +7,7 @@ import is.system.prompt.visitor.Visitor;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class ScaleGrammarCommand extends AbstractGrammarCommand {
+public class ScaleGrammarCommand implements GrammarCommand {
 
     TerminalGrammarCommand scale;
     ObjID objID;

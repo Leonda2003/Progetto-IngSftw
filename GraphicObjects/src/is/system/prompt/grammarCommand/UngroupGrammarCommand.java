@@ -6,7 +6,7 @@ import is.system.prompt.visitor.Visitor;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class UngroupGrammarCommand extends AbstractGrammarCommand {
+public class UngroupGrammarCommand implements GrammarCommand {
 
     private TerminalGrammarCommand ungrp;
     private ObjID objID;

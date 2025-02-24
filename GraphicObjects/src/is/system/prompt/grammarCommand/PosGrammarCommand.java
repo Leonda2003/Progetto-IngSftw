@@ -3,7 +3,7 @@ package is.system.prompt.grammarCommand;
 import is.system.prompt.grammarCommand.terminal.Posfloat;
 import is.system.prompt.visitor.Visitor;
 
-public class PosGrammarCommand extends AbstractGrammarCommand {
+public class PosGrammarCommand implements GrammarCommand {
 
     private Posfloat posfloat1;
     private Posfloat posfloat2;

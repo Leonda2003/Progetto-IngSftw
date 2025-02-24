@@ -5,7 +5,7 @@ import is.system.prompt.visitor.Visitor;
 
 import java.util.*;
 
-public class ListIDGrammarCommand extends AbstractGrammarCommand {
+public class ListIDGrammarCommand implements GrammarCommand {
 
     List<ObjID> listObjID= new LinkedList<>();
 
