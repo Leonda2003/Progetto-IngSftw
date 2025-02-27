@@ -1,7 +1,7 @@
 package test;
 
 import is.TestGraphics2;
-import is.system.exception.cmd.HistoryCmdHandler;
+import is.system.cmd.HistoryCmdHandler;
 import is.system.prompt.GraphicObjectPromptPanel;
 import is.system.prompt.grammarCommand.GrammarCommand;
 import is.system.prompt.parser.ConcreteBuilderParser;

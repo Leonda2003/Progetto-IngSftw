@@ -2,7 +2,7 @@ package is.system.prompt.parser;
 
 import is.system.prompt.grammarCommand.GrammarCommand;
 
-public abstract class BuilderParser {
+public interface BuilderParser {
 
-    public abstract GrammarCommand getCommandToInterpret();
+    GrammarCommand getCommandToInterpret();
 }

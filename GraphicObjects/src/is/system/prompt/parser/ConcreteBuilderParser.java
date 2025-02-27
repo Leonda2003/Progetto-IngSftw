@@ -26,7 +26,7 @@ import is.system.prompt.grammarCommand.typeconstr.TypeconstrGrammarCommand;
 import java.io.Reader;
 
 
-public class ConcreteBuilderParser extends BuilderParser {
+public class ConcreteBuilderParser implements BuilderParser {
 
     private GrammarCommand grammarCommand;
     private LexicalAnalyzer analyzer;
@@ -40,63 +40,63 @@ public class ConcreteBuilderParser extends BuilderParser {
     private GrammarCommand createCommandToInterpret() {
 
         currentToken = analyzer.nexToken();
-        if(currentToken.equals(Token.NEW)){
+        if(currentToken == Token.NEW){
 
             TerminalGrammarCommand terminalCommand = createTerminal();
             TypeconstrGrammarCommand typeconstrCommand = createTypeconstr();
             PosGrammarCommand posCommand = createPos();
             return new CreateGrammarCommand(terminalCommand,typeconstrCommand,posCommand);
 
-        }if(currentToken.equals(Token.DEL)){
+        }if(currentToken == Token.DEL){
 
             TerminalGrammarCommand terminalCommand = createTerminal();
             ObjID objID = createObjID();
             return new RemoveGrammarCommand(terminalCommand,objID);
 
-        }if(currentToken.equals(Token.MV)){
+        }if(currentToken == Token.MV){
 
             TerminalGrammarCommand terminalCommand = createTerminal();
             ObjID objID = createObjID();
             PosGrammarCommand posCommand = createPos();
             return new MoveGrammarCommand(terminalCommand,objID,posCommand);
 
-        }if(currentToken.equals(Token.MVOFF)){
+        }if(currentToken == Token.MVOFF){
 
             TerminalGrammarCommand terminalCommand = createTerminal();
             ObjID objID = createObjID();
             PosGrammarCommand posCommand = createPos();
             return new MoveOffGrammarCommand(terminalCommand,objID,posCommand);
 
-        }if(currentToken.equals(Token.SCALE)){
+        }if(currentToken == Token.SCALE){
 
             TerminalGrammarCommand terminalCommand = createTerminal();
             ObjID objID = createObjID();
             Posfloat posfloat = createPosfloat();
             return new ScaleGrammarCommand(terminalCommand,objID,posfloat);
 
-        }if(currentToken.equals(Token.LS)){
+        }if(currentToken == Token.LS){
 
             TerminalGrammarCommand terminalCommand = createTerminal();
             return createList(terminalCommand);
 
-        }if(currentToken.equals(Token.GRP)){
+        }if(currentToken == Token.GRP){
 
             TerminalGrammarCommand terminalCommand = createTerminal();
             ListIDGrammarCommand listIDCommand = createListID();
             return new GroupGrammarCommand(terminalCommand,listIDCommand);
 
-        }if(currentToken.equals(Token.UNGRP)){
+        }if(currentToken == Token.UNGRP){
 
             TerminalGrammarCommand terminalCommand = createTerminal();
             ObjID objID = createObjID();
             return new UngroupGrammarCommand(terminalCommand,objID);
 
-        }if(currentToken.equals(Token.AREA)){
+        }if(currentToken == Token.AREA){
 
             TerminalGrammarCommand terminalCommand = createTerminal();
             return createArea(terminalCommand);
 
-        }if(currentToken.equals(Token.PERIMETER)){
+        }if(currentToken == Token.PERIMETER){
 
             TerminalGrammarCommand terminalCommand = createTerminal();
             return createPerimeter(terminalCommand);
@@ -117,13 +117,13 @@ public class ConcreteBuilderParser extends BuilderParser {
             expected(Token.RIGHT_PAR);
             return new CircleGrammarCommand(typeCommand,posfloat);
         }
-        if(currentToken.equals(Token.RECTANGLE)){
+        if(currentToken == Token.RECTANGLE){
 
             TypeGrammarCommand typeCommand = createType();
             PosGrammarCommand posCommand= createPos();
             return new RectangleGrammarCommand(typeCommand,posCommand);
         }
-        if(currentToken.equals(Token.IMG)){
+        if(currentToken == Token.IMG){
 
             TypeGrammarCommand typeCommand = createType();
             expected(Token.LEFT_PAR);
@@ -131,7 +131,6 @@ public class ConcreteBuilderParser extends BuilderParser {
             expected(Token.RIGHT_PAR);
             return new ImageGrammarCommand(typeCommand,path);
         }
-        String word = analyzer.getWord();
         throw new SyntaxException("Command Syntax Error, expected a type of graphic object ");
 
     }
@@ -159,12 +158,12 @@ public class ConcreteBuilderParser extends BuilderParser {
     private GrammarCommand createPerimeter(TerminalGrammarCommand terminalCommand) {
 
         try{
-            if(currentToken.equals(Token.OBJ_ID)){
+            if(currentToken == Token.OBJ_ID){
 
                 ObjID objID = createObjID();
                 return new PerimeterIDGrammarCommand(terminalCommand,objID);
 
-            }else if(currentToken.equals(Token.ALL)){
+            }else if(currentToken == Token.ALL){
 
                 TerminalGrammarCommand terminalCommand2 = createAll_Groups();
                 return new PerimeterAllGrammarCommand(terminalCommand,terminalCommand2);
@@ -183,11 +182,11 @@ public class ConcreteBuilderParser extends BuilderParser {
     private GrammarCommand createArea(TerminalGrammarCommand terminalCommand) {
 
         try{
-            if(currentToken.equals(Token.OBJ_ID)){
+            if(currentToken == Token.OBJ_ID){
                 ObjID objID = createObjID();
                 return new AreaIDGrammarCommand(terminalCommand,objID);
 
-            }else if(currentToken.equals(Token.ALL)){
+            }else if(currentToken == Token.ALL){
 
                 TerminalGrammarCommand terminalCommand2 = createAll_Groups();
                 return new AreaAllGrammarCommand(terminalCommand,terminalCommand2);
@@ -207,17 +206,17 @@ public class ConcreteBuilderParser extends BuilderParser {
     private ListGrammarCommand createList(TerminalGrammarCommand terminalCommand) {
 
         try{
-        if(currentToken.equals(Token.OBJ_ID)){
+        if(currentToken == Token.OBJ_ID){
 
             ObjID objID = createObjID();
             return new ListObjIDGrammarCommand(terminalCommand,objID);
 
-        }else if(currentToken.equals(Token.ALL)){
+        }else if(currentToken == Token.ALL){
 
             All_Groups allGroups = createAll_Groups();
             return new ListAllGrammarCommand(terminalCommand,allGroups);
 
-        }else if(currentToken.equals(Token.GROUPS)){
+        }else if(currentToken == Token.GROUPS){
 
             All_Groups allGroups = createAll_Groups();
             return new ListGroupsGrammarCommand(terminalCommand,allGroups);
@@ -308,7 +307,6 @@ public class ConcreteBuilderParser extends BuilderParser {
         currentToken = analyzer.nexToken();
     }
 
-    @Override
     public GrammarCommand getCommandToInterpret() {
         return grammarCommand;
     }

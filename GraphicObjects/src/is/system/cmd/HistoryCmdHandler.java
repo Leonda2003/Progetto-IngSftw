@@ -1,4 +1,9 @@
-package is.system.exception.cmd;
+package is.system.cmd;
+
+import is.system.SystemInterface;
+import is.system.shapes.specificCmd.MementoCmd;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.LinkedList;
 
@@ -23,20 +28,21 @@ public class HistoryCmdHandler implements CmdHandler {
 
 	public void handle(Cmd cmd) {
 
+		flushMouse();
 		if (cmd.doIt()) {
 			// restituisce true: può essere annullato
 			addToHistory(cmd);
 		} else {
 			// restituisce false: non può essere annullato
-			//history.clear();
+			history.clear();
 		}
 		if (redoList.size() > 0)
 			redoList.clear();
 	}
 
 
-
 	public void redo() {
+		flushMouse();
 		if (redoList.size() > 0) {
 			Cmd redoCmd = redoList.removeFirst();
 			redoCmd.doIt();
@@ -57,7 +63,31 @@ public class HistoryCmdHandler implements CmdHandler {
 		if (history.size() > maxHistoryLength) {
 			history.removeLast();
 		}
-
 	}
+
+
+	public void handle(MementoCmd cmd) {
+
+		if(history.getFirst().equals(cmd)){
+			history.removeFirst();
+		}
+		addToHistory(cmd);
+		if (redoList.size() > 0)
+			redoList.clear();
+	}
+
+
+	private SystemInterface.MyMouseAdapter mouseAdapter;
+	public void setMouse( SystemInterface.MyMouseAdapter mouseAdapter){
+		this.mouseAdapter = mouseAdapter;
+	}
+
+
+	private void flushMouse(){
+		if(mouseAdapter != null) mouseAdapter.flush();
+	}
+
+
+
 
 }

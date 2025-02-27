@@ -1,6 +1,6 @@
 package is;
 
-import is.system.exception.cmd.HistoryCmdHandler;
+import is.system.cmd.HistoryCmdHandler;
 import is.system.shapes.controller.GraphicObjectController;
 import is.system.shapes.model.AbstractGraphicObject;
 import is.system.shapes.model.CircleObject;

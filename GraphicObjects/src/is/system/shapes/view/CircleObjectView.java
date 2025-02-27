@@ -40,7 +40,6 @@ public class CircleObjectView implements GraphicObjectView {
 
 		g.drawString(group, (float) textXGroupText, (float) textYGroupText);
 
-
 	}
 
 	@Override

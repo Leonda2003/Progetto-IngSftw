@@ -1,6 +1,6 @@
 package is.system.shapes.model;
 
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 
@@ -76,4 +76,19 @@ public final  class CircleObject extends AbstractGraphicObject {
 	public double getRadius() {
 		return radius;
 	}
+
+
+	private record CircleMemento(Point2D pos, double r) implements Memento{};
+	@Override
+	public Memento save() {
+		return new CircleMemento(new Point2D.Double(position.getX(),position.getY()),radius);
+	}
+	@Override
+	public void restore(Memento memento) {
+		position = ((CircleMemento)(memento)).pos;
+		radius = ((CircleMemento)(memento)).r;
+		notifyListeners(new GraphicEvent(this));
+	}
+
+
 }

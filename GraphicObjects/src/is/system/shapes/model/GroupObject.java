@@ -70,7 +70,7 @@ public class GroupObject extends AbstractGraphicObject{
     public void scale(double factor) {
         for(GraphicObject g : group.values()){
             HashSet<String> newMap = new HashSet<>(group.keySet());
-            if(g.getType().equals("Group"))  InnerScale((GroupObject) g, newMap,factor);
+            if(g instanceof GroupObject)  InnerScale((GroupObject) g, newMap,factor);
             else g.scale(factor);
         }
     }
@@ -81,7 +81,7 @@ public class GroupObject extends AbstractGraphicObject{
         for(String id : groupmap.keySet()){
             if(!map.contains(id)){
                 GraphicObject toScale = groupmap.get(id);
-                if(toScale.getType().equals("Group")) {
+                if(toScale instanceof GroupObject) {
                     GroupObject otherGroup = (GroupObject) toScale;
                     map.addAll(groupmap.keySet());
                     InnerScale(otherGroup,map,factor);
@@ -107,7 +107,7 @@ public class GroupObject extends AbstractGraphicObject{
     public double area() {
         double sum = 0;
         for(GraphicObject g : group.values()){
-            if(g.getType().equals("Group")) sum += InnerAreaPerimeter((GroupObject) g, new HashSet<>(group.keySet()),false);
+            if(g instanceof GroupObject) sum += InnerAreaPerimeter((GroupObject) g, new HashSet<>(group.keySet()),false);
             else sum += g.area();
         }
         return sum;
@@ -118,7 +118,7 @@ public class GroupObject extends AbstractGraphicObject{
         double sum = 0;
         HashSet<String> newMap = new HashSet<>(group.keySet());
         for(GraphicObject g : group.values()){
-            if(g.getType().equals("Group")) sum += InnerAreaPerimeter((GroupObject) g, newMap,true);
+            if(g instanceof GroupObject) sum += InnerAreaPerimeter((GroupObject) g, newMap,true);
                 else sum += g.perimeter();
         }
         return sum;
@@ -131,7 +131,7 @@ public class GroupObject extends AbstractGraphicObject{
         for(String id : groupmap.keySet()){
             if(!map.contains(id)){
                 GraphicObject toAdd = groupmap.get(id);
-                if(toAdd.getType().equals("Group")) {
+                if(toAdd instanceof GroupObject) {
                     GroupObject otherGroup = (GroupObject) toAdd;
                     map.addAll(groupmap.keySet());
                     sum += InnerAreaPerimeter(otherGroup,map,perimeter);
@@ -156,10 +156,19 @@ public class GroupObject extends AbstractGraphicObject{
         sb.append(info);
         for(String objid: group.keySet()){
             GraphicObject g = group.get(objid);
-            if(g.getType().equals("Group")) sb.append("\t"+
+            if(g instanceof GroupObject) sb.append("\t"+
                     String.format ("[%s] [%s] dim=[%d]%n",objid, g.getType(),(int)g.getDimension().getHeight()));
             else sb.append("\t"+g.properties(objid));
         }
         return sb.toString();
+    }
+
+    @Override
+    public Memento save() {
+        return null;
+    }
+
+    @Override
+    public void restore(Memento memento) {
     }
 }

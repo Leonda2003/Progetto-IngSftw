@@ -69,6 +69,9 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 		return sb.toString();
 	}
 
+	/*______________________________GROUP________________________________*/
+
+
 	@Override
 	public GraphicObject clone() {
 		try {
@@ -90,4 +93,5 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 						.getDimension().getWidth(),
 				this.getDimension().getHeight());
 	}
+
 }

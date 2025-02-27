@@ -10,9 +10,4 @@ public class All_Groups extends TerminalGrammarCommand {
         super(token);
     }
 
-    @Override
-    public void accept(Visitor v) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        v.interpret(this);
-    }
-
 }

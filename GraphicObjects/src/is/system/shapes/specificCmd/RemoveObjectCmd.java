@@ -1,6 +1,6 @@
 package is.system.shapes.specificCmd;
 
-import is.system.exception.cmd.Cmd;
+import is.system.cmd.Cmd;
 import is.system.shapes.model.GraphicObject;
 import is.system.shapes.view.GraphicObjectPanel;
 import is.system.prompt.visitor.Context;

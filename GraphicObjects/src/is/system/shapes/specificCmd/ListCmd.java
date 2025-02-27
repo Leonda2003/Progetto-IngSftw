@@ -1,7 +1,7 @@
 package is.system.shapes.specificCmd;
 
 import is.system.prompt.parser.analyzer.Token;
-import is.system.exception.cmd.Cmd;
+import is.system.cmd.Cmd;
 import is.system.shapes.model.GraphicObject;
 import is.system.prompt.visitor.Context;
 

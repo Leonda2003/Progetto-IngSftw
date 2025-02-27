@@ -52,7 +52,7 @@ public enum Context {
     public int addGraphicObject(GraphicObject g){
         inizialize();
         cache.get("All").put("id"+ID.incrementAndGet(),g);
-        if(g.getType().equals("Group")){
+        if(g instanceof GroupObject){
             ((GroupObject) g).notifyTheyAreAGroup("id"+ID);
         }
         cache.get(g.getType()).put("id"+ID,g);
@@ -83,7 +83,7 @@ public enum Context {
         go.addMeToAllMyOldGroups(id);
         StringBuilder sb = new StringBuilder();
         sb.append("added again the "+go.getType()+" with "+id);
-        if(go.getType().equals("Group")){
+        if(go instanceof GroupObject){
             GroupObject group = (GroupObject) go;
             HashMap<String,GraphicObject> members = group.getGroup();
             for(String objid : members.keySet()){
@@ -123,7 +123,7 @@ public enum Context {
         GraphicObject g = null;
         if(cache.get("All").containsKey(id)){
             g = cache.get("All").get(id);
-            if(g.getType().equals("Group")){
+            if(g instanceof GroupObject){
                 GroupObject group = (GroupObject) g;
                 return removeGroup(id,group);
             }

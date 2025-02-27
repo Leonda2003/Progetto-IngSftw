@@ -1,6 +1,6 @@
 package is.system.shapes.specificCmd;
 
-import is.system.exception.cmd.Cmd;
+import is.system.cmd.Cmd;
 import is.system.prompt.visitor.Context;
 import is.system.shapes.model.GraphicObject;
 import is.system.shapes.model.GroupObject;
@@ -24,7 +24,7 @@ public class MoveCmd implements Cmd {
 		newPos = pos;
 		this.object = go;
 
-		if(go.getType().equals("Group")){
+		if(go instanceof GroupObject){
 			GroupObject group = (GroupObject) go;
 			addMemberOldPosition(group);
 		}
@@ -39,7 +39,7 @@ public class MoveCmd implements Cmd {
 
 	@Override
 	public boolean undoIt() {
-		if(object.getType().equals("Group")) undoItForGroup((GroupObject) object);
+		if(object instanceof GroupObject) undoItForGroup((GroupObject) object);
 		else object.moveTo(oldPos);
 		Context.CONTEXT.clearLine();
 		return true;
@@ -50,7 +50,7 @@ public class MoveCmd implements Cmd {
 		HashMap<String,GraphicObject> objectMap=group.getGroup();
 		for(String id : objectMap.keySet()){
 			GraphicObject g = objectMap.get(id);
-			if(g.getType().equals("Group")) undoItForGroup((GroupObject) g);
+			if(g instanceof GroupObject) undoItForGroup((GroupObject) g);
 			else g.moveTo(memberOldPos.get(id));
 		}
 	}
@@ -59,7 +59,7 @@ public class MoveCmd implements Cmd {
 		HashMap<String,GraphicObject> objectMap=group.getGroup();
 		for(String id : objectMap.keySet()){
 			GraphicObject g = objectMap.get(id);
-			if(g.getType().equals("Group")) addMemberOldPosition((GroupObject) g);
+			if(g instanceof GroupObject) addMemberOldPosition((GroupObject) g);
 			else memberOldPos.put(id,g.getPosition());
 		}
 	}

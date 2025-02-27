@@ -86,4 +86,18 @@ public final class RectangleObject extends AbstractGraphicObject {
 
 		return "Rectangle";
 	}
+
+	private record RectangleMemento(Point2D pos, Dimension2D dimension) implements Memento{};
+	@Override
+	public Memento save() {
+		Dimension dimension = new Dimension();
+		dimension.setSize(dim);
+		return new RectangleMemento(new Point2D.Double(position.getX(), position.getY()), dimension);
+	}
+	@Override
+	public void restore(Memento memento) {
+		position = ((RectangleMemento)(memento)).pos;
+		dim = ((RectangleMemento)(memento)).dimension;
+		notifyListeners(new GraphicEvent(this));
+	}
 }

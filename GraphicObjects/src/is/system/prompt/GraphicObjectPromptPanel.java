@@ -1,6 +1,6 @@
 package is.system.prompt;
 
-import is.system.exception.cmd.CmdHandler;
+import is.system.cmd.CmdHandler;
 import is.system.exception.SyntaxException;
 import is.system.prompt.grammarCommand.GrammarCommand;
 import is.system.prompt.parser.ConcreteBuilderParser;
@@ -31,7 +31,6 @@ public class GraphicObjectPromptPanel extends JComponent {
     private JScrollPane scrollPane;
     private BuilderParser parser;
     private final Visitor visitor;
-    private final CmdHandler cmdHandler;
     private int lastLineIndex = 0;
     private final ArrayList<String> history = new ArrayList<>();
     private int index = 0;
@@ -40,9 +39,7 @@ public class GraphicObjectPromptPanel extends JComponent {
 
     public GraphicObjectPromptPanel(CmdHandler cmdH) {
 
-        cmdHandler = cmdH;
-        visitor = new CommandVisitor(cmdHandler);
-
+        visitor = new CommandVisitor(cmdH);
         outputArea = new JTextArea();
         outputArea.setEditable(false);
         outputArea.append("> ");

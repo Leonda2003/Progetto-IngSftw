@@ -40,4 +40,8 @@ public interface GraphicObject {
 	void addMeToAllMyOldGroups(String id);
 
 	String myGroup();
+
+	Memento save();
+
+	void restore(Memento memento);
 }

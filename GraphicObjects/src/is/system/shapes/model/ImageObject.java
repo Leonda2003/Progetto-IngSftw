@@ -87,4 +87,16 @@ public final class ImageObject extends AbstractGraphicObject {
 		double height = factor * image.getHeight(null);
 		return 2 * (width + height);
 	}
+
+	private record ImageMemento(Point2D pos, double f) implements Memento{};
+	@Override
+	public Memento save() {
+		return new ImageMemento(new Point2D.Double(position.getX(),position.getY()),factor);
+	}
+	@Override
+	public void restore(Memento memento) {
+		position = ((ImageMemento)(memento)).pos;
+		factor = ((ImageMemento)(memento)).f;
+		notifyListeners(new GraphicEvent(this));
+	}
 }

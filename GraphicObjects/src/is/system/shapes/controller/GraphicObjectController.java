@@ -1,6 +1,6 @@
 package is.system.shapes.controller;
 
-import is.system.exception.cmd.CmdHandler;
+import is.system.cmd.CmdHandler;
 import is.system.shapes.model.GraphicObject;
 import is.system.shapes.specificCmd.MoveCmd;
 import is.system.shapes.specificCmd.ZoomCmd;

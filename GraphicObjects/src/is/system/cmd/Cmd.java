@@ -1,4 +1,4 @@
-package is.system.exception.cmd;
+package is.system.cmd;
 
 public interface Cmd {
 	boolean doIt();

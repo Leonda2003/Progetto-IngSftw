@@ -1,8 +1,8 @@
 package is.system.prompt.visitor;
 
 import is.system.prompt.parser.analyzer.Token;
-import is.system.exception.cmd.Cmd;
-import is.system.exception.cmd.CmdHandler;
+import is.system.cmd.Cmd;
+import is.system.cmd.CmdHandler;
 import is.system.exception.SyntaxException;
 import is.system.prompt.grammarCommand.*;
 import is.system.prompt.grammarCommand.area.AreaAllGrammarCommand;

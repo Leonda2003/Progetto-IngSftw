@@ -54,6 +54,9 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 		return null;
 	}
 
+
+
+
 	@Override
 	public Dimension getPreferredSize() {
 		Dimension ps = super.getPreferredSize();
@@ -98,7 +101,6 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 			repaint();
 			go.removeGraphicObjectListener(this);
 		}
-
 	}
 
 	
