@@ -8,6 +8,8 @@ import java.awt.geom.Point2D;
 import javax.swing.ImageIcon;
 
 public final class ImageObject extends AbstractGraphicObject {
+
+	private static double MAX_FACTOR = 1000,MIN_FACTOR=0.01;
 	private double factor = 1.0;
 	private final Image image;
 
@@ -56,6 +58,9 @@ public final class ImageObject extends AbstractGraphicObject {
 		if (factor <= 0)
 			throw new IllegalArgumentException();
 		this.factor *= factor;
+		if((this.factor)>= MAX_FACTOR) this.factor = MAX_FACTOR;
+		else if((this.factor)<= MIN_FACTOR) this.factor = MIN_FACTOR;
+
 		notifyListeners(new GraphicEvent(this));
 	}
 

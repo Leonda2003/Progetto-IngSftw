@@ -94,4 +94,9 @@ public abstract class AbstractGraphicObject implements GraphicObject {
 						.getDimension().getWidth(),
 				this.getDimension().getHeight());
 	}
+
+	@Override
+	public String toString(){
+		return this.getType()+" "+this.hashCode();
+	}
 }

@@ -30,5 +30,10 @@ public class RemoveObjectCmd implements Cmd {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "remove object command :"+go.toString()+", id: "+id;
+    }
+
 
 }

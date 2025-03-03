@@ -30,4 +30,9 @@ public class GroupCmd implements Cmd {
         panel.remove(go);
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "group command "+go.toString()+" "+go.getGroup();
+    }
 }

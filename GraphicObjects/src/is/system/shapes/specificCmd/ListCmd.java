@@ -62,4 +62,9 @@ public class ListCmd implements Cmd {
     public boolean undoIt() {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "list command "+" id "+id+" token "+token;
+    }
 }

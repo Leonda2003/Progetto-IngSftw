@@ -32,4 +32,9 @@ public class UngroupCmd implements Cmd {
         panel.add(go);
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "ungroup command :"+go.toString()+", id: "+id;
+    }
 }

@@ -64,6 +64,10 @@ public class MoveCmd implements Cmd {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "move command "+object.toString()+"new pos: "+newPos+" old pos: "+oldPos;
+	}
 
 
 }

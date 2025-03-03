@@ -32,16 +32,24 @@ public class SystemInterface {
         goc = new GraphicObjectController(handler);
         f = new JFrame();
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        f.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                handler.printStory();
+            }
+        });
     }
 
 
     public void configureSystem(){
+
         settings = new Settings(f);
     }
 
     private void inizializeSystem(){
 
         f.getContentPane().removeAll();
+
         instalFactory();
         gpanel.removeMouseListener(mouseAdapter);
         gpanel.removeMouseWheelListener(mouseAdapter);

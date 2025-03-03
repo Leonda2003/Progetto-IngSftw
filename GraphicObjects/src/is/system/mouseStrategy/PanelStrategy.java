@@ -11,14 +11,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
+import static is.system.support.Utility.*;
+
 
 public class PanelStrategy implements MouseStrategy{
 
     private static GraphicObject memorized;
     private final Pair<String,GraphicObject> pair;
     private final HistoryCmdHandler handler;
-    private  GraphicObjectPanel gpanel;
+    private  final GraphicObjectPanel gpanel;
     private final JPopupMenu popup;
+    private final JPanel panel;
 
     protected double x,y;
 
@@ -28,47 +31,18 @@ public class PanelStrategy implements MouseStrategy{
         this.gpanel = gpanel;
         x = e.getX();y = e.getY();
         popup = new JPopupMenu();
-        popup.setBackground(Color.DARK_GRAY);
-        popup.setBorderPainted(false);
-
+        panel = new JPanel();
     }
 
     @Override
     public void execute() {
-        if(pair != null) setButton(pair.notEmpty());
-
-        popup.show(gpanel, (int) x-30, (int) y-30);
-        System.out.println(x+" "+y);
-    }
-
-    private void setButton(boolean onObject){
-        JPanel panel = new JPanel();
-        panel.setOpaque(false);
-        if(onObject){
-            JButton button1 = new JButton("Copy");
-            button1.addActionListener(evt->{
-                setMemorized();
-                popup.setVisible(false);
-            });
-            panel.add(button1);
-
-            JButton button2 = new JButton("Cut");
-            button2.addActionListener(evt -> {
-                setMemorized();
-                handler.handle(new RemoveObjectCmd(gpanel,pair.getKey()));
-                popup.setVisible(false);
-            });
-            panel.add(button2);
-
-            JButton button3 = new JButton("Delete");
-            button3.addActionListener(evt ->{
-                setMemorized();
-                handler.handle(new RemoveObjectCmd(gpanel,pair.getKey()));
-                popup.setVisible(false);
-            });
-            panel.add(button3);
-            new InfoStrategy(pair,panel).execute();
+        if(pair != null && pair.notEmpty()) objectButton();
+        else {
+            JTextField position = new JTextField(x+" "+y);
+            position.setOpaque(false); position.setForeground(Color.white); position.setBorder(BorderFactory.createEmptyBorder());
+            panel.add(position);
         }
+
         if(memorized != null){
             JButton button4 = new JButton("Paste");
             button4.addActionListener(evt -> {
@@ -76,15 +50,47 @@ public class PanelStrategy implements MouseStrategy{
                 handler.handle(new NewObjectCmd(gpanel,memorized));
                 resetMemorized();
                 popup.setVisible(false);
-            });
-            panel.add(button4);
+            });panel.add(makeButtonV2(button4));
         }
-        JTextField text = new JTextField(x+" "+y);
-        text.setOpaque(false); text.setBorder(BorderFactory.createEmptyBorder());
-        text.setEditable(false);text.setForeground(Color.WHITE);
-        panel.add(text);
-        popup.add(panel);
+
+        setPopuop(popup,panel);
+        popup.show(gpanel, (int) x-80, (int) y);
     }
+
+
+
+    private void objectButton(){
+        JButton button1 = new JButton("Copy");
+        button1.addActionListener(evt->{
+            setMemorized();
+            popup.setVisible(false);
+        });panel.add(makeButtonV2(button1));
+
+        JButton button2 = new JButton("Cut");
+        button2.addActionListener(evt -> {
+            setMemorized();
+            handler.handle(new RemoveObjectCmd(gpanel,pair.getKey()));
+            popup.setVisible(false);
+        });panel.add(makeButtonV2(button2));
+
+        JButton button3 = new JButton("Delete");
+        button3.addActionListener(evt ->{
+            handler.handle(new RemoveObjectCmd(gpanel,pair.getKey()));
+            popup.setVisible(false);
+        });panel.add(makeButtonV2(button3));
+
+        JButton button4 = new JButton("Info");
+        button4.addActionListener(evt ->{
+            JTextArea textArea = new JTextArea();
+            textArea.setText(pair.getValue().properties(pair.getKey())+"\n"+
+                    "mouse current position: "+x+" "+y);
+            setText(textArea,panel,popup);
+            popup.show(gpanel,(int)x-80,(int)y);
+        });panel.add(makeButtonV2(button4));
+    }
+
+
+
 
     private void setMemorized(){
         memorized = pair.getValue().clone();

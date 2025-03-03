@@ -9,6 +9,12 @@ import is.system.prompt.visitor.Context;
 import is.system.prompt.visitor.CommandVisitor;
 import is.system.prompt.visitor.Visitor;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.util.List;
+import java.util.ArrayList;
+
+
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import java.awt.datatransfer.Clipboard;
@@ -154,6 +160,7 @@ public class GraphicObjectPromptPanel extends JComponent {
                 history.addFirst(command.trim());
                 history.addFirst("");
             }
+
             StringReader sr = new StringReader(command);
             parser = new ConcreteBuilderParser(sr);
             GrammarCommand realGrammarCommand = parser.getCommandToInterpret();

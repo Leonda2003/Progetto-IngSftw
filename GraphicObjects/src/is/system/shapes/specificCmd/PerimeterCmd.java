@@ -59,4 +59,9 @@ public class PerimeterCmd implements Cmd {
     public boolean undoIt() {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "perimeter command "+" id "+id;
+    }
 }

@@ -34,4 +34,9 @@ public class MementoCmd implements Cmd {
         MementoCmd cmd = (MementoCmd) obj;
         return (cmd.graphicObject == graphicObject && cmd.initialState == initialState);
     }
+
+    @Override
+    public String toString() {
+        return "memento command "+graphicObject.toString()+"initial state: "+initialState.toString()+" final state: "+finalState.toString();
+    }
 }

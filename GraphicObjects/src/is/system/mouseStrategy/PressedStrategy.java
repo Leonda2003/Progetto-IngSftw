@@ -20,10 +20,6 @@ public class PressedStrategy extends AbstractStrategy{
             e.getY()-pair.getValue().getPosition().getY());
     }
 
-    public void ciao(){
-    }
-
     @Override
-    public void execute() {
-    }
+    public void execute() {}
 }

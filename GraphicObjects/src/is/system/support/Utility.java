@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Utility {
 
-    public static void makeButton(String title, boolean[] isDefaultColor, AtomicBoolean mes, int pos, JPanel panel){
+    public static void makeButtonV1(String title, boolean[] isDefaultColor, AtomicBoolean mes, int pos, JPanel panel){
         JButton button = new JButton(title);
         Color color = button.getBackground();
         button.addActionListener(evt -> {
@@ -32,6 +32,14 @@ public class Utility {
             isDefaultColor[pos] = !isDefaultColor[pos];
         });
         panel.add(button);
+    }
+
+    public static JButton makeButtonV2(JButton button){
+
+        button.setContentAreaFilled(false); // Rimuovi il riempimento del contenuto
+        button.setBorderPainted(false);
+        button.setForeground(Color.white);
+        return button;
     }
 
     public static Point center(Window frame){
@@ -92,6 +100,30 @@ public class Utility {
         showInfoButt.addActionListener(evt -> gpanel.switchInfo());
         toolbar.add(showInfoButt);
     }
+
+    public static  void setPopuop(JPopupMenu popup, JPanel panel){
+
+        popup.setBackground(Color.DARK_GRAY);
+        popup.setBorderPainted(false);
+
+        panel.setOpaque(false);
+        panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+        popup.add(panel);
+    }
+
+    public static void setText(JTextArea textArea, JPanel panel, JPopupMenu popup){
+        textArea.setEditable(true); textArea.setVisible(true);
+        textArea.setOpaque(false); textArea.setForeground(Color.white);
+        Dimension textAreaSize = textArea.getPreferredSize();
+        textArea.setPreferredSize(new Dimension(textAreaSize.width, textAreaSize.height));
+
+        panel.removeAll();
+        panel.add(textArea);
+        panel.setPreferredSize(new Dimension(textAreaSize.width + 20, textAreaSize.height + 20));
+        popup.pack();popup.revalidate();popup.repaint();
+
+    }
+
 
 
 }

@@ -28,4 +28,8 @@ public class ZoomCmd implements Cmd {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "zoom command :"+object.toString()+", "+factor;
+	}
 }

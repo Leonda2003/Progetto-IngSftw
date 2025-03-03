@@ -81,4 +81,9 @@ public class MoveOffCmd implements Cmd {
             else memberOldPos.put(id,g.getPosition());
         }
     }
+
+    @Override
+    public String toString() {
+        return "move off command "+object.toString()+"new pos: "+newPos+" old pos: "+oldPos;
+    }
 }

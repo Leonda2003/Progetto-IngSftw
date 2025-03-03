@@ -1,11 +1,14 @@
 package test;
 
+import is.Demo;
 import is.TestGraphics2;
+import is.system.SystemInterface;
 import is.system.cmd.HistoryCmdHandler;
 import is.system.prompt.GraphicObjectPromptPanel;
 import is.system.prompt.grammarCommand.GrammarCommand;
 import is.system.prompt.parser.ConcreteBuilderParser;
 import is.system.prompt.visitor.CommandVisitor;
+import is.system.prompt.visitor.Visitor;
 import is.system.shapes.controller.GraphicObjectController;
 import is.system.shapes.model.AbstractGraphicObject;
 import is.system.shapes.model.CircleObject;
@@ -249,8 +252,100 @@ public class Test {
             z+=1;
         }
 
-
     }
+
+
+
+    @org.junit.jupiter.api.Test
+    void tet() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+
+        JFrame f = new JFrame();
+
+
+
+        final HistoryCmdHandler handler = new HistoryCmdHandler();
+        CommandVisitor visitor = new CommandVisitor(handler);
+
+        GraphicObjectViewFactory.FACTORY.installView(RectangleObject.class, new RectangleObjectView());
+        GraphicObjectViewFactory.FACTORY.installView(CircleObject.class, new CircleObjectView());
+        GraphicObjectViewFactory.FACTORY.installView(ImageObject.class, new ImageObjectView());
+
+
+        final GraphicObjectPanel gpanel = new GraphicObjectPanel();
+        gpanel.setPreferredSize(new Dimension(500, 500));
+
+
+
+        f.add(gpanel);
+
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.pack();
+        f.setVisible(true);
+
+
+        int i = 1;
+
+        while(i<=50) {
+
+            String s1 = "new circle (50.0) (100,100)";
+
+            GrammarCommand realGrammarCommand = new ConcreteBuilderParser(new StringReader(s1)).getCommandToInterpret();
+            System.out.println(realGrammarCommand);
+            realGrammarCommand.accept(visitor);
+            i++;
+        }
+
+        i = 1;
+        int j = 1;
+
+        while(i<= 24) {
+
+            String s1 = "grp id"+j+", id"+(j+1)+ ", id"+(j+2);
+            j += 3;
+
+            GrammarCommand realGrammarCommand = new ConcreteBuilderParser(new StringReader(s1)).getCommandToInterpret();
+            System.out.println(realGrammarCommand);
+            realGrammarCommand.accept(visitor);
+            i++;
+        }
+
+        i = 76;
+        j = 1;
+
+        while(i<25) {
+
+            j = new Random().nextInt(0,73);
+            String s1 = "grp id"+j+" id"+(j+1)+ " id"+(j+2);
+
+
+            GrammarCommand realGrammarCommand = new ConcreteBuilderParser(new StringReader(s1)).getCommandToInterpret();
+            System.out.println(realGrammarCommand);
+            realGrammarCommand.accept(visitor);
+        }
+
+        while(i<25) {
+
+            j = new Random().nextInt(0,73);
+            String s1 = "del id"+j;
+
+
+            GrammarCommand realGrammarCommand = new ConcreteBuilderParser(new StringReader(s1)).getCommandToInterpret();
+            System.out.println(realGrammarCommand);
+            realGrammarCommand.accept(visitor);
+        }
+
+
+        for(int  e = 0; e <= 100; e++){
+            handler.undo();
+        }
+
+        for(int  e = 0; e <= 100; e++){
+            handler.redo();
+        }
+    }
+
+
+
 
 
 

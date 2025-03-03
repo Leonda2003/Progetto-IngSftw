@@ -63,4 +63,9 @@ public class AreaCmd implements Cmd {
     public boolean undoIt() {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "area command "+" id "+id;
+    }
 }

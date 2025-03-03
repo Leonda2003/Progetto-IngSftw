@@ -29,4 +29,8 @@ public class NewObjectCmd implements Cmd {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "new object command "+go.toString() +" id: "+(Context.CONTEXT.getID()+1);
+	}
 }
