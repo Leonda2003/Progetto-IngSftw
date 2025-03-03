@@ -121,9 +121,25 @@ public class Utility {
         panel.add(textArea);
         panel.setPreferredSize(new Dimension(textAreaSize.width + 20, textAreaSize.height + 20));
         popup.pack();popup.revalidate();popup.repaint();
-
     }
 
 
+    public static void setSettings(JFrame frame, JDialog window){
+        window.setResizable(false);
+        window.setSize(420, 140);
+        window.setLocationRelativeTo(frame);
 
+        frame.setResizable(false);
+        frame.setTitle("Panel Configuration");
+        frame.setSize(420, 140);
+        frame.setLocation(center(frame));
+    }
+
+    public static void packFrame(JFrame f){
+        f.setTitle("Shapes");
+        f.setResizable(true);
+        f.pack();
+        f.setLocation(center(f));
+        f.setVisible(true);
+    }
 }

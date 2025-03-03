@@ -42,8 +42,7 @@ public class SystemInterface {
 
 
     public void configureSystem(){
-
-        settings = new Settings(f);
+        settings = new Settings();
     }
 
     private void inizializeSystem(){
@@ -80,33 +79,22 @@ public class SystemInterface {
 
         f.add(setPanel(panel,goc,prompt,ctrl.get(),prmt.get()));
         f.add(toolbar, BorderLayout.NORTH);
-        f.setTitle("Shapes");
-        f.setResizable(true);
-        f.pack();
-        f.setLocation(center(f));
-        f.setVisible(true);
+        packFrame(f);
     }
 
 
     private class Settings {
 
-        JDialog window = new JDialog(f, "Panel Configuration", true);
+        private final JDialog window = new JDialog(f, "Panel Configuration", true);
         private final boolean[] isDefaultColor = {true,true,true};
         private final JPanel panel = new JPanel();
 
-        public Settings(JFrame frame){
-            window.setResizable(false);
-            window.setSize(420, 140);
-            window.setLocationRelativeTo(f);
+        public Settings(){
 
-            frame.setResizable(false);
-            frame.setTitle("Panel Configuration");
-            frame.setSize(420, 140);
-            frame.setLocation(center(frame));
-
-            inizialize();
-            f.add(panel, BorderLayout.CENTER);
-            f.setVisible(true);
+           setSettings(f,window);
+           inizialize();
+           f.add(panel, BorderLayout.CENTER);
+           f.setVisible(true);
         }
 
         public void open(){
@@ -123,9 +111,10 @@ public class SystemInterface {
             messageLabel.setEditable(false);
             panel.add(messageLabel);
 
-            makeButton("Controller Component",isDefaultColor,ctrl,0,panel);
-            makeButton("Prompt Component",isDefaultColor,prmt,1,panel);
-            makeButton("Mouse",isDefaultColor,ms,2,panel);
+            makeButtonV1("Controller Component",isDefaultColor,ctrl,0,panel);
+            makeButtonV1("Prompt Component",isDefaultColor,prmt,1,panel);
+            makeButtonV1("Mouse",isDefaultColor,ms,2,panel);
+
             JButton confirm = new JButton("Confirm");
             messageLabel.setFont(confirm.getFont());
             confirm.addActionListener(evt -> {
@@ -137,8 +126,6 @@ public class SystemInterface {
                             "Please choose at least one component.");
                 }
             });
-            panel.add(confirm);
-            panel.add(confirm);
             panel.add(confirm);
         }
 
