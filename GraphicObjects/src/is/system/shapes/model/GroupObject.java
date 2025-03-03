@@ -171,4 +171,5 @@ public class GroupObject extends AbstractGraphicObject{
     @Override
     public void restore(Memento memento) {
     }
+
 }

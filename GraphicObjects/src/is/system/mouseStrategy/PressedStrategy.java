@@ -2,6 +2,7 @@ package is.system.mouseStrategy;
 
 import is.system.cmd.HistoryCmdHandler;
 import is.system.shapes.model.GraphicObject;
+import is.system.support.Pair;
 
 import java.awt.event.MouseEvent;
 
@@ -9,12 +10,17 @@ public class PressedStrategy extends AbstractStrategy{
 
 
 
-    public PressedStrategy(GraphicObject graphicObject, HistoryCmdHandler handler, MouseEvent e){
-        super(graphicObject,handler);
+    public PressedStrategy(Pair<String,GraphicObject> pair, HistoryCmdHandler handler, MouseEvent e){
+        super(
+            pair.getValue(),
+            pair.getKey(),
+            handler,
+            pair.getValue().save(),
+            e.getX()-pair.getValue().getPosition().getX(),
+            e.getY()-pair.getValue().getPosition().getY());
+    }
 
-        initialState = graphicObject.save();
-        offsetX=e.getX()-graphicObject.getPosition().getX();
-        offsetY=e.getY()-graphicObject.getPosition().getY();
+    public void ciao(){
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.awt.geom.Point2D;
 
 public final class RectangleObject extends AbstractGraphicObject {
 
+	private static final int MAX_SIZE=50000,MIN_SIZE=10;
 	private Point2D position;
 
 	private Dimension2D dim;
@@ -62,7 +63,25 @@ public final class RectangleObject extends AbstractGraphicObject {
 	public void scale(double factor) {
 		if (factor <= 0)
 			throw new IllegalArgumentException();
-		dim.setSize(dim.getWidth() * factor, dim.getHeight() * factor);
+
+		double w = dim.getWidth() * factor;
+		double h = dim.getHeight() * factor;
+		if (w > MAX_SIZE) {
+			w = MAX_SIZE;
+			h = (int)(MAX_SIZE / (dim.getWidth()/dim.getHeight()));
+		} else if (w < MIN_SIZE) {
+			w = MIN_SIZE;
+			h = (int)(MIN_SIZE /(dim.getWidth()/dim.getHeight()));
+		}
+
+		if (h > MAX_SIZE) {
+			h = MAX_SIZE;
+			w = (int) (MAX_SIZE * (dim.getWidth()/dim.getHeight()));
+		} else if (h < MIN_SIZE) {
+			h = MIN_SIZE;
+			w = (int) (MIN_SIZE * (dim.getWidth()/dim.getHeight()));
+		}
+		dim.setSize(w, h);
 		notifyListeners(new GraphicEvent(this));
 	}
 
@@ -83,7 +102,6 @@ public final class RectangleObject extends AbstractGraphicObject {
 
 	@Override
 	public String getType() {
-
 		return "Rectangle";
 	}
 

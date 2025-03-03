@@ -1,10 +1,7 @@
 package is.system.cmd;
 
-import is.system.SystemInterface;
 import is.system.shapes.specificCmd.MementoCmd;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-
+import is.system.support.MyMouseAdapter;
 import java.util.LinkedList;
 
 public class HistoryCmdHandler implements CmdHandler {
@@ -77,8 +74,8 @@ public class HistoryCmdHandler implements CmdHandler {
 	}
 
 
-	private SystemInterface.MyMouseAdapter mouseAdapter;
-	public void setMouse( SystemInterface.MyMouseAdapter mouseAdapter){
+	private MyMouseAdapter mouseAdapter;
+	public void setMouse( MyMouseAdapter mouseAdapter){
 		this.mouseAdapter = mouseAdapter;
 	}
 

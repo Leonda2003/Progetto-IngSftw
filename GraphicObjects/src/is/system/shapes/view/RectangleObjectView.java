@@ -12,14 +12,29 @@ public class RectangleObjectView implements GraphicObjectView {
 	private String id;
 	private String group;
 	@Override
-	public void drawGraphicObject(GraphicObject go, Graphics2D g) {
+	public void drawGraphicObject(GraphicObject go, Graphics2D g,boolean showInfo) {
 		Point2D position = go.getPosition();
 		Dimension2D dim = go.getDimension();
 		double x = position.getX() - dim.getWidth() / 2.0;
 		double y = position.getY() - dim.getHeight() / 2.0;
 		g.draw(new Rectangle2D.Double(x, y, dim.getWidth(), dim.getHeight()));
+		if(showInfo) drowInfo(g,dim,x,y);
+	}
 
+	@Override
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	@Override
+	public void setGroup(String group) {
+		this.group = group;
+
+	}
+	@Override
+	public void drowInfo(Graphics2D g,Dimension2D dim,double x, double y) {
 		double fontSizeID = Math.min(dim.getWidth() / 2, dim.getHeight() / 2);
+		if(fontSizeID >= Integer.MAX_VALUE) fontSizeID = Integer.MAX_VALUE;
 		Font fontID = new Font("Arial", Font.PLAIN, (int)fontSizeID);
 		g.setFont(fontID);
 		FontMetrics metricsID = g.getFontMetrics();
@@ -36,19 +51,6 @@ public class RectangleObjectView implements GraphicObjectView {
 		double textYGroupText = textY + metricsGroup.getHeight();
 
 		g.drawString(group, (float) textXGroupText, (float) textYGroupText);
-
-
-	}
-
-	@Override
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	@Override
-	public void setGroup(String group) {
-		this.group = group;
-
 	}
 
 }

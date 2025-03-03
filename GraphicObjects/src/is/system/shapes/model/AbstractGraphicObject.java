@@ -6,7 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class AbstractGraphicObject implements GraphicObject, Cloneable {
+public abstract class AbstractGraphicObject implements GraphicObject {
+
+
 
 
 	/*____________________________LISTENER_______________________________*/
@@ -78,7 +80,6 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 			AbstractGraphicObject go = (AbstractGraphicObject) super.clone();
 			go.listeners = new LinkedList<>();
 			go.mygroups = new HashMap<>();
-
 			return go;
 
 		} catch (CloneNotSupportedException e) {
@@ -93,5 +94,4 @@ public abstract class AbstractGraphicObject implements GraphicObject, Cloneable 
 						.getDimension().getWidth(),
 				this.getDimension().getHeight());
 	}
-
 }

@@ -6,6 +6,7 @@ import java.awt.geom.Point2D;
 
 public final  class CircleObject extends AbstractGraphicObject {
 
+	private static final int MAX_RADIUS=25000,MIN_RADIUS=5;
 
 	private Point2D position;
 
@@ -34,15 +35,25 @@ public final  class CircleObject extends AbstractGraphicObject {
 	public void scale(double factor) {
 		if (factor <= 0)
 			throw new IllegalArgumentException();
-		radius *= factor;
+		double r = radius * factor;
+		if (r > MAX_RADIUS) {
+			radius = MAX_RADIUS;
+		} else if (r < MIN_RADIUS) {
+			radius = MIN_RADIUS;
+		} else {
+			radius = r;
+		}
+
+		System.out.println("factor: "+factor);
+		System.out.println("radius: "+radius);
 		notifyListeners(new GraphicEvent(this));
 	}
+
 
 	@Override
 	public Dimension2D getDimension() {
 		Dimension d = new Dimension();
 		d.setSize(2 * radius, 2 * radius);
-
 		return d;
 	}
 

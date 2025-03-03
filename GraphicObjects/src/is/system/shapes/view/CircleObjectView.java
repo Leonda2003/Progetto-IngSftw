@@ -13,7 +13,7 @@ public class CircleObjectView implements GraphicObjectView {
 	private String id;
 	private String group;
 	@Override
-	public void drawGraphicObject(GraphicObject go, Graphics2D g) {
+	public void drawGraphicObject(GraphicObject go, Graphics2D g,boolean showInfo) {
 		CircleObject co = (CircleObject) go;
 		Point2D position = co.getPosition();
 		Dimension2D dim = go.getDimension();
@@ -21,7 +21,21 @@ public class CircleObjectView implements GraphicObjectView {
 		double x = position.getX() - r;
 		double y = position.getY() - r;
 		g.draw(new Ellipse2D.Double(x, y, r * 2.0, r * 2.0));
+		if(showInfo) drowInfo(g,dim,x,y);
+	}
 
+	@Override
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	@Override
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
+	@Override
+	public void drowInfo(Graphics2D g,Dimension2D dim,double x, double y) {
 		double fontSizeID = dim.getWidth() / 3;
 		Font fontID = new Font("Arial", Font.PLAIN, (int)fontSizeID);
 		g.setFont(fontID);
@@ -39,17 +53,6 @@ public class CircleObjectView implements GraphicObjectView {
 		double textYGroupText = textY + metricsGroup.getHeight();
 
 		g.drawString(group, (float) textXGroupText, (float) textYGroupText);
-
-	}
-
-	@Override
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	@Override
-	public void setGroup(String group) {
-		this.group = group;
 
 	}
 }

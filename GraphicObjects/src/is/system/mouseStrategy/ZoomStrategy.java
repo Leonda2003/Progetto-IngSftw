@@ -11,17 +11,19 @@ public class ZoomStrategy extends AbstractStrategy{
 
     private double factor;
 
-
-
-
     public ZoomStrategy( AbstractStrategy abstractStrategy,MouseWheelEvent e){
 
-        super(abstractStrategy.graphicObject, abstractStrategy.handler);
-        if(abstractStrategy instanceof ZoomStrategy) initialState = abstractStrategy.initialState;
-        else initialState = graphicObject.save();
-        System.out.println(initialState);
+        super(
+            abstractStrategy.graphicObject,
+            abstractStrategy.id,
+            abstractStrategy.handler,
+            abstractStrategy instanceof ZoomStrategy ?
+                    abstractStrategy.initialState : abstractStrategy.graphicObject.save(),
+            abstractStrategy.offsetX,
+            abstractStrategy.offsetY
+        );
         if(e.getWheelRotation() > 0){
-            factor = 0.9;
+            factor = 1/1.1;
         }else{
             factor = 1.1;
         }

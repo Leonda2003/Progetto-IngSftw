@@ -44,6 +44,8 @@ public class CommandVisitor implements Visitor{
     }
 
 
+
+
     @Override
     public void interpret(CreateGrammarCommand c) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 
@@ -248,6 +250,8 @@ public class CommandVisitor implements Visitor{
         }
         return wrapTypeConstr;
     }
+
+
 
     @Override
     public HashMap<String, GraphicObject> interpret(ListIDGrammarCommand c) {

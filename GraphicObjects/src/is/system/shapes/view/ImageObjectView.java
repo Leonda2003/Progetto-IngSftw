@@ -12,7 +12,7 @@ public class ImageObjectView implements GraphicObjectView {
 	private String id;
 	private String group;
 	@Override
-	public void drawGraphicObject(GraphicObject go, Graphics2D g) {
+	public void drawGraphicObject(GraphicObject go, Graphics2D g,boolean showInfo) {
 		ImageObject io = (ImageObject) go;
 		Dimension2D dim = io.getDimension();
 		Point2D position = io.getPosition();
@@ -22,7 +22,22 @@ public class ImageObjectView implements GraphicObjectView {
 		int x = (int) (position.getX()) - w / 2;
 		int y = (int) (position.getY()) - h / 2;
 		g.drawImage(image, x, y, w, h, null);
+		if(showInfo) drowInfo(g,dim,x,y);
 
+	}
+
+	@Override
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	@Override
+	public void setGroup(String group) {
+		this.group = group;
+	}
+
+	@Override
+	public void drowInfo(Graphics2D g,Dimension2D dim,double x, double y) {
 		double fontSizeID = Math.min(dim.getWidth() / 10, dim.getHeight() / 10);
 		Font fontID = new Font("Arial", Font.PLAIN, (int)fontSizeID);
 		g.setFont(fontID);
@@ -40,16 +55,5 @@ public class ImageObjectView implements GraphicObjectView {
 		double textYGroupText = textY + metricsGroup.getHeight();
 
 		g.drawString(group, (float) textXGroupText, (float) textYGroupText);
-	}
-
-	@Override
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	@Override
-	public void setGroup(String group) {
-		this.group = group;
-
 	}
 }

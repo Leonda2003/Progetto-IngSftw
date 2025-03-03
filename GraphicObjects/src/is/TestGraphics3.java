@@ -78,7 +78,7 @@ public class TestGraphics3 {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                goc.setControlledObject(gpanel.getGraphicObjectAt(e.getPoint()));
+                goc.setControlledObject(gpanel.getGraphicObjectAt(e.getPoint()).getValue());
             }
         });
 

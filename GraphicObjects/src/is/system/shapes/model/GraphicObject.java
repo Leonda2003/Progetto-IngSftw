@@ -3,7 +3,7 @@ package is.system.shapes.model;
 import java.awt.geom.Dimension2D;
 import java.awt.geom.Point2D;
 
-public interface GraphicObject {
+public interface GraphicObject extends Cloneable{
 
 	void addGraphicObjectListener(GraphicObjectListener l);
 
@@ -44,4 +44,6 @@ public interface GraphicObject {
 	Memento save();
 
 	void restore(Memento memento);
+
+	GraphicObject clone();
 }

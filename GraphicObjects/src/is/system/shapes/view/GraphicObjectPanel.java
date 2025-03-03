@@ -4,6 +4,7 @@ import is.system.shapes.model.GraphicEvent;
 import is.system.shapes.model.GraphicObject;
 import is.system.shapes.model.GraphicObjectListener;
 import is.system.prompt.visitor.Context;
+import is.system.support.Pair;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,12 +12,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
-import javax.swing.JComponent;
+import javax.swing.*;
 
-public class GraphicObjectPanel extends JComponent implements GraphicObjectListener {
+public class GraphicObjectPanel extends JComponent implements GraphicObjectListener, WindowConstants {
 
 	/**
 	 * 
@@ -27,9 +26,8 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 	 * @directed true
 	 */
 
-
+	private boolean showInfo = true;
 	private HashMap<String,GraphicObject> objectsWithID = Context.CONTEXT.getAllShape();
-
 
 	public GraphicObjectPanel() {
 		setBackground(Color.WHITE);
@@ -40,21 +38,17 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 	public void graphicChanged(GraphicEvent e) {
 		repaint();
 		revalidate();
-
 	}
 
-	
-	public GraphicObject getGraphicObjectAt(Point2D p) {
 
+	public Pair<String,GraphicObject> getGraphicObjectAt(Point2D p) {
 		for (String id : objectsWithID.keySet()) {
 			GraphicObject go = objectsWithID.get(id);
 			if (go.contains(p))
-				return go;
+				return new Pair<>(id,go);
 		}
-		return null;
+		return new Pair<>();
 	}
-
-
 
 
 	@Override
@@ -83,7 +77,7 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 			GraphicObjectView view = GraphicObjectViewFactory.FACTORY.createView(go);
 			view.setId(id);
 			view.setGroup(go.myGroup());
-			view.drawGraphicObject(go, g2);
+			view.drawGraphicObject(go, g2,showInfo);
 		}
 	}
 
@@ -101,6 +95,12 @@ public class GraphicObjectPanel extends JComponent implements GraphicObjectListe
 			repaint();
 			go.removeGraphicObjectListener(this);
 		}
+	}
+
+	public void switchInfo(){
+		showInfo = !showInfo;
+		repaint();
+		revalidate();
 	}
 
 	

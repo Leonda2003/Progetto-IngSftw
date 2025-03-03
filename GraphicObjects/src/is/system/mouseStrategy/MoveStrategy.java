@@ -10,17 +10,18 @@ import java.awt.event.MouseWheelEvent;
 
 public class MoveStrategy extends AbstractStrategy{
 
-
-    private double x,y;
-
+    private final double x,y;
 
     public MoveStrategy(AbstractStrategy abstractStrategy, MouseEvent e){
-        super(abstractStrategy.graphicObject, abstractStrategy.handler);
-        initialState = abstractStrategy.initialState;
+        super(
+            abstractStrategy.graphicObject,
+            abstractStrategy.id,
+            abstractStrategy.handler,
+            abstractStrategy.initialState,
+            abstractStrategy.offsetX,
+            abstractStrategy.offsetY)
+        ;
         x=e.getX(); y=e.getY();
-        offsetX=abstractStrategy.offsetX;
-        offsetY=abstractStrategy.offsetY;
-
     }
 
     @Override

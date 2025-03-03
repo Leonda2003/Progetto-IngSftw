@@ -43,7 +43,6 @@ public final class ImageObject extends AbstractGraphicObject {
 		ImageObject cloned = (ImageObject) super.clone();
 		cloned.position = (Point2D) position.clone();
 		return cloned;
-
 	}
 
 	@Override
@@ -99,4 +98,5 @@ public final class ImageObject extends AbstractGraphicObject {
 		factor = ((ImageMemento)(memento)).f;
 		notifyListeners(new GraphicEvent(this));
 	}
+
 }
