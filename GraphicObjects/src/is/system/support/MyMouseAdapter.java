@@ -7,7 +7,6 @@ import is.system.shapes.model.GraphicObject;
 import is.system.shapes.view.GraphicObjectPanel;
 
 
-import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -56,6 +55,7 @@ public class MyMouseAdapter extends MouseAdapter {
     public void mouseWheelMoved(MouseWheelEvent e) {
         mouseStrategy=new ZoomStrategy(mouseStrategy,e); mouseStrategy.execute();
     }
+    @Override
     public void mouseDragged(MouseEvent e){
         new MoveStrategy(mouseStrategy,e).execute();
     }

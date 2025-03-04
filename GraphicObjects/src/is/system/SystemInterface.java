@@ -6,23 +6,36 @@ import is.system.shapes.controller.GraphicObjectController;
 import is.system.shapes.view.*;
 import is.system.support.MyMouseAdapter;
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static is.system.support.Utility.*;
 
 public class SystemInterface {
     private final HistoryCmdHandler handler;
-    private final GraphicObjectPanel gpanel ;
+    private final GraphicObjectPanel gpanel;
     private final GraphicObjectPromptPanel prompt;
-    private final GraphicObjectController goc ;
+    private final GraphicObjectController goc;
     private final JFrame f;
     private MouseAdapter mouseAdapter;
-    private Settings settings;
+    private final Settings settings;
     private final AtomicBoolean ctrl = new AtomicBoolean(false);
     private final AtomicBoolean prmt = new AtomicBoolean(false);
     private final AtomicBoolean ms = new AtomicBoolean(false);
+    private final KeyEventDispatcher k = new KeyEventDispatcher() {
+        public boolean dispatchKeyEvent(KeyEvent e) {
+                if (e.getID() == KeyEvent.KEY_PRESSED){
+                    if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z) {handler.undo();}
+                    else if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z) {handler.redo();}
+                }return false;
+        }};
 
 
     public SystemInterface(){
@@ -38,10 +51,8 @@ public class SystemInterface {
                 handler.printStory();
             }
         });
-    }
-
-
-    public void configureSystem(){
+        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        manager.addKeyEventDispatcher(k);
         settings = new Settings();
     }
 
@@ -83,7 +94,7 @@ public class SystemInterface {
     }
 
 
-    private class Settings {
+    private final class Settings {
 
         private final JDialog window = new JDialog(f, "Panel Configuration", true);
         private final boolean[] isDefaultColor = {true,true,true};
@@ -92,7 +103,7 @@ public class SystemInterface {
         public Settings(){
 
            setSettings(f,window);
-           inizialize();
+           inizializeSettings();
            f.add(panel, BorderLayout.CENTER);
            f.setVisible(true);
         }
@@ -104,7 +115,7 @@ public class SystemInterface {
             window.setVisible(true);
         }
 
-        private void inizialize(){
+        private void inizializeSettings(){
 
             JTextArea messageLabel = new JTextArea("Choose the components to interact with the graphic panel");
             messageLabel.setOpaque(false);

@@ -1,20 +1,16 @@
-new object command Circle 523717326 id: 1 OK 
+new object command Circle 1217455468 id: 1 OK 
 
-new object command Circle 1752470443 id: 2 OK 
+new object command Image 1360182602 id: 2 OK 
 
-remove object command :Circle 1752470443, id: id2 OK 
+new object command Circle 726578873 id: 3 OK 
 
-new object command Circle 1555350814 id: 3 OK 
+UNDO memento command Circle 1217455468initial state: CircleMemento[pos=Point2D.Double[10.0, 10.0], r=100.0] final state: CircleMemento[pos=Point2D.Double[248.0, 397.0], r=100.0] OK 
 
-UNDO new object command Circle 1555350814 id: 4 OK 
+UNDO memento command Image 1360182602initial state: ImageMemento[pos=Point2D.Double[240.0, 187.0], f=1.0] final state: ImageMemento[pos=Point2D.Double[514.0, 189.0], f=1.0] OK 
 
-UNDO remove object command :Circle 1752470443, id: id2 OK 
+UNDO new object command Circle 726578873 id: 4 OK 
 
-REDO remove object command :Circle 1752470443, id: id2 OK 
+UNDO new object command Image 1360182602 id: 3 OK 
 
-REDO new object command Circle 1555350814 id: 3 OK 
-
-remove object command :Circle 1555350814, id: id3 OK 
-
-remove object command :Circle 523717326, id: id1 OK 
+UNDO new object command Circle 1217455468 id: 2 OK 
 

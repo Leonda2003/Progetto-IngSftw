@@ -12,8 +12,6 @@ import is.system.shapes.view.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Utility {
@@ -36,7 +34,7 @@ public class Utility {
 
     public static JButton makeButtonV2(JButton button){
 
-        button.setContentAreaFilled(false); // Rimuovi il riempimento del contenuto
+        button.setContentAreaFilled(false);
         button.setBorderPainted(false);
         button.setForeground(Color.white);
         return button;

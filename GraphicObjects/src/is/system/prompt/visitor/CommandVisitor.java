@@ -52,32 +52,32 @@ public class CommandVisitor implements Visitor{
         float[] pos = interpret(c.getPos());
         Point2D position = new Point2D.Float(pos[0],pos[1]);
         GraphicObject go;
-        WrapTypeConstr wrapTypeConstr = interpret(c.getTypeconstr());
+        WrapTypeConstr<GraphicObject> wrapTypeConstr = interpret(c.getTypeconstr());
         Constructor<NewObjectCmd> command = (Constructor<NewObjectCmd>) interpret(c.getNEW());
-        switch (wrapTypeConstr.getType()){
+        switch (wrapTypeConstr.type()){
             case "Circle":
 
-                double r = Double.parseDouble(wrapTypeConstr.getParam());
-                Constructor<CircleObject> constructorC = (Constructor<CircleObject>) wrapTypeConstr.getConstructor();
+                double r = Double.parseDouble(wrapTypeConstr.param());
+                Constructor<CircleObject> constructorC = (Constructor<CircleObject>) wrapTypeConstr.constructor();
                 go = constructorC.newInstance(position,r);
                 break;
 
             case "Rectangle":
 
-                String[] param = wrapTypeConstr.getParam().split("-");
+                String[] param = wrapTypeConstr.param().split("-");
                 double w = Double.parseDouble(param[0]);
                 double h = Double.parseDouble(param[1]);
-                Constructor<RectangleObject> constructorR = (Constructor<RectangleObject>) wrapTypeConstr.getConstructor();
+                Constructor<RectangleObject> constructorR = (Constructor<RectangleObject>) wrapTypeConstr.constructor();
                 go = constructorR.newInstance(position,w,h);
                 break;
 
             case "Image":
 
-                Constructor<ImageObject> constructorI = (Constructor<ImageObject>) wrapTypeConstr.getConstructor();
+                Constructor<ImageObject> constructorI = (Constructor<ImageObject>) wrapTypeConstr.constructor();
 
                 try{
-                    if(Files.exists(Paths.get(wrapTypeConstr.getParam()))){
-                        ImageIcon imageIcon = new ImageIcon(wrapTypeConstr.getParam());
+                    if(Files.exists(Paths.get(wrapTypeConstr.param()))){
+                        ImageIcon imageIcon = new ImageIcon(wrapTypeConstr.param());
                         go = constructorI.newInstance(imageIcon,position);
                         break;
                     }else throw new SyntaxException("Insert a valid Path");
@@ -88,7 +88,7 @@ public class CommandVisitor implements Visitor{
 
 
             default:
-                throw new IllegalStateException("Unexpected value: " + wrapTypeConstr.getType());
+                throw new IllegalStateException("Unexpected value: " + wrapTypeConstr.type());
         }
         cmdHandler.handle(command.newInstance(context.getGraphicObjectPanel(),go));
     }
@@ -224,26 +224,26 @@ public class CommandVisitor implements Visitor{
     }
 
     @Override
-    public WrapTypeConstr interpret(TypeconstrGrammarCommand typeconstrCommand) throws NoSuchMethodException {
+    public WrapTypeConstr<GraphicObject> interpret(TypeconstrGrammarCommand typeconstrCommand) throws NoSuchMethodException {
         String param;
-        WrapTypeConstr wrapTypeConstr;
+        WrapTypeConstr<GraphicObject> wrapTypeConstr;
         String type = interpret(typeconstrCommand.getShape());
         switch (type){
             case "Circle":
                 CircleGrammarCommand circleCommand= (CircleGrammarCommand) typeconstrCommand;
                 param = String.valueOf(interpret(circleCommand.getPosfloat()));
-                wrapTypeConstr = new WrapTypeConstr(CircleObject.class.getConstructor(Point2D.class, double.class), param, type);
+                wrapTypeConstr = new WrapTypeConstr<>(CircleObject.class.getConstructor(Point2D.class, double.class), param, type);
                 break;
             case "Rectangle":
                 RectangleGrammarCommand rectangleCommand= (RectangleGrammarCommand) typeconstrCommand;
                 float[] pos  = interpret(rectangleCommand.getPos());
                 param = ""+pos[0]+"-"+pos[1];
-                wrapTypeConstr = new WrapTypeConstr(RectangleObject.class.getConstructor(Point2D.class, double.class, double.class), param, type);
+                wrapTypeConstr = new WrapTypeConstr<>(RectangleObject.class.getConstructor(Point2D.class, double.class, double.class), param, type);
                 break;
             case "Image":
                 ImageGrammarCommand imageCommand = (ImageGrammarCommand) typeconstrCommand;
                 param =  interpret(imageCommand.getPath());
-                wrapTypeConstr = new WrapTypeConstr(ImageObject.class.getConstructor(ImageIcon.class, Point2D.class), param, type);
+                wrapTypeConstr = new WrapTypeConstr<>(ImageObject.class.getConstructor(ImageIcon.class, Point2D.class), param, type);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + type);
@@ -325,35 +325,5 @@ public class CommandVisitor implements Visitor{
         }catch (NoSuchMethodException | SyntaxException e){e.printStackTrace();}
         return null;
     }
-
-
-
-    static class WrapTypeConstr{
-
-        Constructor<? extends GraphicObject> constructor;
-        String param;
-        String type;
-
-        WrapTypeConstr(Constructor<? extends GraphicObject> constructor,String param,String type){
-            this.constructor = constructor;
-            this.param= param;
-            this.type = type;
-        }
-
-        public String getParam() {
-            return param;
-        }
-
-        public Constructor<? extends GraphicObject> getConstructor() {
-            return constructor;
-        }
-
-        public String getType() {
-            return type;
-        }
-    }
-
-
-
 
 }

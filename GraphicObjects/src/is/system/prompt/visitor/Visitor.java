@@ -41,7 +41,7 @@ public interface Visitor {
     void interpret(PerimeterTypeGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
     void interpret(PerimeterAllGrammarCommand c) throws InvocationTargetException, InstantiationException, IllegalAccessException;
     float[] interpret(PosGrammarCommand c);
-    CommandVisitor.WrapTypeConstr interpret(TypeconstrGrammarCommand c) throws NoSuchMethodException;
+    WrapTypeConstr<GraphicObject> interpret(TypeconstrGrammarCommand c) throws NoSuchMethodException;
     String interpret(TypeGrammarCommand c);
     float interpret(Posfloat c);
     String interpret(ObjID c);
@@ -49,4 +49,6 @@ public interface Visitor {
     HashMap<String, GraphicObject> interpret(ListIDGrammarCommand c);
     Token interpret(All_Groups c);
     Constructor<? extends Cmd> interpret(TerminalGrammarCommand c);
+    record WrapTypeConstr<E>(Constructor<? extends E> constructor, String param, String type){};
+
 }
