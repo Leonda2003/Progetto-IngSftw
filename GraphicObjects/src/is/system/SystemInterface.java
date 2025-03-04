@@ -33,7 +33,7 @@ public class SystemInterface {
         public boolean dispatchKeyEvent(KeyEvent e) {
                 if (e.getID() == KeyEvent.KEY_PRESSED){
                     if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z) {handler.undo();}
-                    else if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z) {handler.redo();}
+                    else if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Y) {handler.redo();}
                 }return false;
         }};
 
