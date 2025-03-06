@@ -41,15 +41,14 @@ public class HistoryCmdHandler implements CmdHandler {
 			// restituisce true: può essere annullato
 			addToHistory(cmd);
 		} else {
-			if(cmd instanceof ListCmd || cmd instanceof AreaCmd || cmd instanceof PerimeterCmd) return;
+			if(!(cmd instanceof ListCmd || cmd instanceof AreaCmd || cmd instanceof PerimeterCmd))
 			// restituisce false: non può essere annullato
 			history.clear();
 		}
 		if (!redoList.isEmpty())
 			redoList.clear();
-
 		okStory();
-		System.out.println(story.toString());
+		//System.out.println(story.toString());
 	}
 
 	public void redo() {
@@ -93,7 +92,7 @@ public class HistoryCmdHandler implements CmdHandler {
 
 	private void okStory() {
 		String lastString = story.getLast();
-		String updatedString = lastString + " OK \n";
+		String updatedString = lastString + " OK\n";
 		story.removeLast();story.addLast(updatedString);
 	}
 

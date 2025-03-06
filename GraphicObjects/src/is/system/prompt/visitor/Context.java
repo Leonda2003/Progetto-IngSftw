@@ -12,13 +12,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 public enum Context {
 
     CONTEXT;
+    private final Map<String,HashMap<String,GraphicObject>> cache = Collections.synchronizedMap(new HashMap<>());
     private final AtomicInteger ID=new AtomicInteger(0);
+    private final String offset="   ";
     private GraphicObjectPromptPanel graphicObjectPromptPanel;
     private boolean promptPanel = true;
     private GraphicObjectPanel graphicObjectPanel;
     private boolean graphicPanel = true;
-    private final String offset="   ";
-    private final Map<String,HashMap<String,GraphicObject>> cache = Collections.synchronizedMap(new HashMap<>());
 
 
     /*_________________________SETTING GRAPHIC PANEL AND PROMPT PANEL_________________________ */

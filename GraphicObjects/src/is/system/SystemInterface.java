@@ -19,31 +19,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static is.system.support.Utility.*;
 
 public class SystemInterface {
-    private final HistoryCmdHandler handler;
-    private final GraphicObjectPanel gpanel;
-    private final GraphicObjectPromptPanel prompt;
-    private final GraphicObjectController goc;
-    private final JFrame f;
-    private MouseAdapter mouseAdapter;
+    private final HistoryCmdHandler handler = new HistoryCmdHandler();;
+    private final GraphicObjectPanel gpanel = new GraphicObjectPanel();;
+    private final GraphicObjectPromptPanel prompt = new GraphicObjectPromptPanel(handler);;
+    private final GraphicObjectController goc = new GraphicObjectController(handler);;
+    private final JFrame f =  new JFrame();
     private final Settings settings;
     private final AtomicBoolean ctrl = new AtomicBoolean(false);
     private final AtomicBoolean prmt = new AtomicBoolean(false);
     private final AtomicBoolean ms = new AtomicBoolean(false);
-    private final KeyEventDispatcher k = new KeyEventDispatcher() {
-        public boolean dispatchKeyEvent(KeyEvent e) {
-                if (e.getID() == KeyEvent.KEY_PRESSED){
-                    if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z) {handler.undo();}
-                    else if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Y) {handler.redo();}
-                }return false;
-        }};
+    private MouseAdapter mouseAdapter;
 
 
     public SystemInterface(){
-        handler = new HistoryCmdHandler();
-        gpanel = new GraphicObjectPanel();
-        prompt = new GraphicObjectPromptPanel(handler);
-        goc = new GraphicObjectController(handler);
-        f = new JFrame();
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         f.addWindowListener(new WindowAdapter() {
             @Override
@@ -52,6 +40,16 @@ public class SystemInterface {
             }
         });
         KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        KeyEventDispatcher k = e -> {
+            if (e.getID() == KeyEvent.KEY_PRESSED) {
+                if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z) {
+                    handler.undo();
+                } else if (e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Y) {
+                    handler.redo();
+                }
+            }
+            return false;
+        };
         manager.addKeyEventDispatcher(k);
         settings = new Settings();
     }

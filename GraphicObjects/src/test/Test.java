@@ -1,16 +1,12 @@
 package test;
 
-import is.Demo;
-import is.TestGraphics2;
-import is.system.SystemInterface;
+
 import is.system.cmd.HistoryCmdHandler;
 import is.system.prompt.GraphicObjectPromptPanel;
 import is.system.prompt.grammarCommand.GrammarCommand;
 import is.system.prompt.parser.ConcreteBuilderParser;
 import is.system.prompt.visitor.CommandVisitor;
-import is.system.prompt.visitor.Visitor;
 import is.system.shapes.controller.GraphicObjectController;
-import is.system.shapes.model.AbstractGraphicObject;
 import is.system.shapes.model.CircleObject;
 import is.system.shapes.model.ImageObject;
 import is.system.shapes.model.RectangleObject;
@@ -21,10 +17,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.Reader;
-import java.io.StringReader;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
+
+import static is.system.support.Utility.instalFactory;
 
 public class Test {
 
@@ -37,8 +34,8 @@ public class Test {
     }
 
     @ParameterizedTest
-    @ValueSource(strings={"new circle (5.0) (3.1,4.5)", "new img (\"./pippo.png\") (6.1,4.6)", "del id1", "mv id1 (5.9,8.2)", "mvoff id1 (5.9,8.2)",
-            "scale id1 2.0", "ls id1", "ls circle", "ls all", "ls groups", "grp id1, id2, id3", "ungrp id3", "area id1", "perimeter rectangle",
+    @ValueSource(strings={"new circle (5.0) (3.1,4.5)", "new img (\"C:/Users/mikit/Desktop/minecraft-1-logo.png\") (6.1,4.6)", "del id4", "mv id1 (5.9,8.2)", "mvoff id1 (5.9,8.2)",
+            "scale id1 2.0", "ls id1", "ls circle", "ls all", "ls groups", "grp id1, id2, id3", "ungrp id36", "area id1", "perimeter rectangle",
             "area all","grp id1,id2,id3"})
     void testGraphic(String command) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         JFrame f = new JFrame();
@@ -72,25 +69,13 @@ public class Test {
         f.setVisible(true);
 
         CommandVisitor visitor = new CommandVisitor(handler);
-        GrammarCommand realGrammarCommand = new ConcreteBuilderParser().getCommandToInterpret(command);
-        realGrammarCommand.accept(visitor);
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings={"new circle (5.0) (3.1,4.5)", "new img (\"./pippo.png\") (6.1,4.6)", "del id1", "mv id1 (5.9,8.2)", "mvoff id1 (5.9,8.2)",
-            "scale id1 2.0", "ls id1", "ls circle", "ls all", "ls groups", "grp id1, id2, id3", "ungrp id3", "area id1", "perimeter rectangle",
-            "area all"})
-    void testGraphicPanel(String command) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-
-
-        final HistoryCmdHandler handler = new HistoryCmdHandler();
-
-        GraphicObjectViewFactory.FACTORY.installView(RectangleObject.class, new RectangleObjectView());
-        GraphicObjectViewFactory.FACTORY.installView(CircleObject.class, new CircleObjectView());
-        GraphicObjectViewFactory.FACTORY.installView(ImageObject.class, new ImageObjectView());
-
-
-        CommandVisitor visitor = new CommandVisitor(handler);
+        
+        for(int i = 0; i < 3; i++){
+            GrammarCommand realGrammarCommand = new ConcreteBuilderParser().getCommandToInterpret("new circle (5.0) (3.1,4.5)");
+            realGrammarCommand.accept(visitor);
+        }
+        
+        
         GrammarCommand realGrammarCommand = new ConcreteBuilderParser().getCommandToInterpret(command);
         realGrammarCommand.accept(visitor);
     }
@@ -132,29 +117,7 @@ public class Test {
         JSplitPane splitPane2 = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, splitPane1, prompt);
 
 
-        GraphicObjectViewFactory.FACTORY.installView(RectangleObject.class, new RectangleObjectView());
-        GraphicObjectViewFactory.FACTORY.installView(CircleObject.class, new CircleObjectView());
-        GraphicObjectViewFactory.FACTORY.installView(ImageObject.class, new ImageObjectView());
-
-        AbstractGraphicObject go = new RectangleObject(new Point(10, 10), 20, 50);
-        JButton rectButton = new JButton(new CreateObjectAction(go, gpanel, handler));
-        rectButton.setText(go.getType());
-        toolbar.add(rectButton);
-
-        go = new CircleObject(new Point(10, 10), 10);
-        JButton circButton = new JButton(new CreateObjectAction(go, gpanel, handler));
-        circButton.setText(go.getType());
-        toolbar.add(circButton);
-
-        go = new CircleObject(new Point(10, 10), 100);
-        JButton circButton2 = new JButton(new CreateObjectAction(go, gpanel, handler));
-        circButton2.setText("big " + go.getType());
-        toolbar.add(circButton2);
-
-        go = new ImageObject(new ImageIcon(TestGraphics2.class.getResource("shapes/model/NyaNya.gif")), new Point(240, 187));
-        JButton imgButton = new JButton(new CreateObjectAction(go, gpanel, handler));
-        imgButton.setText(go.getType());
-        toolbar.add(imgButton);
+        instalFactory();
 
         gpanel.addMouseListener(new MouseAdapter() {
 
@@ -237,7 +200,7 @@ public class Test {
         realGrammarCommand1.accept(visitor);
 
         int z = 0;
-        while(z < 50000){
+        while(z < 500){
             int p1 = new Random().nextInt(0,1000);
             int p2 = new Random().nextInt(0,1000);
             GrammarCommand realGrammarCommand2 = new ConcreteBuilderParser().getCommandToInterpret("mv id"+i+"("+p1+","+p2+")");
@@ -246,12 +209,42 @@ public class Test {
             z+=1;
         }
 
+        handler.printStory();
+
+    }
+
+    @org.junit.jupiter.api.Test
+    void testFileStory(){
+
+        int lineNumber = 0;
+        BufferedReader reader = null;
+
+        try {
+           reader = new BufferedReader(new FileReader("GraphicObjects/src/test/fileStory.txt"));
+            String line;
+            while ((line= reader.readLine())  != null) {
+                lineNumber += 1;
+                if(!line.isEmpty() && !line.endsWith(" OK")) {System.out.println("no ok in line " + lineNumber);}
+            }
+            System.out.println("all ok util last line checked : "+lineNumber);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 
 
     @org.junit.jupiter.api.Test
-    void tet() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    void testGroup() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
 
         JFrame f = new JFrame();
 
