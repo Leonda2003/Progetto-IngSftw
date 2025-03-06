@@ -12,12 +12,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
 public class MyMouseAdapter extends MouseAdapter {
-    private AbstractStrategy mouseStrategy;
-    private Pair<String, GraphicObject> pair;
-    private boolean filled = false;
     private final HistoryCmdHandler handler;
     private final GraphicObjectPanel gpanel ;
     private final GraphicObjectController goc ;
+    private AbstractStrategy mouseStrategy;
+    private Pair<String, GraphicObject> pair;
+    private boolean filled = false;
+
 
     public MyMouseAdapter(HistoryCmdHandler handler, GraphicObjectPanel gpanel, GraphicObjectController goc) {
         this.handler = handler;

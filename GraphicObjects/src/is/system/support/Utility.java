@@ -11,6 +11,7 @@ import is.system.shapes.model.RectangleObject;
 import is.system.shapes.view.*;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -77,7 +78,6 @@ public class Utility {
         else if(prmt){
             splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panel, prompt);
         }
-
         return splitPane;
     }
 
@@ -140,4 +140,14 @@ public class Utility {
         f.setLocation(center(f));
         f.setVisible(true);
     }
+
+    public static int startPosition(JTextArea outputArea, int lastLineIndex) throws BadLocationException {
+        return outputArea.getLineStartOffset(lastLineIndex)+2;
+    }
+
+    public static int endPosition(JTextArea outputArea, int lastLineIndex) throws BadLocationException {
+        return outputArea.getLineEndOffset(lastLineIndex);
+    }
+
+
 }

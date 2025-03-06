@@ -33,9 +33,7 @@ public class Test {
             "scale id1 2.0", "ls id1", "ls circle", "ls all", "ls groups", "grp id1, id2, id3", "ungrp id3", "area id1", "perimeter rectangle",
             "area all","grp id1,id2,id3"})
     void testParser(String command) {
-        Reader reader = new StringReader(command);
-        ConcreteBuilderParser parser = new ConcreteBuilderParser(reader);
-        System.out.println(parser.getCommandToInterpret());
+        System.out.println(new ConcreteBuilderParser().getCommandToInterpret(command));
     }
 
     @ParameterizedTest
@@ -74,7 +72,7 @@ public class Test {
         f.setVisible(true);
 
         CommandVisitor visitor = new CommandVisitor(handler);
-        GrammarCommand realGrammarCommand = new ConcreteBuilderParser(new StringReader(command)).getCommandToInterpret();
+        GrammarCommand realGrammarCommand = new ConcreteBuilderParser().getCommandToInterpret(command);
         realGrammarCommand.accept(visitor);
     }
 
@@ -86,18 +84,14 @@ public class Test {
 
 
         final HistoryCmdHandler handler = new HistoryCmdHandler();
-        final GraphicObjectPanel gpanel = new GraphicObjectPanel();
 
         GraphicObjectViewFactory.FACTORY.installView(RectangleObject.class, new RectangleObjectView());
         GraphicObjectViewFactory.FACTORY.installView(CircleObject.class, new CircleObjectView());
         GraphicObjectViewFactory.FACTORY.installView(ImageObject.class, new ImageObjectView());
 
-        final GraphicObjectPromptPanel gocp = new GraphicObjectPromptPanel(handler);
-
-
 
         CommandVisitor visitor = new CommandVisitor(handler);
-        GrammarCommand realGrammarCommand = new ConcreteBuilderParser(new StringReader(command)).getCommandToInterpret();
+        GrammarCommand realGrammarCommand = new ConcreteBuilderParser().getCommandToInterpret(command);
         realGrammarCommand.accept(visitor);
     }
 
@@ -195,7 +189,7 @@ public class Test {
 
             String[] s1 = {"new circle (5.0) (3.1,4.5)", "new img (\"C:/Users/mikit/Desktop/minecraft-1-logo.png\") (6.1,4.6)","scale id"+(i+1)+" 0.1","new rectangle (80,80) (80,80)", "del id"+i};
             for(String string : s1 ){
-                GrammarCommand realGrammarCommand = new ConcreteBuilderParser(new StringReader(string)).getCommandToInterpret();
+                GrammarCommand realGrammarCommand = new ConcreteBuilderParser().getCommandToInterpret(string);
                 System.out.println(realGrammarCommand);
                 realGrammarCommand.accept(visitor);
             }
@@ -206,7 +200,7 @@ public class Test {
             String[] s2 = {"mv id"+i+" (5.9,8.2)", "mvoff id"+i+" (5.9,8.2)",
                     "scale id"+i+" 2.0", "ls id"+i, "ls circle", "ls all", "ls groups", "grp id"+i+",id"+(i-1)+",id"+(i-2), "ungrp id"+(i+1)};
             for(String string : s2 ){
-                GrammarCommand realGrammarCommand = new ConcreteBuilderParser(new StringReader(string)).getCommandToInterpret();
+                GrammarCommand realGrammarCommand = new ConcreteBuilderParser().getCommandToInterpret(string);
                 System.out.println(realGrammarCommand);
                 realGrammarCommand.accept(visitor);
             }
@@ -216,7 +210,7 @@ public class Test {
 
 
 
-            GrammarCommand realGrammarCommand = new ConcreteBuilderParser(new StringReader("del id"+i)).getCommandToInterpret();
+            GrammarCommand realGrammarCommand = new ConcreteBuilderParser().getCommandToInterpret("del id"+i);
             System.out.println(realGrammarCommand);
             realGrammarCommand.accept(visitor);
 
@@ -226,7 +220,7 @@ public class Test {
 
             String[] s3 = { "area id"+i, "perimeter rectangle", "area all"};
             for(String string : s3 ){
-                GrammarCommand realGrammarCommand1 = new ConcreteBuilderParser(new StringReader(string)).getCommandToInterpret();
+                GrammarCommand realGrammarCommand1 = new ConcreteBuilderParser().getCommandToInterpret(string);
                 System.out.println(realGrammarCommand1);
                 realGrammarCommand1.accept(visitor);
             }
@@ -238,7 +232,7 @@ public class Test {
         for(int j = 2; j<i; j++){
             sb.append(",id"+j);
         }
-        GrammarCommand realGrammarCommand1 = new ConcreteBuilderParser(new StringReader(sb.toString())).getCommandToInterpret();
+        GrammarCommand realGrammarCommand1 = new ConcreteBuilderParser().getCommandToInterpret(sb.toString());
         System.out.println(realGrammarCommand1);
         realGrammarCommand1.accept(visitor);
 
@@ -246,7 +240,7 @@ public class Test {
         while(z < 50000){
             int p1 = new Random().nextInt(0,1000);
             int p2 = new Random().nextInt(0,1000);
-            GrammarCommand realGrammarCommand2 = new ConcreteBuilderParser(new StringReader("mv id"+i+"("+p1+","+p2+")")).getCommandToInterpret();
+            GrammarCommand realGrammarCommand2 = new ConcreteBuilderParser().getCommandToInterpret("mv id"+i+"("+p1+","+p2+")");
             System.out.println(realGrammarCommand2);
             realGrammarCommand2.accept(visitor);
             z+=1;
@@ -289,7 +283,7 @@ public class Test {
 
             String s1 = "new circle (50.0) (100,100)";
 
-            GrammarCommand realGrammarCommand = new ConcreteBuilderParser(new StringReader(s1)).getCommandToInterpret();
+            GrammarCommand realGrammarCommand = new ConcreteBuilderParser().getCommandToInterpret(s1);
             System.out.println(realGrammarCommand);
             realGrammarCommand.accept(visitor);
             i++;
@@ -303,7 +297,7 @@ public class Test {
             String s1 = "grp id"+j+", id"+(j+1)+ ", id"+(j+2);
             j += 3;
 
-            GrammarCommand realGrammarCommand = new ConcreteBuilderParser(new StringReader(s1)).getCommandToInterpret();
+            GrammarCommand realGrammarCommand = new ConcreteBuilderParser().getCommandToInterpret(s1);
             System.out.println(realGrammarCommand);
             realGrammarCommand.accept(visitor);
             i++;
@@ -318,7 +312,7 @@ public class Test {
             String s1 = "grp id"+j+" id"+(j+1)+ " id"+(j+2);
 
 
-            GrammarCommand realGrammarCommand = new ConcreteBuilderParser(new StringReader(s1)).getCommandToInterpret();
+            GrammarCommand realGrammarCommand = new ConcreteBuilderParser().getCommandToInterpret(s1);
             System.out.println(realGrammarCommand);
             realGrammarCommand.accept(visitor);
         }
@@ -329,7 +323,7 @@ public class Test {
             String s1 = "del id"+j;
 
 
-            GrammarCommand realGrammarCommand = new ConcreteBuilderParser(new StringReader(s1)).getCommandToInterpret();
+            GrammarCommand realGrammarCommand = new ConcreteBuilderParser().getCommandToInterpret(s1);
             System.out.println(realGrammarCommand);
             realGrammarCommand.accept(visitor);
         }

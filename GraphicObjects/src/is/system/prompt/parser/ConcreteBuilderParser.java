@@ -24,6 +24,7 @@ import is.system.prompt.grammarCommand.typeconstr.RectangleGrammarCommand;
 import is.system.prompt.grammarCommand.typeconstr.TypeconstrGrammarCommand;
 
 import java.io.Reader;
+import java.io.StringReader;
 
 
 public class ConcreteBuilderParser implements BuilderParser {
@@ -31,11 +32,6 @@ public class ConcreteBuilderParser implements BuilderParser {
     private GrammarCommand grammarCommand;
     private LexicalAnalyzer analyzer;
     private Token currentToken;
-    public ConcreteBuilderParser(Reader in) {
-        this.analyzer = new LexicalAnalyzer(in);
-        grammarCommand =createCommandToInterpret();
-        expected(Token.EOF);
-    }
 
     private GrammarCommand createCommandToInterpret() {
 
@@ -307,7 +303,10 @@ public class ConcreteBuilderParser implements BuilderParser {
         currentToken = analyzer.nexToken();
     }
 
-    public GrammarCommand getCommandToInterpret() {
+    public GrammarCommand getCommandToInterpret(String command) {
+        this.analyzer = new LexicalAnalyzer(new StringReader(command));
+        grammarCommand =createCommandToInterpret();
+        expected(Token.EOF);
         return grammarCommand;
     }
 }

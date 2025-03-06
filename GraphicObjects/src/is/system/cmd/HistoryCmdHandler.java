@@ -9,18 +9,17 @@ import is.system.support.MyMouseAdapter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 public class HistoryCmdHandler implements CmdHandler {
 
-	private final ArrayList<String> story = new ArrayList<String>();
 	private int maxHistoryLength = 100;
 
 	private final LinkedList<Cmd> history = new LinkedList<>();
 
 	private final LinkedList<Cmd> redoList = new LinkedList<>();
+
+	private final LinkedList<String> story = new LinkedList<>();
 
 	public HistoryCmdHandler() {
 		this(100);
@@ -46,23 +45,16 @@ public class HistoryCmdHandler implements CmdHandler {
 			// restituisce false: non può essere annullato
 			history.clear();
 		}
-		if (redoList.size() > 0)
+		if (!redoList.isEmpty())
 			redoList.clear();
 
 		okStory();
 		System.out.println(story.toString());
 	}
 
-	private void okStory() {
-		String lastString = story.getLast();
-		String updatedString = lastString + " OK \n";
-		story.removeLast();story.addLast(updatedString);
-	}
-
-
 	public void redo() {
 		flushMouse();
-		if (redoList.size() > 0) {
+		if (!redoList.isEmpty()) {
 			Cmd redoCmd = redoList.removeFirst();
 			story.add("REDO "+redoCmd.toString());
 			redoCmd.doIt();
@@ -72,7 +64,7 @@ public class HistoryCmdHandler implements CmdHandler {
 	}
 
 	public void undo() {
-		if (history.size() > 0) {
+		if (!history.isEmpty()) {
 			Cmd undoCmd = history.removeFirst();
 			story.add("UNDO "+undoCmd.toString());
 			undoCmd.undoIt();
@@ -95,8 +87,14 @@ public class HistoryCmdHandler implements CmdHandler {
 			history.removeFirst();
 		}
 		addToHistory(cmd);
-		if (redoList.size() > 0)
+		if (!redoList.isEmpty())
 			redoList.clear();
+	}
+
+	private void okStory() {
+		String lastString = story.getLast();
+		String updatedString = lastString + " OK \n";
+		story.removeLast();story.addLast(updatedString);
 	}
 
 
@@ -105,18 +103,16 @@ public class HistoryCmdHandler implements CmdHandler {
 		this.mouseAdapter = mouseAdapter;
 	}
 
-
 	private void flushMouse(){
 		if(mouseAdapter != null) mouseAdapter.flush();
 	}
 
-
 	public void printStory() {
+
 		File file= new File("GraphicObjects/src/test/fileStory.txt");
 
 		FileWriter writer = null;
 		try {
-
 			writer = new FileWriter(file, false);
 
 			for (String str : story) {

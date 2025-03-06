@@ -1,72 +1,18 @@
-new object command Circle 1249243946 id: 1 OK 
+new object command Circle 166241259 id: 1 OK 
 
-new object command Circle 1659119724 id: 2 OK 
+new object command Circle 1791099191 id: 2 OK 
 
-new object command Rectangle 1122830476 id: 3 OK 
+new object command Rectangle 664984544 id: 3 OK 
 
-move command Circle 1249243946new pos: Point2D.Double[20.0, 20.0] old pos: Point2D.Double[10.0, 10.0] OK 
+UNDO memento command Rectangle 664984544initial state: RectangleMemento[pos=Point2D.Double[10.0, 10.0], dimension=java.awt.Dimension[width=20,height=50]] final state: RectangleMemento[pos=Point2D.Double[618.0, 131.0], dimension=java.awt.Dimension[width=20,height=50]] OK 
 
-move command Circle 1249243946new pos: Point2D.Double[30.0, 30.0] old pos: Point2D.Double[20.0, 20.0] OK 
+UNDO memento command Circle 1791099191initial state: CircleMemento[pos=Point2D.Double[10.0, 10.0], r=100.0] final state: CircleMemento[pos=Point2D.Double[188.0, 139.0], r=100.0] OK 
 
-move command Circle 1249243946new pos: Point2D.Double[40.0, 40.0] old pos: Point2D.Double[30.0, 30.0] OK 
+UNDO new object command Rectangle 664984544 id: 4 OK 
 
-move command Circle 1249243946new pos: Point2D.Double[50.0, 50.0] old pos: Point2D.Double[40.0, 40.0] OK 
+UNDO new object command Circle 1791099191 id: 3 OK 
 
-move command Circle 1249243946new pos: Point2D.Double[60.0, 60.0] old pos: Point2D.Double[50.0, 50.0] OK 
+UNDO memento command Circle 166241259initial state: CircleMemento[pos=Point2D.Double[10.0, 10.0], r=100.0] final state: CircleMemento[pos=Point2D.Double[382.0, 179.0], r=100.0] OK 
 
-move command Circle 1249243946new pos: Point2D.Double[70.0, 70.0] old pos: Point2D.Double[60.0, 60.0] OK 
-
-move command Circle 1249243946new pos: Point2D.Double[80.0, 80.0] old pos: Point2D.Double[70.0, 70.0] OK 
-
-move command Circle 1249243946new pos: Point2D.Double[90.0, 90.0] old pos: Point2D.Double[80.0, 80.0] OK 
-
-move command Circle 1249243946new pos: Point2D.Double[100.0, 100.0] old pos: Point2D.Double[90.0, 90.0] OK 
-
-move command Circle 1249243946new pos: Point2D.Double[110.0, 110.0] old pos: Point2D.Double[100.0, 100.0] OK 
-
-move command Circle 1249243946new pos: Point2D.Double[120.0, 120.0] old pos: Point2D.Double[110.0, 110.0] OK 
-
-move command Circle 1249243946new pos: Point2D.Double[130.0, 130.0] old pos: Point2D.Double[120.0, 120.0] OK 
-
-move command Circle 1249243946new pos: Point2D.Double[140.0, 140.0] old pos: Point2D.Double[130.0, 130.0] OK 
-
-move command Circle 1249243946new pos: Point2D.Double[150.0, 150.0] old pos: Point2D.Double[140.0, 140.0] OK 
-
-move command Circle 1249243946new pos: Point2D.Double[160.0, 160.0] old pos: Point2D.Double[150.0, 150.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[160.0, 160.0] old pos: Point2D.Double[150.0, 150.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[150.0, 150.0] old pos: Point2D.Double[140.0, 140.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[140.0, 140.0] old pos: Point2D.Double[130.0, 130.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[130.0, 130.0] old pos: Point2D.Double[120.0, 120.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[120.0, 120.0] old pos: Point2D.Double[110.0, 110.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[110.0, 110.0] old pos: Point2D.Double[100.0, 100.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[100.0, 100.0] old pos: Point2D.Double[90.0, 90.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[90.0, 90.0] old pos: Point2D.Double[80.0, 80.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[80.0, 80.0] old pos: Point2D.Double[70.0, 70.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[70.0, 70.0] old pos: Point2D.Double[60.0, 60.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[60.0, 60.0] old pos: Point2D.Double[50.0, 50.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[50.0, 50.0] old pos: Point2D.Double[40.0, 40.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[40.0, 40.0] old pos: Point2D.Double[30.0, 30.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[30.0, 30.0] old pos: Point2D.Double[20.0, 20.0] OK 
-
-UNDO move command Circle 1249243946new pos: Point2D.Double[20.0, 20.0] old pos: Point2D.Double[10.0, 10.0] OK 
-
-UNDO new object command Rectangle 1122830476 id: 4 OK 
-
-UNDO new object command Circle 1659119724 id: 3 OK 
-
-UNDO new object command Circle 1249243946 id: 2 OK 
+UNDO new object command Circle 166241259 id: 2 OK 
 
