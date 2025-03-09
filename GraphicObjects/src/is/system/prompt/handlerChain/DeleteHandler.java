@@ -13,11 +13,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static is.system.support.Utility.endPosition;
 import static is.system.support.Utility.startPosition;
 
-public class DeleteHandler implements TextHandler{
+public class DeleteHandler extends TextHandler{
 
     private final JTextArea outputArea;
     private final AtomicInteger lastLineIndex;
-    private final TextHandler successor;
+
 
     public DeleteHandler(JTextArea outputArea, LinkedList<String> history, AtomicInteger index, AtomicInteger lastLineIndex) {
         this.outputArea = outputArea;

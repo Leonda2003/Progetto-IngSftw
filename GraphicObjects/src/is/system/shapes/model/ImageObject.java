@@ -99,8 +99,8 @@ public final class ImageObject extends AbstractGraphicObject {
 	}
 	@Override
 	public void restore(Memento memento) {
-		position = ((ImageMemento)(memento)).pos;
-		factor = ((ImageMemento)(memento)).f;
+		position = ((ImageMemento) memento).pos;
+		factor = ((ImageMemento) memento).f;
 		notifyListeners(new GraphicEvent(this));
 	}
 

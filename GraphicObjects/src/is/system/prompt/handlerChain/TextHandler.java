@@ -5,7 +5,8 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 
-public interface TextHandler {
+public abstract class TextHandler {
 
-    boolean handleRequest(KeyEvent e) throws BadLocationException, IOException, UnsupportedFlavorException;
+    TextHandler successor;
+    public abstract boolean handleRequest(KeyEvent e) throws BadLocationException, IOException, UnsupportedFlavorException;
 }

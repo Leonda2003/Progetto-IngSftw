@@ -11,11 +11,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static is.system.support.Utility.endPosition;
 import static is.system.support.Utility.startPosition;
 
-public class EnterHandler implements TextHandler{
+public class EnterHandler extends TextHandler{
 
     private final JTextArea outputArea;
     private final AtomicInteger lastLineIndex;
-    private final TextHandler successor;
 
     public EnterHandler(JTextArea outputArea, LinkedList<String> history, AtomicInteger index, AtomicInteger lastLineIndex) {
         this.outputArea = outputArea;

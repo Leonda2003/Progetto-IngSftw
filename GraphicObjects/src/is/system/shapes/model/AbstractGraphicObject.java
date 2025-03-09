@@ -81,7 +81,6 @@ public abstract class AbstractGraphicObject implements GraphicObject {
 			go.listeners = new LinkedList<>();
 			go.mygroups = new HashMap<>();
 			return go;
-
 		} catch (CloneNotSupportedException e) {
 			throw new Error(e);
 		}
@@ -89,7 +88,7 @@ public abstract class AbstractGraphicObject implements GraphicObject {
 
 	@Override
 	public String properties(String id) {
-		return String.format ("[%s] [%s] pos=[%f,%f] dim=[%f,%f]%n",id, this.getType(), this
+		return String.format ("%s %s pos=[%.2f ; %.2f] dim=[%.2f ; %.2f]%n", this.getType(), id, this
 						.getPosition().getX(), this.getPosition().getY(), this
 						.getDimension().getWidth(),
 				this.getDimension().getHeight());

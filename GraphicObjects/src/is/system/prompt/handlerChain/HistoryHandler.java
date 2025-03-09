@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static is.system.support.Utility.endPosition;
 import static is.system.support.Utility.startPosition;
 
-public class HistoryHandler implements TextHandler{
+public class HistoryHandler extends TextHandler{
 
     private final JTextArea outputArea;
     private final LinkedList<String> history;

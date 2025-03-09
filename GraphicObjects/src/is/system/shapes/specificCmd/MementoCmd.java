@@ -37,6 +37,6 @@ public class MementoCmd implements Cmd {
 
     @Override
     public String toString() {
-        return "memento command "+graphicObject.toString()+"initial state: "+initialState.toString()+" final state: "+finalState.toString();
+        return "memento command "+graphicObject.toString()+" initial state: "+initialState.toString()+" final state: "+finalState.toString();
     }
 }

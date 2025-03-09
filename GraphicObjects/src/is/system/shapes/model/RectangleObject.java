@@ -114,8 +114,8 @@ public final class RectangleObject extends AbstractGraphicObject {
 	}
 	@Override
 	public void restore(Memento memento) {
-		position = ((RectangleMemento)(memento)).pos;
-		dim = ((RectangleMemento)(memento)).dimension;
+		position = ((RectangleMemento)memento).pos;
+		dim = ((RectangleMemento)memento).dimension;
 		notifyListeners(new GraphicEvent(this));
 	}
 }

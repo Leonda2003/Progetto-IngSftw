@@ -82,10 +82,12 @@ public class HistoryCmdHandler implements CmdHandler {
 
 	public void handle(MementoCmd cmd) {
 
+		story.add(cmd.toString());
 		if(history.getFirst().equals(cmd)){
 			history.removeFirst();
 		}
 		addToHistory(cmd);
+		okStory();
 		if (!redoList.isEmpty())
 			redoList.clear();
 	}

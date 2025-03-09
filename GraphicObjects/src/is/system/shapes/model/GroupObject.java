@@ -25,6 +25,8 @@ public class GroupObject extends AbstractGraphicObject{
         }
     }
 
+
+
     public void removeMemberFromGroup(String objid,GraphicObject g){
         group.remove(objid, g);
     }
@@ -163,13 +165,15 @@ public class GroupObject extends AbstractGraphicObject{
         return sb.toString();
     }
 
+    private record GroupMemento( HashMap<String,GraphicObject> group) implements Memento{};
+
     @Override
-    public Memento save() {
-        return null;
-    }
+    public Memento save() {return new GroupMemento(new HashMap<>(group));}
 
     @Override
     public void restore(Memento memento) {
+        group = ((GroupMemento) memento).group;
+        notifyListeners(new GraphicEvent(this));
     }
 
 }
