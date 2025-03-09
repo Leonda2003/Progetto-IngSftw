@@ -6,7 +6,6 @@ import is.system.shapes.model.GraphicObject;
 import java.awt.*;
 
 public interface MouseStrategy{
-
     void execute();
 
 }

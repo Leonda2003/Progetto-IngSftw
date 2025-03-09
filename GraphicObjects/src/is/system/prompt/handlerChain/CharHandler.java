@@ -9,11 +9,10 @@ import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicInteger;
 import static is.system.support.Utility.startPosition;
 
-public class CharHandler implements TextHandler{
+public class CharHandler extends TextHandler{
 
     private final JTextArea outputArea;
     private final AtomicInteger lastLineIndex;
-    private final TextHandler successor;
 
     public CharHandler(JTextArea outputArea, LinkedList<String> history, AtomicInteger index, AtomicInteger lastLineIndex) {
         this.outputArea = outputArea;

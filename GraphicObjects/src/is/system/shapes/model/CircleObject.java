@@ -96,8 +96,8 @@ public final  class CircleObject extends AbstractGraphicObject {
 	}
 	@Override
 	public void restore(Memento memento) {
-		position = ((CircleMemento)(memento)).pos;
-		radius = ((CircleMemento)(memento)).r;
+		position = ((CircleMemento) memento).pos;
+		radius = ((CircleMemento) memento).r;
 		notifyListeners(new GraphicEvent(this));
 	}
 

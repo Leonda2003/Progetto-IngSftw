@@ -19,10 +19,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import static is.system.support.Utility.*;
 
 public class SystemInterface {
-    private final HistoryCmdHandler handler = new HistoryCmdHandler();;
-    private final GraphicObjectPanel gpanel = new GraphicObjectPanel();;
-    private final GraphicObjectPromptPanel prompt = new GraphicObjectPromptPanel(handler);;
-    private final GraphicObjectController goc = new GraphicObjectController(handler);;
+    private final HistoryCmdHandler handler = new HistoryCmdHandler();
+    private final GraphicObjectPanel gpanel = new GraphicObjectPanel();
+    private final GraphicObjectPromptPanel prompt = new GraphicObjectPromptPanel(handler);
+    private final GraphicObjectController goc = new GraphicObjectController(handler);
     private final JFrame f =  new JFrame();
     private final Settings settings;
     private final AtomicBoolean ctrl = new AtomicBoolean(false);

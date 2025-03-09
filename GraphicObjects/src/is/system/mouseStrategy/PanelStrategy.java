@@ -90,8 +90,6 @@ public class PanelStrategy implements MouseStrategy{
     }
 
 
-
-
     private void setMemorized(){
         memorized = pair.getValue().clone();
     }

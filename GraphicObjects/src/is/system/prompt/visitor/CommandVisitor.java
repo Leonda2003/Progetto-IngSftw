@@ -36,8 +36,8 @@ import java.util.HashMap;
 
 public class CommandVisitor implements Visitor{
 
-    private final CmdHandler cmdHandler;
     private final Context context = Context.CONTEXT;
+    private final CmdHandler cmdHandler;
 
     public CommandVisitor(CmdHandler cmdHandler){
         this.cmdHandler = cmdHandler;

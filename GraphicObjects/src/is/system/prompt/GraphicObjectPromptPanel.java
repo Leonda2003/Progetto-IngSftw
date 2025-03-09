@@ -11,26 +11,19 @@ import is.system.prompt.visitor.Context;
 import is.system.prompt.visitor.CommandVisitor;
 import is.system.prompt.visitor.Visitor;
 
-import java.io.File;
-import java.io.FileWriter;
+
 import java.util.LinkedList;
-import java.util.List;
-import java.util.ArrayList;
+
 
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static is.system.support.Utility.endPosition;

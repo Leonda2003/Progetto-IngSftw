@@ -10,11 +10,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static is.system.support.Utility.startPosition;
 
-public class SpaceHandler implements TextHandler{
+public class SpaceHandler extends TextHandler{
 
     private final JTextArea outputArea;
     private final AtomicInteger lastLineIndex;
-    private final TextHandler successor;
 
     public SpaceHandler(JTextArea outputArea, LinkedList<String> history, AtomicInteger index, AtomicInteger lastLineIndex) {
         this.outputArea = outputArea;

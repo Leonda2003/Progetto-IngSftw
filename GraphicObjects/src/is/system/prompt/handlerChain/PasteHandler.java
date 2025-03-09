@@ -14,12 +14,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static is.system.support.Utility.endPosition;
 import static is.system.support.Utility.startPosition;
 
-public class PasteHandler implements TextHandler{
+public class PasteHandler extends TextHandler{
     private final JTextArea outputArea;
-
     private final AtomicInteger lastLineIndex;
-    private final TextHandler successor;
-
     public PasteHandler(JTextArea outputArea, LinkedList<String> history, AtomicInteger index, AtomicInteger lastLineIndex) {
         this.outputArea = outputArea;
         this.lastLineIndex = lastLineIndex;

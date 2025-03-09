@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class CopyHandler implements TextHandler{
+public class CopyHandler extends TextHandler{
 
     private final JTextArea outputArea;
     private final TextHandler successor;
