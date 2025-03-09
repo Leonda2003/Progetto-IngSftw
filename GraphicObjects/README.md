@@ -9,9 +9,8 @@ Link diagrammi: https://github.com/Leonda2003/Progetto-IngSftw/tree/main/out/art
 
 Eseguire il file .jar. : out/artifacts/Progetto_IngSftw_jar4/Progetto-IngSftw.jar
 
-Utilizzare la console a riga di comando presente sulla destra dell'interfaccia per inserire i comandi grafici.
-
-Osservare i cambiamenti che comportano modifiche sul pannello grafico.
+Scegliere quali componenti utilizzare per la manipolazione degli oggetti grafici tramite il menù iniziale.
+Se selezionata, utilizzare la console a riga di comando presente sulla destra dell'interfaccia per inserire i comandi grafici.
 
 Comandi suggeriti
 
@@ -30,3 +29,10 @@ ungrp gid
 area id1
 perimeter rectangle
 area all
+clear
+
+Utilizzare il pulsante a forma di ingranaggio situato in alto per aprire le impostazioni. 
+Selezionare l'opzione "Mouse", poi "Conferma". Provare ora ad utilizzare il mouse per manipolare gli oggetti grafici.
+Tasto sinistro per spostare un oggetto selezionato.
+Rotellina per modificare la dimensione dell'oggetto selezionato.
+Tasto destro su un oggetto grafico per aprire un popup con varie opzioni possibili.
