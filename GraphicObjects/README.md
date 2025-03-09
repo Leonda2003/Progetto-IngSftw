@@ -2,12 +2,12 @@ MINI-CAD
 
 Link github: https://github.com/Leonda2003/Progetto-IngSftw.git
 
-Link Eseguibile: https://github.com/Leonda2003/Progetto-IngSftw/tree/main/out/artifacts/Progetto_IngSftw_jar3
+Link Eseguibile: https://github.com/Leonda2003/Progetto-IngSftw/tree/main/out/artifacts/Progetto_IngSftw_jar4
 
 Link diagrammi: https://github.com/Leonda2003/Progetto-IngSftw/tree/main/out/artifacts
 
 
-Eseguire il file .jar. : out/artifacts/Progetto_IngSftw_jar3/Progetto-IngSftw.jar
+Eseguire il file .jar. : out/artifacts/Progetto_IngSftw_jar4/Progetto-IngSftw.jar
 
 Utilizzare la console a riga di comando presente sulla destra dell'interfaccia per inserire i comandi grafici.
 
